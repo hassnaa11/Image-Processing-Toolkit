@@ -378,23 +378,51 @@ selection-background-color: rgb(4, 79, 70);
                      <layout class="QHBoxLayout" name="horizontalLayout_2">
                       <item>
                        <widget class="QLabel" name="label_18">
+                        <property name="font">
+                         <font>
+                          <family>MS Shell Dlg 2</family>
+                          <pointsize>10</pointsize>
+                          <weight>75</weight>
+                          <italic>false</italic>
+                          <bold>true</bold>
+                         </font>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
+font: 10pt &quot;MS Shell Dlg 2&quot;;
 border : 2px solid rgb(6,131,116,255);
-</string>
+font-weight: bold;</string>
                         </property>
                         <property name="text">
-                         <string>Mean: </string>
+                         <string>Mean:  </string>
                         </property>
                        </widget>
                       </item>
                       <item>
                        <widget class="QSpinBox" name="spinBox">
+                        <property name="minimumSize">
+                         <size>
+                          <width>120</width>
+                          <height>0</height>
+                         </size>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">border : 2px solid rgb(255, 255, 255); </string>
                         </property>
                        </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_4">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </widget>
@@ -404,21 +432,41 @@ border : 2px solid rgb(6,131,116,255);
                        <widget class="QLabel" name="label_19">
                         <property name="styleSheet">
                          <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
+font: 10pt &quot;MS Shell Dlg 2&quot;;
 border : 0px solid rgb(6,131,116,255);
+font-weight: bold;
 </string>
                         </property>
                         <property name="text">
-                         <string> Sigma:</string>
+                         <string> Sigma:  </string>
                         </property>
                        </widget>
                       </item>
                       <item>
                        <widget class="QSpinBox" name="spinBox_2">
+                        <property name="minimumSize">
+                         <size>
+                          <width>120</width>
+                          <height>0</height>
+                         </size>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">border : 2px solid rgb(255, 255, 255); </string>
                         </property>
                        </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_5">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                      </layout>
                     </widget>
@@ -430,21 +478,43 @@ border : 0px solid rgb(6,131,116,255);
                      <widget class="QLabel" name="label_20">
                       <property name="styleSheet">
                        <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
+font: 10pt &quot;MS Shell Dlg 2&quot;;
 border : 0px solid rgb(6,131,116,255);
-</string>
+font-weight: bold;</string>
                       </property>
                       <property name="text">
-                       <string> Ratio:</string>
+                       <string> Ratio:    </string>
                       </property>
                      </widget>
                     </item>
                     <item>
                      <widget class="QSpinBox" name="spinBox_3">
+                      <property name="minimumSize">
+                       <size>
+                        <width>120</width>
+                        <height>0</height>
+                       </size>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true">border : 2px solid rgb(255, 255, 255); </string>
                       </property>
                      </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_6">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Expanding</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>20</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
                     </item>
                    </layout>
                   </item>
@@ -536,21 +606,40 @@ selection-background-color: rgb(4, 79, 70);
                      <widget class="QLabel" name="label_23">
                       <property name="styleSheet">
                        <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
+font: 10pt &quot;MS Shell Dlg 2&quot;;
 border : 0px solid rgb(6,131,116,255);
-</string>
+font-weight: bold;</string>
                       </property>
                       <property name="text">
-                       <string> Sigma:</string>
+                       <string> Sigma:   </string>
                       </property>
                      </widget>
                     </item>
                     <item>
                      <widget class="QSpinBox" name="spinBox_6">
+                      <property name="minimumSize">
+                       <size>
+                        <width>120</width>
+                        <height>0</height>
+                       </size>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true">border : 2px solid rgb(255, 255, 255); </string>
                       </property>
                      </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_7">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
                     </item>
                    </layout>
                   </item>
