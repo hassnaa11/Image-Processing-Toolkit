@@ -298,8 +298,7 @@ border-radius: 10px;</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(6,131,116,255);
+                <string notr="true">background-color: rgb(6,131,116,255);
 color: rgb(255, 255, 255);
 border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
@@ -389,7 +388,7 @@ selection-background-color: rgb(4, 79, 70);
                     </item>
                     <item>
                      <property name="text">
-                      <string>Gaussian </string>
+                      <string>Gaussian</string>
                      </property>
                     </item>
                     <item>
@@ -400,6 +399,303 @@ selection-background-color: rgb(4, 79, 70);
                    </widget>
                   </item>
                   <item>
+                   <layout class="QHBoxLayout" name="uniform_layout_min">
+                    <item>
+                     <widget class="QLabel" name="min_range_label">
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                      </property>
+                      <property name="text">
+                       <string>Minimum Range: </string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="min_range_slider">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>200</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                      </property>
+                      <property name="minimum">
+                       <number>-200</number>
+                      </property>
+                      <property name="maximum">
+                       <number>0</number>
+                      </property>
+                      <property name="value">
+                       <number>-200</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_10">
+                    <item>
+                     <widget class="QLabel" name="max_range_label">
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                      </property>
+                      <property name="text">
+                       <string>Maximum Range: </string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="max_range_slider">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>200</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                      </property>
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>200</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_6">
+                    <item>
+                     <widget class="QLabel" name="mean_label">
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                      </property>
+                      <property name="text">
+                       <string>Mean:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="mean_slider">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>200</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                      </property>
+                      <property name="minimum">
+                       <number>-100</number>
+                      </property>
+                      <property name="maximum">
+                       <number>100</number>
+                      </property>
+                      <property name="value">
+                       <number>-100</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_11">
+                    <item>
+                     <widget class="QLabel" name="sigma_label">
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                      </property>
+                      <property name="text">
+                       <string>Sigma:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="sigma_slider">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>200</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                      </property>
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>100</number>
+                      </property>
+                      <property name="value">
+                       <number>1</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
                    <widget class="QSplitter" name="splitter">
                     <property name="styleSheet">
                      <string notr="true">border : 0px solid rgb(255, 255, 255); </string>
@@ -407,147 +703,155 @@ selection-background-color: rgb(4, 79, 70);
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
                     </property>
-                    <widget class="QWidget" name="horizontalLayoutWidget">
-                     <layout class="QHBoxLayout" name="horizontalLayout_2">
-                      <item>
-                       <widget class="QLabel" name="label_18">
-                        <property name="font">
-                         <font>
-                          <family>MS Shell Dlg 2</family>
-                          <pointsize>10</pointsize>
-                          <weight>75</weight>
-                          <italic>false</italic>
-                          <bold>true</bold>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-font-weight: bold;</string>
-                        </property>
-                        <property name="text">
-                         <string>Mean:  </string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QSpinBox" name="spinBox">
-                        <property name="minimumSize">
-                         <size>
-                          <width>120</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">border : 2px solid rgb(255, 255, 255); </string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_4">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </widget>
-                    <widget class="QWidget" name="horizontalLayoutWidget_2">
-                     <layout class="QHBoxLayout" name="horizontalLayout_6">
-                      <item>
-                       <widget class="QLabel" name="label_19">
-                        <property name="styleSheet">
-                         <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0px solid rgb(6,131,116,255);
-font-weight: bold;
-</string>
-                        </property>
-                        <property name="text">
-                         <string> Sigma:  </string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QSpinBox" name="spinBox_2">
-                        <property name="minimumSize">
-                         <size>
-                          <width>120</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">border : 2px solid rgb(255, 255, 255); </string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_5">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </widget>
                    </widget>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_7">
                     <item>
-                     <widget class="QLabel" name="label_20">
+                     <widget class="QLabel" name="probability_label">
                       <property name="styleSheet">
                        <string notr="true">color: rgb(255, 255, 255);
 font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0px solid rgb(6,131,116,255);
+border : 2px solid rgb(6,131,116,255);
 font-weight: bold;</string>
                       </property>
                       <property name="text">
-                       <string> Ratio:    </string>
+                       <string>Probability:</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBox_3">
+                     <widget class="QSlider" name="probability_slider">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
                       <property name="minimumSize">
                        <size>
-                        <width>120</width>
+                        <width>200</width>
                         <height>0</height>
                        </size>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">border : 2px solid rgb(255, 255, 255); </string>
+                       <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                      </property>
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>10</number>
+                      </property>
+                      <property name="value">
+                       <number>0</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_13">
+                    <item>
+                     <widget class="QLabel" name="ratio_label">
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                      </property>
+                      <property name="text">
+                       <string>Salt to Pepper Ratio:</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <spacer name="horizontalSpacer_6">
+                     <widget class="QSlider" name="ratio_slider">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>200</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                      </property>
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>10</number>
+                      </property>
+                      <property name="value">
+                       <number>0</number>
+                      </property>
                       <property name="orientation">
                        <enum>Qt::Horizontal</enum>
                       </property>
-                      <property name="sizeType">
-                       <enum>QSizePolicy::Expanding</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
+                     </widget>
                     </item>
                    </layout>
                   </item>
@@ -646,43 +950,75 @@ selection-background-color: rgb(4, 79, 70);
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_14">
                     <item>
-                     <widget class="QLabel" name="label_23">
+                     <widget class="QLabel" name="sigma_filter_label">
                       <property name="styleSheet">
                        <string notr="true">color: rgb(255, 255, 255);
 font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0px solid rgb(6,131,116,255);
+border : 2px solid rgb(6,131,116,255);
 font-weight: bold;</string>
                       </property>
                       <property name="text">
-                       <string> Sigma:   </string>
+                       <string>Sigma:</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBox_6">
+                     <widget class="QSlider" name="sigma_filter_slider">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
                       <property name="minimumSize">
                        <size>
-                        <width>120</width>
+                        <width>200</width>
                         <height>0</height>
                        </size>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">border : 2px solid rgb(255, 255, 255); </string>
+                       <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
                       </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_7">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>100</number>
+                      </property>
+                      <property name="value">
+                       <number>1</number>
+                      </property>
                       <property name="orientation">
                        <enum>Qt::Horizontal</enum>
                       </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
+                     </widget>
                     </item>
                    </layout>
                   </item>
@@ -1021,7 +1357,7 @@ color: rgb(2, 39, 35);</string>
                   <string>Red</string>
                  </property>
                  <property name="checked">
-                  <bool>false</bool>
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -1036,7 +1372,7 @@ color: rgb(2, 39, 35);</string>
                   <string>Green</string>
                  </property>
                  <property name="checked">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
