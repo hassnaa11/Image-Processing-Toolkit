@@ -16,12 +16,14 @@ class Image:
         
 
     def display_image(self):
-        height, width, channel = self.image.shape
-        bytes_per_line = channel * width
-        
-        # convert image to QImage
-        q_image = QImage(self.image, width, height, bytes_per_line, QImage.Format_RGB888) 
-        
+        height, width = self.image.shape[:2]
+        if len(self.image.shape) == 2: # gray-scale image
+            bytes_per_line = width
+            q_image = QImage(self.image, width, height, bytes_per_line, QImage.Format_Grayscale8)
+        else:  # RGB image 
+            bytes_per_line = 3 * width 
+            q_image = QImage(self.image, width, height, bytes_per_line, QImage.Format_RGB888)
+
         # convert QImage to QPixmap
         pixmap = QPixmap.fromImage(q_image) 
         
