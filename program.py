@@ -3,6 +3,8 @@ import sys
 from PyQt5.QtGui import *
 from Image import Image
 import numpy as np
+import numpy as np
+from scipy import ndimage
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -28,6 +30,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.min_range_slider.setDisabled(True)
         self.max_range_slider.setDisabled(True)
         self.show_hide_parameters('Uniform')
+
+        #edge detection
+        self.edge_filters_combobox.currentIndexChanged.connect(self.apply_edge_detection_filter)
         
         
     def upload_image(self, key):  
@@ -128,8 +133,14 @@ class MainWindow(QtWidgets.QMainWindow):
             self.probability_slider.show()
             self.ratio_label.show()
             self.probability_label.show()
+            
+    def apply_edge_detection_filter(self):
+        selected_edge_detection_filter = self.edge_filters_combobox.currentText()
+        scene =self.processed_image.apply_edge_detection_filter(selected_edge_detection_filter)
+        self.output_image.setScene(scene)
+        self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
-
+   
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     main_window = MainWindow()
