@@ -87,4 +87,25 @@ class FilterProcessor:
         
         kernel /= np.sum(kernel)
         return kernel   
-                      
+    
+    
+    def histogram_equalization(self):
+        # flatten the image to 1D array
+        flat_image = self.image_array.flatten()
+        
+        # compute histogram
+        hist, bins = np.histogram(flat_image, bins=256, range=[0,256])
+        
+        # compute CDF
+        cdf = hist.cumsum()
+        
+        # normalize the image to map the values between 0, 255
+        cdf_normalized = (cdf - cdf.min()) * 255 / (cdf.max() - cdf.min())
+        
+        # Use the normalized CDF as a lookup table
+        equalized_image = cdf_normalized[flat_image]
+        
+        # reshape back to original image shape
+        equalized_image = equalized_image.reshape(self.image_array.shape).astype(np.uint8)
+        
+        return equalized_image

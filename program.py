@@ -2,6 +2,7 @@ from PyQt5 import QtWidgets, QtCore, uic
 import sys
 from PyQt5.QtGui import *
 import numpy as np
+import cv2
 
 from Image import Image
 from image_processor import FilterProcessor, NoiseAdder
@@ -44,6 +45,9 @@ class MainWindow(QtWidgets.QMainWindow):
         #edge detection
         self.edge_filters_combobox.currentIndexChanged.connect(self.apply_edge_detection_filter)
         
+        # equalize button
+        self.equalization_button.clicked.connect(self.equalize_image)
+        
         
     def upload_image(self, key):  
         self.file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
@@ -64,7 +68,6 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.filters_combobox.setDisabled(False)
                 self.min_range_slider.setDisabled(False)
                 self.max_range_slider.setDisabled(False)
-                # self.add_noise()
             elif key == 2:
                 self.input1_image.setScene(scene)
                 self.input1_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
@@ -92,7 +95,6 @@ class MainWindow(QtWidgets.QMainWindow):
                 modified_image = filter_processor.apply_filter(filter_type, kernel_size)
 
             self.processor.image = modified_image
-            # self.update_display()
             scene = self.processor.display_image()
             self.output_image.setScene(scene) 
             self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
@@ -122,7 +124,17 @@ class MainWindow(QtWidgets.QMainWindow):
         
         return parameters    
         
-   
+    
+    def equalize_image(self):
+        modified_image = np.copy(self.original_image)
+        filter_processor = FilterProcessor(modified_image)
+        modified_image = filter_processor.histogram_equalization()
+        self.processor.image = modified_image
+        scene = self.processor.display_image()
+        self.output_image.setScene(scene) 
+        self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+    
+    
     def change_kernel(self):
         self.kernel_index = self.kernel_size_slider.value()
         self.kernel_size_label.setText(f"Kernel Size: {kernel_sizes[self.kernel_index]}x{kernel_sizes[self.kernel_index]}")
