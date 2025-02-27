@@ -75,6 +75,9 @@ class FilterProcessor:
                     region = padded_image[i:i+kernel_size, j:j+kernel_size]
                     filtered_image[i, j] = np.median(region, axis=(0, 1))   
             # filtered_image = cv2.medianBlur(image_array, 5)
+        elif selected_filter == 'Low-Pass Filter':
+            kernel = np.ones((kernel_size, kernel_size), np.float32) / (kernel_size ** 2)
+            filtered_image = cv2.filter2D(self.image_array, -1, kernel)
         return filtered_image   
     
             
