@@ -47,6 +47,9 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # equalize button
         self.equalization_button.clicked.connect(self.equalize_image)
+        # convert to grayscale
+        self.gray_scale_button.clicked.connect(self.convert_to_grayscale)
+        self.is_gray_scale = False
         
         
     def upload_image(self, key):  
@@ -135,10 +138,27 @@ class MainWindow(QtWidgets.QMainWindow):
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
     
     
+    def convert_to_grayscale(self):
+        modified_image = np.copy(self.original_image)
+        filter_processor = FilterProcessor(modified_image)
+        self.is_gray_scale = not self.is_gray_scale
+        
+        if self.is_gray_scale:
+            self.rgb_image = np.copy(self.original_image)
+            self.gray_scale_button.setText("Original") 
+            modified_image = filter_processor.rgb_to_grayscale()
+        else: 
+            self.gray_scale_button.setText("GrayScale") 
+            modified_image = np.copy(self.rgb_image)
+
+        self.original_image = np.copy(modified_image)
+        self.apply_changes()
+        
+        
     def change_kernel(self):
         self.kernel_index = self.kernel_size_slider.value()
         self.kernel_size_label.setText(f"Kernel Size: {kernel_sizes[self.kernel_index]}x{kernel_sizes[self.kernel_index]}")
-    
+        self.apply_changes()
     
     def show_hide_parameters(self, selected_noise):
         if selected_noise == 'Uniform':

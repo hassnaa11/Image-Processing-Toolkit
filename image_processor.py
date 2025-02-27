@@ -27,12 +27,18 @@ class NoiseAdder:
             # print("num_salt:  ", num_salt,"num_pepper: ", num_pepper)
             # print( "self.image_array.size: ", self.image_array.size)
             # print("self.image_array.shape[:2]:  ", self.image_array.shape[:2])
-
-            coordinates = [np.random.randint(0, i , int(num_salt)) for i in self.image_array.shape[:2]]
-            self.image_array[coordinates[0],coordinates[1], :] = 255
-            
-            coordinates = [np.random.randint(0, i , int(num_pepper)) for i in self.image_array.shape[:2]]
-            self.image_array[coordinates[0],coordinates[1], :] = 0
+            if len(self.image_array.shape) == 2:
+                coordinates = [np.random.randint(0, i , int(num_salt)) for i in self.image_array.shape]
+                self.image_array[coordinates[0],coordinates[1]] = 255
+                
+                coordinates = [np.random.randint(0, i , int(num_pepper)) for i in self.image_array.shape]
+                self.image_array[coordinates[0],coordinates[1]] = 0    
+            else:
+                coordinates = [np.random.randint(0, i , int(num_salt)) for i in self.image_array.shape[:2]]
+                self.image_array[coordinates[0],coordinates[1], :] = 255
+                
+                coordinates = [np.random.randint(0, i , int(num_pepper)) for i in self.image_array.shape[:2]]
+                self.image_array[coordinates[0],coordinates[1], :] = 0
         
         return self.image_array
 
@@ -58,7 +64,10 @@ class FilterProcessor:
                     
         elif selected_filter == 'Median':
             pad_size = kernel_size // 2
-            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size), (0, 0)), mode='constant')
+            if len(self.image_array.shape) == 2:
+                padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size)), mode='constant')
+            else:
+                padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size), (0, 0)), mode='constant')
             filtered_image = np.zeros_like(self.image_array)
 
             for i in range(self.image_array.shape[0]):
@@ -109,3 +118,9 @@ class FilterProcessor:
         equalized_image = equalized_image.reshape(self.image_array.shape).astype(np.uint8)
         
         return equalized_image
+    
+    
+    def rgb_to_grayscale(self):
+        # luminosity method
+        grayscale_image = np.dot(self.image_array[..., :3], [0.2989, 0.5870, 0.1140])
+        return grayscale_image.astype(np.uint8)
