@@ -4,7 +4,10 @@ from PyQt5.QtGui import *
 from Image import Image
 import numpy as np
 import cv2
+import functions as f
 
+
+kernel_sizes = [3, 5, 7]
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -34,6 +37,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.min_range_slider.setDisabled(True)
         self.max_range_slider.setDisabled(True)
         self.show_hide_parameters('Uniform')
+        
+        # kernel size
+        self.kernel_index = 0
+        self.kernel_size_slider.valueChanged.connect(self.change_kernel)
         
         
     def upload_image(self, key):  
@@ -95,26 +102,44 @@ class MainWindow(QtWidgets.QMainWindow):
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)  
     
     
-    
     def add_filter(self):
         if not self.original_image:
             return
-
-        # image_array = self.processed_image.image
+        
+        kernel_size = kernel_sizes[self.kernel_index]
         self.filtered_image.image = np.copy(self.noisy_image.image)
         image_array = self.filtered_image.image  
         selected_filter = self.filters_combobox.currentText()
         if selected_filter == 'Average':
-            filtered_image  = cv2.blur(image_array, (5,5))
+            average_kernel = np.ones(shape=(kernel_size, kernel_size))/ (kernel_size * kernel_size)
+            filtered_image = cv2.filter2D(image_array,-1, average_kernel)
+            # filtered_image  = cv2.blur(image_array, (3,3))
+
         elif selected_filter == 'Gaussian ':
-            filtered_image = cv2.GaussianBlur(image_array, (5,5), 0)
+            gaussian_kernel = f.get_gaussian_kernel(kernel_size)
+            filtered_image = cv2.filter2D(image_array,-1, gaussian_kernel)
+            # filtered_image = cv2.GaussianBlur(image_array, (5,5), 0)
+                    
         elif selected_filter == 'Median':
-            filtered_image = cv2.medianBlur(image_array, 5)
+            pad_size = kernel_size // 2
+            padded_image = np.pad(image_array, ((pad_size, pad_size), (pad_size, pad_size), (0, 0)), mode='constant')
+            filtered_image = np.zeros_like(image_array)
+
+            for i in range(image_array.shape[0]):
+                for j in range(image_array.shape[1]):
+                    region = padded_image[i:i+kernel_size, j:j+kernel_size]
+                    filtered_image[i, j] = np.median(region, axis=(0, 1))   
+            # filtered_image = cv2.medianBlur(image_array, 5)
         
         self.filtered_image.image = filtered_image
         scene = self.filtered_image.display_image()
         self.output_image.setScene(scene) 
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)     
+        
+    
+    def change_kernel(self):
+        self.kernel_index = self.kernel_size_slider.value()
+        self.kernel_size_label.setText(f"Kernel Size: {kernel_sizes[self.kernel_index]}x{kernel_sizes[self.kernel_index]}")
     
     
     def show_hide_parameters(self, selected_noise):
