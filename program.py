@@ -111,7 +111,7 @@ class MainWindow(QtWidgets.QMainWindow):
             min_range, max_range = self.min_range_slider.value(), self.max_range_slider.value()
             parameters = [min_range, max_range]
             self.min_range_label.setText(f"Minimum Range: {min_range}")
-            self.max_range_label.setText(f"Minimum Range: {max_range}")
+            self.max_range_label.setText(f"Maximum Range: {max_range}")
             
         elif selected_noise == 'Gaussian': 
             mean, sigma = self.mean_slider.value(), self.sigma_slider.value()
@@ -126,7 +126,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.probability_label.setText(f"Probability: {probability/10}")
         
         return parameters    
-        
+    
     
     def equalize_image(self):
         modified_image = np.copy(self.original_image)
