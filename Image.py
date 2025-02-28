@@ -70,6 +70,15 @@ class Image:
     def plot_distribution_curve(self):
         pass
  
+    def RGB2GRAY(self):
+        """return a grayscale copy of a colored img
+        """
+        if self.image.shape == 2:
+            print("Image is already loaded in grayscale")
+            return
+        
+        gray_img = cv2.cvtcolor(self.image, cv2.COLOR_BGR2GRAY)
+        return gray_img
             
     def get_image(self):
         return np.copy(self.image)
