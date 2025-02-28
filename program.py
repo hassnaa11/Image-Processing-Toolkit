@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 
 from Image import Image
-
+from image_processor import FilterProcessor, NoiseAdder
 kernel_sizes = [3, 5, 7]
 
 class MainWindow(QtWidgets.QMainWindow):
