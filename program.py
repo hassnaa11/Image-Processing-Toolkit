@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 
 from Image import Image
-from image_processor import FilterProcessor, NoiseAdder , edge_detection
+from image_processor import FilterProcessor, NoiseAdder , edge_detection , thresholding
 kernel_sizes = [3, 5, 7]
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -31,6 +31,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.edge_filters_combobox.setDisabled(True)
         self.edge_filters_combobox.currentIndexChanged.connect(lambda:self.apply_changes("edge"))
 
+        #thresholding
+        self.threshold_combobox.setDisabled(True)
+        self.threshold_combobox.currentIndexChanged.connect(lambda:self.apply_changes("threshold"))
+
+        #normalization button
+        self.normalization_button.clicked.connect(self.normalize_image)
+
         
         # sliders
         self.min_range_slider.valueChanged.connect(self.apply_changes)
@@ -50,6 +57,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # equalize button
         self.equalization_button.clicked.connect(self.equalize_image)
+        
         # convert to grayscale
         self.gray_scale_button.clicked.connect(self.convert_to_grayscale)
         self.is_gray_scale = False
@@ -73,6 +81,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.noises_combobox.setDisabled(False)
                 self.filters_combobox.setDisabled(False)
                 self.edge_filters_combobox.setDisabled(False)
+                self.threshold_combobox.setDisabled(False)
                 self.min_range_slider.setDisabled(False)
                 self.max_range_slider.setDisabled(False)
             elif key == 2:
@@ -105,17 +114,49 @@ class MainWindow(QtWidgets.QMainWindow):
 
             #apply edge detection 
             edge_detection_type=self.edge_filters_combobox.currentText()
-            print(edge_detection_type)
             if edge_detection_type!= "None" and type =="edge":
                 edge_detection_processor = edge_detection(modified_image)
                 modified_image = edge_detection_processor.apply_edge_detection_filter(edge_detection_type)
+
+            #apply thresholding
+            thresholding_type=self.threshold_combobox.currentText()
+            if thresholding_type!= "None" and type =="threshold":
+                print( thresholding_type)
+                thresholding_processor = thresholding(modified_image)
+                print(modified_image)
+                modified_image =  thresholding_processor.apply_threshold(thresholding_type)
+
+            
+            
+
 
             self.processor.image = modified_image
             scene = self.processor.display_image()
             self.output_image.setScene(scene) 
             self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
         
-    
+    def normalize_image(self):
+        
+        modified_image = np.copy(self.original_image)
+        # Convert to grayscale if it's a color image
+        if len(modified_image.shape) == 3:
+            grayscale_image = np.mean(modified_image, axis=2)
+        else:
+            grayscale_image = modified_image
+        
+        # Calculate min and max pixel values
+        I_min = np.min(grayscale_image)
+        I_max = np.max(grayscale_image)
+        
+        # Perform normalization
+        normalized_image = (grayscale_image - I_min) / (I_max - I_min) * 255
+        normalized_image = normalized_image.astype(np.uint8)
+        
+        #display the normalized image
+        self.processor.image = normalized_image
+        scene = self.processor.display_image()
+        self.output_image.setScene(scene) 
+        self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
     def get_noise_parameters(self, selected_noise):
         self.show_hide_parameters(selected_noise)
         parameters = []
@@ -166,7 +207,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.original_image = np.copy(modified_image)
         self.apply_changes()
-        
+   
         
     def change_kernel(self):
         self.kernel_index = self.kernel_size_slider.value()
