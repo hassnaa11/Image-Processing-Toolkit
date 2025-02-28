@@ -133,7 +133,6 @@ class edge_detection:
         self.image_array = image_array  
         
     def apply_kernel(self, kernel, image=None):
-        # Use the preserved image if no specific image is passed
         if image is None:
             self.preserved_image = self.image
         if len(image.shape) == 3:  # Color image
@@ -214,8 +213,45 @@ class edge_detection:
             processed_array = np.stack((edges,) * 3, axis=-1)
             
         return processed_array
-        
+    
+class thresholding:
+    def __init__(self, image_array):
+        self.image_array = image_array 
 
- 
+    def apply_threshold(self,thresholding_type ,  window_size=15, C=10):
+        # Convert to grayscale if it's a color image
+        if len( self.image_array.shape) == 3:
+            self.image_array = np.mean(self.image_array, axis=2).astype(np.uint8)
+        if thresholding_type == "Local":
             
-                            
+            # Padding for border handling
+            pad = window_size // 2
+            padded_image = np.pad(self.image_array, pad, mode='constant', constant_values=0)
+            
+            binary_image = np.zeros_like(self.image_array)
+            for i in range(self.image_array.shape[0]):
+                for j in range(self.image_array.shape[1]):
+                    # Extract local region
+                    local_region = padded_image[i:i+window_size, j:j+window_size]
+                    
+                    # Calculate mean of the local window
+                    local_mean = np.mean(local_region)
+                    
+                    # Apply threshold
+                    if self.image_array[i, j] > (local_mean - C):
+                        binary_image[i, j] = 255
+                    else:
+                        binary_image[i, j] = 0
+
+        if thresholding_type == "Global":
+            threshold=128
+            # Convert to grayscale if it's a color image
+            if len(self.image_array.shape) == 3:
+                self.image_array = np.mean(self.imag_array, axis=2).astype(np.uint8)
+            
+            # Apply global thresholding
+            binary_image = np.where(self.image_array > threshold, 255, 0)
+            return binary_image.astype(np.uint8)
+            
+        return binary_image.astype(np.uint8)
+
