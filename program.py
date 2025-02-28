@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 
 from Image import Image
-from image_processor import FilterProcessor, NoiseAdder
+from image_processor import FilterProcessor, NoiseAdder , edge_detection
 kernel_sizes = [3, 5, 7]
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -19,13 +19,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.input1_button.clicked.connect(lambda:self.upload_image(2))
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
         
-        # noises checkbox
+          # noises checkbox
         self.noises_combobox.setDisabled(True)
-        self.noises_combobox.currentIndexChanged.connect(self.apply_changes)
+        self.noises_combobox.currentIndexChanged.connect(lambda:self.apply_changes("noises"))
         
         # filters checkbox
         self.filters_combobox.setDisabled(True)
-        self.filters_combobox.currentIndexChanged.connect(self.apply_changes)
+        self.filters_combobox.currentIndexChanged.connect(lambda:self.apply_changes("filters"))
+
+        #edge detection
+        self.edge_filters_combobox.setDisabled(True)
+        self.edge_filters_combobox.currentIndexChanged.connect(lambda:self.apply_changes("edge"))
+
         
         # sliders
         self.min_range_slider.valueChanged.connect(self.apply_changes)
@@ -42,8 +47,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.kernel_index = 0
         self.kernel_size_slider.valueChanged.connect(self.change_kernel)
 
-        #edge detection
-        self.edge_filters_combobox.currentIndexChanged.connect(self.apply_edge_detection_filter)
         
         # equalize button
         self.equalization_button.clicked.connect(self.equalize_image)
@@ -69,6 +72,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.input_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)  
                 self.noises_combobox.setDisabled(False)
                 self.filters_combobox.setDisabled(False)
+                self.edge_filters_combobox.setDisabled(False)
                 self.min_range_slider.setDisabled(False)
                 self.max_range_slider.setDisabled(False)
             elif key == 2:
@@ -79,23 +83,32 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.input2_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
     
     
-    def apply_changes(self):
+    def apply_changes(self,type):
         kernel_size = kernel_sizes[self.kernel_index]
         if self.processor and self.original_image is not None:
             modified_image = np.copy(self.original_image)
 
             # Apply noise if selected
             noise_type = self.noises_combobox.currentText()
-            if noise_type != "None":
+            if noise_type != "None" and type=="noises":
                 parameters = self.get_noise_parameters(noise_type)
                 noise_adder = NoiseAdder(modified_image)
                 modified_image = noise_adder.apply_noise(noise_type, parameters)
 
             # Apply filter if selected
             filter_type = self.filters_combobox.currentText()
-            if filter_type != "None":
+            print(filter_type)
+            if filter_type != "None" and type=="filters":
                 filter_processor = FilterProcessor(modified_image)
                 modified_image = filter_processor.apply_filter(filter_type, kernel_size)
+            
+
+            #apply edge detection 
+            edge_detection_type=self.edge_filters_combobox.currentText()
+            print(edge_detection_type)
+            if edge_detection_type!= "None" and type =="edge":
+                edge_detection_processor = edge_detection(modified_image)
+                modified_image = edge_detection_processor.apply_edge_detection_filter(edge_detection_type)
 
             self.processor.image = modified_image
             scene = self.processor.display_image()
@@ -203,11 +216,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ratio_label.show()
             self.probability_label.show()
             
-    def apply_edge_detection_filter(self):
-        selected_edge_detection_filter = self.edge_filters_combobox.currentText()
-        scene =self.noisy_image.apply_edge_detection_filter(selected_edge_detection_filter)
-        self.output_image.setScene(scene)
-        self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+
+    
 
    
 if __name__ == '__main__':
