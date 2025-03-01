@@ -26,7 +26,7 @@ class Image:
                 
         
     def isRGB(self):
-        if len(self.image.shape == 2):
+        if len(self.image.shape) == 2:
             print("Greyscale image read")
             return False
         
