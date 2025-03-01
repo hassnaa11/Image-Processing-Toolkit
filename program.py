@@ -3,10 +3,11 @@ import sys
 from PyQt5.QtGui import *
 import numpy as np
 import cv2
-
+import matplotlib.pyplot as plt
 from Image import Image
 from image_processor import FilterProcessor, NoiseAdder , edge_detection , thresholding
 kernel_sizes = [3, 5, 7]
+RGB_Channels = ("red", "green", "blue")
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -15,11 +16,12 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # upload buttons
         self.original_image = None
+        self.output_image = None
         self.upload_button.clicked.connect(lambda:self.upload_image(1))
         self.input1_button.clicked.connect(lambda:self.upload_image(2))
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
         
-          # noises checkbox
+        # noises checkbox
         self.noises_combobox.setDisabled(True)
         self.noises_combobox.currentIndexChanged.connect(lambda:self.apply_changes("noises"))
         
@@ -68,13 +70,13 @@ class MainWindow(QtWidgets.QMainWindow):
             self, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
         )
         if self.file_path:
-            self.processor = Image()
-            self.processor.read_image(self.file_path)
+            self.img = Image()
+            self.img.read_image(self.file_path)
             self.noisy_image = Image()  # shelehom ya eman ma3lsh
             self.noisy_image.read_image(self.file_path)
-            self.original_image = np.copy(self.processor.image)
+            self.original_image = np.copy(self.img.image)
             
-            scene = self.processor.display_image()
+            scene = self.img.display_image()
             if key == 1:
                 self.input_image.setScene(scene) 
                 self.input_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)  
@@ -91,10 +93,49 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.input2_image.setScene(scene)
                 self.input2_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
     
+    def plot_histogram_and_cdf(self):
+        plt.figure(figsize=(12, 8))        
+        
+        histogram = self.img.compute_histogram()
+        CDF = self.img.compute_CDF(histogram)
+        
+        if isinstance(histogram, list):
+            for i, color in enumerate(RGB_Channels):
+                plt.subplot(2, 3, i + 1)# 2 rows, 3 columns, position (1st row)
+                plt.plot(histogram[i], color=color)
+                plt.title(f"{color} histogram")
+                plt.xlabel("Pixel Intensity")
+                plt.ylabel("Frequency")
+                
+                plt.subplot(2, 3, i + 4)  # 2nd row for CDFs
+                plt.plot(CDF[i], color=color)
+                plt.title(f"{color} cdf")
+                plt.xlabel("Pixel Intensity")
+                plt.ylabel("Cumulative Probability")
+
+            plt.tight_layout()
+            
+        else: plt.plot(data=histogram, color="black")
+        
+        plt.xlim([0, 256])
+        plt.show() 
+    
+    def plot_cdf(self):
+        CDF = self.img.compute_CDF()
+        
+        plt.figure(figsize=(15, 5))
+        plt.title("Comulative Distribution Function")
+        plt.ylabel("")
+        
+        if isinstance(CDF, list):
+            for i, cdf in enumerate(CDF):
+                plt
+        
+        
     
     def apply_changes(self,type):
         kernel_size = kernel_sizes[self.kernel_index]
-        if self.processor and self.original_image is not None:
+        if self.img and self.original_image is not None:
             modified_image = np.copy(self.original_image)
 
             # Apply noise if selected
@@ -126,14 +167,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 print(modified_image)
                 modified_image =  thresholding_processor.apply_threshold(thresholding_type)
 
-            
-            
-
-
-            self.processor.image = modified_image
-            scene = self.processor.display_image()
+            self.img.image = modified_image
+            scene = self.img.display_image()
             self.output_image.setScene(scene) 
-            self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+            self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+            
+            self.out 
         
     def normalize_image(self):
         
@@ -153,8 +192,8 @@ class MainWindow(QtWidgets.QMainWindow):
         normalized_image = normalized_image.astype(np.uint8)
         
         #display the normalized image
-        self.processor.image = normalized_image
-        scene = self.processor.display_image()
+        self.img.image = normalized_image
+        scene = self.img.display_image()
         self.output_image.setScene(scene) 
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
     def get_noise_parameters(self, selected_noise):
@@ -186,8 +225,8 @@ class MainWindow(QtWidgets.QMainWindow):
         modified_image = np.copy(self.original_image)
         filter_processor = FilterProcessor(modified_image)
         modified_image = filter_processor.histogram_equalization()
-        self.processor.image = modified_image
-        scene = self.processor.display_image()
+        self.img.image = modified_image
+        scene = self.img.display_image()
         self.output_image.setScene(scene) 
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
     
