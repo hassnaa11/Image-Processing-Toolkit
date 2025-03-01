@@ -119,19 +119,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         plt.xlim([0, 256])
         plt.show() 
-    
-    def plot_cdf(self):
-        CDF = self.img.compute_CDF()
-        
-        plt.figure(figsize=(15, 5))
-        plt.title("Comulative Distribution Function")
-        plt.ylabel("")
-        
-        if isinstance(CDF, list):
-            for i, cdf in enumerate(CDF):
-                plt
-        
-        
+            
     
     def apply_changes(self,type):
         kernel_size = kernel_sizes[self.kernel_index]
