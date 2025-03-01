@@ -23,7 +23,7 @@ class Image:
         else: self.image = cv2.imread(self.image_path, cv2.IMREAD_GRAYSCALE)
                 
     def isRGB(self):
-        if len(self.image.shape == 2):
+        if len(self.image.shape) == 2:
             print("Greyscale image read")
             return False
         

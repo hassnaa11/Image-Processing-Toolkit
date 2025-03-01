@@ -9,7 +9,10 @@ class NoiseAdder:
         
         
     def apply_noise(self, noise_type, parameters):
-        if noise_type == 'Uniform':
+        if noise_type == 'select noise':
+            return self.image_array
+        
+        elif noise_type == 'Uniform':
             min_range, max_range = parameters[0], parameters[1]
             noise = np.random.randint(min_range, max_range, self.image_array.shape).astype(np.int16)
             self.image_array = np.clip(self.image_array.astype(np.int16) + noise, 0, 255).astype(np.uint8)
@@ -50,8 +53,11 @@ class FilterProcessor:
         
     def apply_filter(self, selected_filter, kernel_size):
         filtered_image = self.image_array
-       
-        if selected_filter == 'Average':
+
+        if selected_filter == 'select filter':
+            return self.image_array
+               
+        elif selected_filter == 'Average':
             average_kernel = np.ones(shape=(kernel_size, kernel_size))/ (kernel_size * kernel_size)
             filtered_image = cv2.filter2D(self.image_array,-1, average_kernel)
             # filtered_image  = cv2.blur(image_array, (3,3))
@@ -162,7 +168,10 @@ class edge_detection:
         if len(self.image_array.shape) == 3 and self.image_array.shape[2] == 3:
             self.image_array = np.mean(self.image_array, axis=2).astype(np.uint8)
         
-        if selected_edge_detection_filter == "Sobel":
+        if selected_edge_detection_filter == "select edge detection filter":
+            return self.image_array
+        
+        elif selected_edge_detection_filter == "Sobel":
             sobel_x = np.array([[-1, 0, 1], 
                                 [-2, 0, 2], 
                                 [-1, 0, 1]])
@@ -221,7 +230,11 @@ class thresholding:
         # Convert to grayscale if it's a color image
         if len( self.image_array.shape) == 3:
             self.image_array = np.mean(self.image_array, axis=2).astype(np.uint8)
-        if thresholding_type == "Local":
+        
+        if thresholding_type == "select thresholding type":
+            return self.image_array
+        
+        elif thresholding_type == "Local":
             
             # Padding for border handling
             pad = window_size // 2

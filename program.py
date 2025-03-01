@@ -42,15 +42,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
         
         # sliders
-        self.min_range_slider.valueChanged.connect(self.apply_changes)
-        self.max_range_slider.valueChanged.connect(self.apply_changes)
-        self.mean_slider.valueChanged.connect(self.apply_changes)
-        self.sigma_slider.valueChanged.connect(self.apply_changes)
-        self.probability_slider.valueChanged.connect(self.apply_changes)
-        self.ratio_slider.valueChanged.connect(self.apply_changes)
-        self.min_range_slider.setDisabled(True)
-        self.max_range_slider.setDisabled(True)
-        self.show_hide_parameters('Uniform')
+        self.min_range_slider.valueChanged.connect(lambda:self.apply_changes("noises"))
+        self.max_range_slider.valueChanged.connect(lambda:self.apply_changes("noises"))
+        self.mean_slider.valueChanged.connect(lambda:self.apply_changes("noises"))
+        self.sigma_slider.valueChanged.connect(lambda:self.apply_changes("noises"))
+        self.probability_slider.valueChanged.connect(lambda:self.apply_changes("noises"))
+        self.ratio_slider.valueChanged.connect(lambda:self.apply_changes("noises"))
+        # self.min_range_slider.setDisabled(True)
+        # self.max_range_slider.setDisabled(True)
+        self.show_hide_parameters('select noise')
         
         # kernel size
         self.kernel_index = 0
@@ -84,8 +84,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.filters_combobox.setDisabled(False)
                 self.edge_filters_combobox.setDisabled(False)
                 self.threshold_combobox.setDisabled(False)
-                self.min_range_slider.setDisabled(False)
-                self.max_range_slider.setDisabled(False)
+                # self.min_range_slider.setDisabled(False)
+                # self.max_range_slider.setDisabled(False)
             elif key == 2:
                 self.input1_image.setScene(scene)
                 self.input1_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
@@ -140,7 +140,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # Apply noise if selected
             noise_type = self.noises_combobox.currentText()
-            if noise_type != "None" and type=="noises":
+            if noise_type != "None" and (type=="noises" or type=="filters"):
                 parameters = self.get_noise_parameters(noise_type)
                 noise_adder = NoiseAdder(modified_image)
                 modified_image = noise_adder.apply_noise(noise_type, parameters)
@@ -148,7 +148,7 @@ class MainWindow(QtWidgets.QMainWindow):
             # Apply filter if selected
             filter_type = self.filters_combobox.currentText()
             print(filter_type)
-            if filter_type != "None" and type=="filters":
+            if filter_type != "None" and (type=="filters" or type=="noises"):
                 filter_processor = FilterProcessor(modified_image)
                 modified_image = filter_processor.apply_filter(filter_type, kernel_size)
             
@@ -245,15 +245,29 @@ class MainWindow(QtWidgets.QMainWindow):
             modified_image = np.copy(self.rgb_image)
 
         self.original_image = np.copy(modified_image)
-        self.apply_changes()
+        self.apply_changes(type="filters")
    
         
     def change_kernel(self):
         self.kernel_index = self.kernel_size_slider.value()
         self.kernel_size_label.setText(f"Kernel Size: {kernel_sizes[self.kernel_index]}x{kernel_sizes[self.kernel_index]}")
-        self.apply_changes()
+        self.apply_changes(type="filters")
     
     def show_hide_parameters(self, selected_noise):
+        if selected_noise == 'select noise':
+            self.min_range_slider.hide()
+            self.max_range_slider.hide()
+            self.min_range_label.hide()
+            self.max_range_label.hide()
+            self.mean_slider.hide()
+            self.sigma_slider.hide()
+            self.mean_label.hide()
+            self.sigma_label.hide()
+            self.ratio_slider.hide()
+            self.probability_slider.hide()
+            self.ratio_label.hide()
+            self.probability_label.hide()
+            
         if selected_noise == 'Uniform':
             self.min_range_slider.show()
             self.max_range_slider.show()

@@ -379,8 +379,13 @@ selection-background-color: rgb(4, 79, 70);
 </string>
                     </property>
                     <property name="currentText">
-                     <string>Uniform</string>
+                     <string>select noise</string>
                     </property>
+                    <item>
+                     <property name="text">
+                      <string>select noise</string>
+                     </property>
+                    </item>
                     <item>
                      <property name="text">
                       <string>Uniform</string>
@@ -922,6 +927,11 @@ selection-background-color: rgb(4, 79, 70);
                     </property>
                     <item>
                      <property name="text">
+                      <string>select filter</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
                       <string>Average</string>
                      </property>
                     </item>
@@ -1014,6 +1024,11 @@ selection-background-color: rgb(4, 79, 70);
                     </property>
                     <item>
                      <property name="text">
+                      <string>select edge detection filter</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
                       <string>Sobel</string>
                      </property>
                     </item>
@@ -1103,6 +1118,11 @@ selection-background-color: rgb(4, 79, 70);
 }
 </string>
                     </property>
+                    <item>
+                     <property name="text">
+                      <string>select thresholding type</string>
+                     </property>
+                    </item>
                     <item>
                      <property name="text">
                       <string>Local</string>
