@@ -59,13 +59,14 @@ class FilterProcessor:
                
         elif selected_filter == 'Average':
             average_kernel = np.ones(shape=(kernel_size, kernel_size))/ (kernel_size * kernel_size)
-            filtered_image = cv2.filter2D(self.image_array,-1, average_kernel)
-            # filtered_image  = cv2.blur(image_array, (3,3))
-
+            filtered_image = self.apply_kernel(average_kernel, kernel_size)
+            # filtered_image = cv2.filter2D(self.image_array,-1, average_kernel) 
+            # filtered_image  = cv2.blur(image_array, (3,3))  # opencv filter method
+        
         elif selected_filter == 'Gaussian ':
             gaussian_kernel = self.get_gaussian_kernel(kernel_size)
-            filtered_image = cv2.filter2D(self.image_array,-1, gaussian_kernel)
-            # filtered_image = cv2.GaussianBlur(image_array, (5,5), 0)
+            filtered_image = self.apply_kernel(gaussian_kernel, kernel_size) 
+            # filtered_image = cv2.filter2D(self.image_array,-1, average_kernel)
                     
         elif selected_filter == 'Median':
             pad_size = kernel_size // 2
@@ -79,11 +80,40 @@ class FilterProcessor:
                 for j in range(self.image_array.shape[1]):
                     region = padded_image[i:i+kernel_size, j:j+kernel_size]
                     filtered_image[i, j] = np.median(region, axis=(0, 1))   
-            # filtered_image = cv2.medianBlur(image_array, 5)
+            # filtered_image = cv2.medianBlur(image_array, 5)   # opencv filter method
+        
         elif selected_filter == 'Low-Pass Filter':
             kernel = np.ones((kernel_size, kernel_size), np.float32) / (kernel_size ** 2)
             filtered_image = cv2.filter2D(self.image_array, -1, kernel)
         return filtered_image   
+    
+    
+    def apply_kernel(self, kernel, kernel_size):
+        pad_size = kernel_size // 2
+
+        # Handle padding for grayscale and RGB images
+        if len(self.image_array.shape) == 2:  # Grayscale
+            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size)), mode='constant')
+            filtered_image = np.zeros_like(self.image_array, dtype=np.float32)
+
+            for i in range(self.image_array.shape[0]):
+                for j in range(self.image_array.shape[1]):
+                    region = padded_image[i:i+kernel_size, j:j+kernel_size]
+                    filtered_image[i, j] = np.sum(region * kernel)  # Summation added
+
+        else:  # RGB Image
+            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size), (0, 0)), mode='constant')
+            filtered_image = np.zeros_like(self.image_array, dtype=np.float32)
+
+            for i in range(self.image_array.shape[0]):
+                for j in range(self.image_array.shape[1]):
+                    for c in range(self.image_array.shape[2]):  # Loop over channels
+                        region = padded_image[i:i+kernel_size, j:j+kernel_size, c]
+                        filtered_image[i, j, c] = np.sum(region * kernel)  # Summation added
+
+        # Convert to uint8 
+        filtered_image = np.clip(filtered_image, 0, 255).astype(np.uint8)
+        return filtered_image
     
             
     def get_gaussian_kernel(self, kernel_size):
