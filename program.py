@@ -4,10 +4,13 @@ from PyQt5.QtGui import *
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from Image import Image
 from image_processor import FilterProcessor, NoiseAdder , edge_detection , thresholding
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
+Color =('r', 'g', 'b')
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -15,8 +18,8 @@ class MainWindow(QtWidgets.QMainWindow):
         uic.loadUi('ui.ui', self)
         
         # upload buttons
-        self.original_image = None
-        self.output_image = None
+        self.original_image: Image = None
+        self.output_image: Image = None
         self.upload_button.clicked.connect(lambda:self.upload_image(1))
         self.input1_button.clicked.connect(lambda:self.upload_image(2))
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
@@ -92,34 +95,45 @@ class MainWindow(QtWidgets.QMainWindow):
             elif key == 3:           
                 self.input2_image.setScene(scene)
                 self.input2_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-    
-    def plot_histogram_and_cdf(self):
-        plt.figure(figsize=(12, 8))        
-        
-        histogram = self.img.compute_histogram()
-        CDF = self.img.compute_CDF(histogram)
-        
-        if isinstance(histogram, list):
-            for i, color in enumerate(RGB_Channels):
-                plt.subplot(2, 3, i + 1)# 2 rows, 3 columns, position (1st row)
-                plt.plot(histogram[i], color=color)
-                plt.title(f"{color} histogram")
-                plt.xlabel("Pixel Intensity")
-                plt.ylabel("Frequency")
-                
-                plt.subplot(2, 3, i + 4)  # 2nd row for CDFs
-                plt.plot(CDF[i], color=color)
-                plt.title(f"{color} cdf")
-                plt.xlabel("Pixel Intensity")
-                plt.ylabel("Cumulative Probability")
 
-            plt.tight_layout()
+    def display_histogram(self):
+        """Display histogram in the UI"""
+        if self.original_image is not None:
+            h = self.original_image.compute_histogram()
+            # Get canvas with histogram plot
+            canvas = self.original_image.plot_histogram()
             
-        else: plt.plot(data=histogram, color="black")
-        
-        plt.xlim([0, 256])
-        plt.show() 
+            # Create a layout in your GUI
+            histogram_layout = QtWidgets.QVBoxLayout()
+            histogram_layout.addWidget(canvas)
             
+            # Clear previous content if any
+            if self.histogram_frame.layout():
+                QtWidgets.QWidget().setLayout(self.histogram_frame.layout())
+                
+            # Set the new layout
+            self.histogram_frame.setLayout(histogram_layout)
+
+    def display_cdf(self):
+        """Display CDF in the UI"""
+        if self.original_image is not None:
+            # First compute histogram and CDF if not already computed
+            histogram = self.original_image.compute_histogram()
+            __ = self.original_image.compute_CDF(histogram)
+            
+            # Get canvas with CDF plot
+            canvas = self.original_image.plot_cdf()
+            
+            # Create a layout in your GUI
+            cdf_layout = QtWidgets.QVBoxLayout()
+            cdf_layout.addWidget(canvas)
+            
+            # Clear previous content if any
+            if self.cdf_frame.layout():
+                QtWidgets.QWidget().setLayout(self.cdf_frame.layout())
+                
+            # Set the new layout
+            self.cdf_frame.setLayout(cdf_layout)       
     
     def apply_changes(self,type):
         kernel_size = kernel_sizes[self.kernel_index]

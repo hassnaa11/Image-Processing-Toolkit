@@ -4,10 +4,10 @@ from PyQt5.QtWidgets import QGraphicsScene
 from PyQt5.QtGui import *
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from typing import List
-
-RGB_Channels = ("red", "green", "blue")
+rgb_channels = ["red", "green", "blue"]
 
 class Image:
     def __init__(self):
@@ -47,13 +47,21 @@ class Image:
         scene.addPixmap(pixmap)
         return scene
     
+    
+    def get_histogram(self):
+        return self.__hg
+    
+    def get_CDF(self):
+        return self.__cdf
+    
     def compute_histogram(self):
         """Compute histogram for RGB or Grayscale image
         """
         if self.isRGB():
             histogram = []
             
-            for i, channel in enumerate(RGB_Channels):
+            
+            for i, channel in enumerate(rgb_channels):
                 hist = cv2.calcHist([self.image], [i], None, 256, [0,256])
                 histogram.append(hist)
                 
@@ -84,17 +92,84 @@ class Image:
         self.__cdf = CDF
         return CDF         
         
-    def RGB2GRAY(self):
-        """return a grayscale copy of a colored img
-        """
-        if self.image.shape == 2:
-            print("Image is already loaded in grayscale")
-            return
+    # def RGB2GRAY(self):
+    #     """return a grayscale copy of a colored img
+    #     """
+    #     if self.image.shape == 2:
+    #         print("Image is already loaded in grayscale")
+    #         return
         
-        gray_img = cv2.cvtcolor(self.image, cv2.COLOR_BGR2GRAY)
-        return gray_img
+    #     gray_img = cv2.cvtcolor(self.image, cv2.COLOR_BGR2GRAY)
+    #     return gray_img
             
     def get_image(self):
         return np.copy(self.image)
     
+
+    def plot_histogram(self):
+        """return a canvas for the histogram
+        """
+        
+        if self.__hg is None:
+            self.__hg = self.compute_histogram()
+        
+        # Create figure and canvas
+        fig = Figure(figsize=(5, 4), dpi=100)
+        canvas = FigureCanvasQTAgg(fig)
+        ax = fig.add_subplot(111)
+        
+        # Plot histogram
+        if self.isRGB():
+            colors = ['r', 'g', 'b']
+            for i, hist in enumerate(self.__hg):
+                ax.plot(hist, color=colors[i], label=rgb_channels[i])
+            ax.legend()
+            ax.set_title('RGB Histogram')
+        else:
+            ax.plot(self.__hg, color='k')
+            ax.set_title('Grayscale Histogram')
+            
+        ax.set_xlabel('Pixel Value')
+        ax.set_ylabel('Frequency')
+        ax.grid(True)
+        
+        self.__hg_canvas = canvas
+        return canvas
     
+    def get_histogram_canvas(self):
+        return self.__hg_canvas
+    
+    def plot_cdf(self):
+        """return a canvas for cdf
+        """
+        if self.__cdf is None:
+            if self.__hg is None:
+                self.__hg = self.compute_histogram()
+            
+            self.__cdf = self.compute_CDF(self.__hg)    
+            
+        # Create figure and canvas
+        fig = Figure(figsize=(5, 4), dpi=100)
+        canvas = FigureCanvasQTAgg(fig)
+        ax = fig.add_subplot(111)
+        
+        # Plot CDF
+        if self.isRGB():
+            colors = ['r', 'g', 'b']
+            for i, cdf in enumerate(self.__cdf):
+                ax.plot(cdf, color=colors[i], label=rgb_channels[i])
+            ax.legend()
+            ax.set_title('RGB CDF')
+        else:
+            ax.plot(self.__cdf, color='k')
+            ax.set_title('Grayscale CDF')
+            
+        ax.set_xlabel('Pixel Value')
+        ax.set_ylabel('Cumulative Probability')
+        ax.grid(True)
+        
+        self.__cdf_canvas = canvas
+        return canvas 
+    
+    def get_cdf_canvas(self):
+        return self.__cdf_canvas   
