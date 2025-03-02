@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, uic 
+from PyQt5.QtWidgets import QFrame
 import sys
 from PyQt5.QtGui import *
 import numpy as np
@@ -96,44 +97,59 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.input2_image.setScene(scene)
                 self.input2_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
-    def display_histogram(self):
-        """Display histogram in the UI"""
-        if self.original_image is not None:
-            h = self.original_image.compute_histogram()
-            # Get canvas with histogram plot
-            canvas = self.original_image.plot_histogram()
-            
-            # Create a layout in your GUI
-            histogram_layout = QtWidgets.QVBoxLayout()
-            histogram_layout.addWidget(canvas)
-            
-            # Clear previous content if any
-            if self.histogram_frame.layout():
-                QtWidgets.QWidget().setLayout(self.histogram_frame.layout())
-                
-            # Set the new layout
-            self.histogram_frame.setLayout(histogram_layout)
+        self.display_histogram(self.original_image)
+        self.display_cdf(self.original_image)
 
-    def display_cdf(self):
-        """Display CDF in the UI"""
-        if self.original_image is not None:
-            # First compute histogram and CDF if not already computed
-            histogram = self.original_image.compute_histogram()
-            __ = self.original_image.compute_CDF(histogram)
+    def display_histogram(self, image:Image, viewport = "in"):
+        """Display histogram in the UI"""
+        if image is not None:
+            h = image.compute_histogram()
+            canvas = image.plot_histogram()
             
-            # Get canvas with CDF plot
-            canvas = self.original_image.plot_cdf()
-            
-            # Create a layout in your GUI
-            cdf_layout = QtWidgets.QVBoxLayout()
-            cdf_layout.addWidget(canvas)
+            if viewport == "in": target_frame: QFrame = self.input_histogram
+            else: target_frame:QFrame = self.output_histogram
+                        
+            new_layout = QtWidgets.QVBoxLayout()
+            new_layout.addWidget(canvas)
             
             # Clear previous content if any
-            if self.cdf_frame.layout():
-                QtWidgets.QWidget().setLayout(self.cdf_frame.layout())
+            if target_frame.layout():
+                while target_frame.layout().count():
+                    item = target_frame.layout().takeAt(0)
+                    if item.widget():
+                        item.widget().deleteLater()
                 
-            # Set the new layout
-            self.cdf_frame.setLayout(cdf_layout)       
+                QtWidgets.QWidget().setLayout(target_frame.layout())        
+                    
+        target_frame.setLayout(new_layout)        
+    
+
+    def display_cdf(self, image:Image, viewport = "in"):
+        """Display CDF in the UI"""
+        if image is not None:
+            # First compute histogram and CDF if not already computed
+            histogram = image.compute_histogram()
+            __ = image.compute_CDF(histogram)
+            canvas = image.plot_cdf()
+            
+            if viewport=="in" : target_frame: QFrame = self.input_distribution_curve
+            else : target_frame: QFrame = self.output_distribution_curve
+            
+            new_layout = QtWidgets.QVBoxLayout()
+            new_layout.addWidget(canvas)
+            
+            #delete old content if exists
+            if target_frame.layout():
+            # Remove all widgets from old layout
+                while target_frame.layout().count():
+                    item = target_frame.layout().takeAt(0)
+                    if item.widget():
+                        item.widget().deleteLater()
+                
+                # Delete old layout
+                QtWidgets.QWidget().setLayout(target_frame.layout())     
+    
+        target_frame.setLayout(new_layout)
     
     def apply_changes(self,type):
         kernel_size = kernel_sizes[self.kernel_index]
