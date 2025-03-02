@@ -62,10 +62,10 @@ class Image:
             
             
             for i, channel in enumerate(rgb_channels):
-                hist = cv2.calcHist([self.image], [i], None, 256, [0,256])
+                hist = cv2.calcHist([self.image], [i], None, [256], [0,256])
                 histogram.append(hist)
                 
-        else: histogram, bins = np.histogram(self.image.flatten(), bins=256, range=[0,256]) 
+        else: histogram = cv2.calcHist([self.image], [0], None, [256], [0, 256]) 
                 
         self.__hg = histogram
         return histogram
@@ -91,16 +91,7 @@ class Image:
             
         self.__cdf = CDF
         return CDF         
-        
-    # def RGB2GRAY(self):
-    #     """return a grayscale copy of a colored img
-    #     """
-    #     if self.image.shape == 2:
-    #         print("Image is already loaded in grayscale")
-    #         return
-        
-    #     gray_img = cv2.cvtcolor(self.image, cv2.COLOR_BGR2GRAY)
-    #     return gray_img
+
             
     def get_image(self):
         return np.copy(self.image)
@@ -117,16 +108,19 @@ class Image:
         fig = Figure(figsize=(5, 4), dpi=100)
         canvas = FigureCanvasQTAgg(fig)
         ax = fig.add_subplot(111)
+        bin_edges = np.arange(257)
         
         # Plot histogram
         if self.isRGB():
             colors = ['r', 'g', 'b']
+            
             for i, hist in enumerate(self.__hg):
-                ax.plot(hist, color=colors[i], label=rgb_channels[i])
+                ax.bar(bin_edges[:-1], hist.flatten(), width=1, color=colors[i], 
+                  alpha=0.5, label=rgb_channels[i])
             ax.legend()
             ax.set_title('RGB Histogram')
         else:
-            ax.plot(self.__hg, color='k')
+            ax.bar(bin_edges[:-1], self.__hg.flatten(), width=1, color='k')
             ax.set_title('Grayscale Histogram')
             
         ax.set_xlabel('Pixel Value')

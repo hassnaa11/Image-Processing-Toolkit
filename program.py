@@ -75,6 +75,7 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         if self.file_path:
             self.img = Image()
+            
             self.img.read_image(self.file_path)
             self.noisy_image = Image()  # shelehom ya eman ma3lsh
             self.noisy_image.read_image(self.file_path)
@@ -97,8 +98,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.input2_image.setScene(scene)
                 self.input2_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
-        self.display_histogram(self.original_image)
-        self.display_cdf(self.original_image)
+        self.display_histogram(self.img)
+        self.display_cdf(self.img)
 
     def display_histogram(self, image:Image, viewport = "in"):
         """Display histogram in the UI"""
@@ -191,8 +192,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.output_image.setScene(scene) 
             self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             
-            self.display_histogram(self.img.image, "out")
-            self.display_cdf(self.img.image, "out")
+            self.display_histogram(self.img, "out")
+            self.display_cdf(self.img, "out")
         
     def normalize_image(self):
         
@@ -218,8 +219,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.output_image.setScene(scene) 
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         
-        self.display_histogram(self.img.image, "out")
-        self.display_cdf(self.img.image, "out") 
+        self.display_histogram(self.img, "out")
+        self.display_cdf(self.img, "out") 
     
     def get_noise_parameters(self, selected_noise):
         self.show_hide_parameters(selected_noise)
@@ -255,8 +256,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.output_image.setScene(scene) 
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
 
-        self.display_histogram(self.img.image, "out")
-        self.display_cdf(self.img.image, "out")
+        self.display_histogram(self.img, "out")
+        self.display_cdf(self.img, "out")
     
     def convert_to_grayscale(self):
         modified_image = np.copy(self.original_image)
