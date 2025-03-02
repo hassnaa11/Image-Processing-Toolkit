@@ -186,11 +186,13 @@ class MainWindow(QtWidgets.QMainWindow):
                 modified_image =  thresholding_processor.apply_threshold(thresholding_type)
 
             self.img.image = modified_image
+            
             scene = self.img.display_image()
             self.output_image.setScene(scene) 
             self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             
-            self.out 
+            self.display_histogram(self.img.image, "out")
+            self.display_cdf(self.img.image, "out")
         
     def normalize_image(self):
         
@@ -211,9 +213,14 @@ class MainWindow(QtWidgets.QMainWindow):
         
         #display the normalized image
         self.img.image = normalized_image
+        
         scene = self.img.display_image()
         self.output_image.setScene(scene) 
-        self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+        self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        
+        self.display_histogram(self.img.image, "out")
+        self.display_cdf(self.img.image, "out") 
+    
     def get_noise_parameters(self, selected_noise):
         self.show_hide_parameters(selected_noise)
         parameters = []
@@ -247,7 +254,9 @@ class MainWindow(QtWidgets.QMainWindow):
         scene = self.img.display_image()
         self.output_image.setScene(scene) 
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
-    
+
+        self.display_histogram(self.img.image, "out")
+        self.display_cdf(self.img.image, "out")
     
     def convert_to_grayscale(self):
         modified_image = np.copy(self.original_image)
