@@ -14,25 +14,34 @@ class Image:
         self.image = None
         self.image_path = None
     
-    def read_image(self, path):
+    def read_image(self, path, force_gray = False):
         self.image_path = path
-        self.image = cv2.imread(self.image_path)
-        
-        if self.isRGB(): self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
-            
-        else: self.image = cv2.imread(self.image_path, cv2.IMREAD_GRAYSCALE)
                 
-    def isRGB(self):
-        if len(self.image.shape) == 2:
-            print("Greyscale image read")
-            return False
-        
-        print("RGB image read")
-        return True    
+        if force_gray:
+            # Read directly as grayscale
+            self.image = cv2.imread(self.image_path, cv2.IMREAD_GRAYSCALE)
+            print("Image forced to grayscale")
+        else:
+            # First read normally
+            self.image = cv2.imread(self.image_path)
+            
+            # Convert BGR to RGB if image has 3 channels
+            if self.is_RGB():
+                self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+                print("RGB image read")
+            else:
+                print("Grayscale image read")    
 
+    def is_RGB(self):
+        """checks if an image is colored or grayscale
+        """
+        if len(self.image.shape) == 3 and self.image.shape[2] == 3:
+            return True
+        return False
+    
     def display_image(self):
         height, width = self.image.shape[:2]
-        if len(self.image.shape) == 2: # gray-scale image
+        if not self.is_RGB(): # gray-scale image
             bytes_per_line = width
             q_image = QImage(self.image, width, height, bytes_per_line, QImage.Format_Grayscale8)
         else:  # RGB image 
@@ -47,7 +56,6 @@ class Image:
         scene.addPixmap(pixmap)
         return scene
     
-    
     def get_histogram(self):
         return self.__hg
     
@@ -57,9 +65,8 @@ class Image:
     def compute_histogram(self):
         """Compute histogram for RGB or Grayscale image
         """
-        if self.isRGB():
+        if self.is_RGB():
             histogram = []
-            
             
             for i, channel in enumerate(rgb_channels):
                 hist = cv2.calcHist([self.image], [i], None, [256], [0,256])
@@ -78,7 +85,7 @@ class Image:
             print("Histogram must be computed first")
             return
         
-        if self.isRGB():
+        if self.is_RGB():
             CDF = []
             
             for i, hist in enumerate(histogram):
