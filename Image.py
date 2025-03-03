@@ -33,9 +33,15 @@ class Image:
                 print("Grayscale image read")    
 
     def is_RGB(self):
-        """checks if an image is colored or grayscale
-        """
+        """checks if an image is colored or grayscale"""
         if len(self.image.shape) == 3 and self.image.shape[2] == 3:
+            # Check if all channels are identical (true grayscale)
+            r, g, b = self.image[:,:,0], self.image[:,:,1], self.image[:,:,2]
+            if np.array_equal(r, g) and np.array_equal(r, b):
+                # Convert to true grayscale
+                self.image = self.image[:,:,0]
+                print("Converted 3-channel grayscale to true grayscale")
+                return False
             return True
         return False
     
@@ -118,7 +124,7 @@ class Image:
         bin_edges = np.arange(257)
         
         # Plot histogram
-        if self.isRGB():
+        if self.is_RGB():
             colors = ['r', 'g', 'b']
             
             for i, hist in enumerate(self.__hg):
@@ -127,7 +133,7 @@ class Image:
             ax.legend()
             ax.set_title('RGB Histogram')
         else:
-            ax.bar(bin_edges[:-1], self.__hg.flatten(), width=1, color='k')
+            ax.bar(bin_edges[:-1], self.__hg.flatten(), width=1, color='black')
             ax.set_title('Grayscale Histogram')
             
         ax.set_xlabel('Pixel Value')
@@ -155,7 +161,7 @@ class Image:
         ax = fig.add_subplot(111)
         
         # Plot CDF
-        if self.isRGB():
+        if self.is_RGB():
             colors = ['r', 'g', 'b']
             for i, cdf in enumerate(self.__cdf):
                 ax.plot(cdf, color=colors[i], label=rgb_channels[i])

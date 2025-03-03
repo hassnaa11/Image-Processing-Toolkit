@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from PyQt5.QtGui import *
 import cv2
+#from Image import Image
 
 class NoiseAdder:
     def __init__(self, image_array):
