@@ -105,7 +105,42 @@ class FilterProcessor:
         
         kernel /= np.sum(kernel)
         return kernel   
-    
+import numpy as np
+from scipy import ndimage
+
+
+class HybridProcessor:
+    def __init__(self, image_array_1, image_array_2):
+        self.image_1 = image_array_1  # Original first image
+        self.image_2 = image_array_2  # Original second image
+        self.low_filtered = None
+        self.high_filtered = None
+
+    def apply_low_pass_filter(self, image, sigma=3):
+        """Apply Gaussian low-pass filter to image"""
+        return ndimage.gaussian_filter(image, sigma=sigma)
+
+    def apply_high_pass_filter(self, image, sigma=3):
+        """Apply high-pass filter by subtracting low-pass from original"""
+        low_pass = self.apply_low_pass_filter(image, sigma)
+        return image - low_pass
+
+    def hyprid(self, low_sigma=3, high_sigma=3):
+        """Apply low-pass filter to first image, high-pass filter to second image, and combine them"""
+        # Apply low-pass filter to the first image
+        self.low_filtered = self.apply_low_pass_filter(self.image_1, sigma=low_sigma)
+
+        # Apply high-pass filter to the second image
+        self.high_filtered = self.apply_high_pass_filter(self.image_2, sigma=high_sigma)
+
+        # Combine the filtered images to create the hybrid image
+        hybrid_image = self.low_filtered + self.high_filtered
+
+        # Ensure pixel values are within valid range (0-255 for 8-bit images)
+        hybrid_image = np.clip(hybrid_image, 0, 255).astype(np.uint8)
+
+        return hybrid_image
+        
     
     def histogram_equalization(self):
         # flatten the image to 1D array
