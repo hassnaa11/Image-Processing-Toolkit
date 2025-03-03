@@ -13,8 +13,6 @@ class Image:
     def __init__(self):
         self.image = None
         self.image_path = None
-        self.rgb_histogram: List = None
-        self.gray_histogram = None  
     
     def read_image(self, path):
         self.image_path = path
@@ -24,7 +22,6 @@ class Image:
             
         else: self.image = cv2.imread(self.image_path, cv2.IMREAD_GRAYSCALE)
                 
-        
     def isRGB(self):
         if len(self.image.shape) == 2:
             print("Greyscale image read")
@@ -50,58 +47,42 @@ class Image:
         scene.addPixmap(pixmap)
         return scene
     
-    def plot_histogram(self):
-        plt.figure()
-        plt.title("Image Histogram")
-        plt.xlabel("Pixel Intensity")
-        plt.ylabel("Frequency")
-        
+    def compute_histogram(self):
+        """Compute histogram for RGB or Grayscale image
+        """
         if self.isRGB():
+            histogram = []
+            
             for i, channel in enumerate(RGB_Channels):
-                histogram = cv2.calcHist([self.image], [i], None, 256, [0,256])
-                self.rgb_histogram.append(histogram)
+                hist = cv2.calcHist([self.image], [i], None, 256, [0,256])
+                histogram.append(hist)
                 
-                plt.plot(histogram, color=channel)
+        else: histogram, bins = np.histogram(self.image.flatten(), bins=256, range=[0,256]) 
                 
-        else:
-            self.gray_histogram, bins = np.histogram(self.image.flatten(), bins=256, range=[0,256])
-            plt.plot(self.gray_histogram, color='black') 
-                
-        plt.xlim([0, 256])
-        plt.show()            
-    
-    
-    def plot_CDF(self):
-        """plot the comulative distribution function.\n
+        self.__hg = histogram
+        return histogram
+        
+    def compute_CDF(self, histogram):
+        """compute the comulative distribution function for RGB or Grayscale image.\n
         requires histogram to be computed first
         """
-        if (self.gray_histogram==None) and len(self.rgb_histogram)==0:
+        if not self.__hg:
             print("Histogram must be computed first")
             return
         
-        plt.figure(figsize=(15, 5))
-        
         if self.isRGB():
-            for i, hist in enumerate(self.rgb_histogram):
+            CDF = []
+            
+            for i, hist in enumerate(histogram):
                 cdf = hist.cumsum()
-                cdf_normalized = cdf / cdf.max()
-                
-                channel = RGB_Channels[i]
-                plt.plot(cdf_normalized, color=channel)
-                plt.title(f"CDF of {channel} Channel")
-                plt.xlabel("Pixel Intensity")
-                plt.ylabel("Cumulative Probability")    
-        
+                cdf = cdf / cdf.max()
+                CDF.append(cdf)   
         else:
-            CDF = self.gray_histogram.cumsum()
-            normalized_CDF = CDF / CDF.max()     
-
-            plt.plot(cdf_normalized, color='black')
-            plt.title("Grayscale Image CDF")
-            plt.xlabel("Pixel Intensity")
-            plt.ylabel("Cumulative Probability")
-
-        plt.show()
+            CDF = histogram.cumsum()
+            CDF = CDF / CDF.max()
+            
+        self.__cdf = CDF
+        return CDF         
         
     def RGB2GRAY(self):
         """return a grayscale copy of a colored img

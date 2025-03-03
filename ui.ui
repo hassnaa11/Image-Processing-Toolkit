@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1258</width>
-    <height>965</height>
+    <width>1198</width>
+    <height>1163</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,7 +23,6 @@
    <string notr="true">background-color: rgb(46, 51, 73);
 background-color: rgb(242,243,247);
 background-color: rgb(219,222,230);
-
 
 </string>
   </property>
@@ -77,6 +76,7 @@ background-color: rgb(219,222,230);
     border-radius: 15px;  
     padding: 5px;
     font: italic 10pt &quot;Georgia&quot;;  
+
 }
 
 QTabBar::tab {
@@ -138,840 +138,355 @@ QTabWidget::pane {
           <attribute name="title">
            <string>Filter</string>
           </attribute>
-          <layout class="QHBoxLayout" name="horizontalLayout_9">
-           <item>
-            <layout class="QGridLayout" name="gridLayout">
-             <item row="4" column="1">
-              <widget class="QGraphicsView" name="output_histogram">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(255, 255, 255);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="2">
-              <widget class="QGraphicsView" name="distribution_curve">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(255, 255, 255);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QGraphicsView" name="input_histogram">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(255, 255, 255);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0" colspan="2">
-              <layout class="QHBoxLayout" name="horizontalLayout_8">
-               <item>
-                <widget class="QPushButton" name="upload_button">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>130</width>
-                   <height>38</height>
-                  </size>
-                 </property>
-                 <property name="cursor">
-                  <cursorShape>OpenHandCursor</cursorShape>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
-
-color: rgb(255, 255, 255);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                 </property>
-                 <property name="text">
-                  <string>Upload Image</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="gray_scale_button">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>100</width>
-                   <height>38</height>
-                  </size>
-                 </property>
-                 <property name="cursor">
-                  <cursorShape>OpenHandCursor</cursorShape>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
-
-color: rgb(255, 255, 255);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                 </property>
-                 <property name="text">
-                  <string>GrayScale</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="reset_button">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>100</width>
-                   <height>38</height>
-                  </size>
-                 </property>
-                 <property name="cursor">
-                  <cursorShape>OpenHandCursor</cursorShape>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
-color: rgb(255, 255, 255);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                 </property>
-                 <property name="text">
-                  <string>Reset</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
-             <item row="0" column="2" rowspan="3">
-              <widget class="QFrame" name="verticalFrame_3">
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <widget class="QPushButton" name="upload_button">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="maximumSize">
+               <property name="minimumSize">
                 <size>
-                 <width>600</width>
-                 <height>16777215</height>
+                 <width>130</width>
+                 <height>38</height>
                 </size>
                </property>
+               <property name="cursor">
+                <cursorShape>OpenHandCursor</cursorShape>
+               </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(6,131,116,255);
+                <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+               </property>
+               <property name="text">
+                <string>Upload Image</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="reset_button">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>38</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>OpenHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+               </property>
+               <property name="text">
+                <string>Reset</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+
+font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Input Image</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_7">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+
+font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Input Histogram</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_18">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+
+font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Input Distribution Curve</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QGraphicsView" name="input_image">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QFrame" name="input_histogram">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QFrame" name="input_distribution_curve">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3" rowspan="3">
+            <widget class="QFrame" name="verticalFrame_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>600</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(6,131,116,255);
 color: rgb(255, 255, 255);
 border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_3">
-                <item row="0" column="1">
-                 <layout class="QVBoxLayout" name="verticalLayout_12">
-                  <property name="bottomMargin">
-                   <number>10</number>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="1">
+               <spacer name="verticalSpacer_12">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="1" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <property name="bottomMargin">
+                 <number>10</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_6">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>MS Shell Dlg 2</family>
+                    <pointsize>10</pointsize>
+                    <weight>50</weight>
+                    <italic>false</italic>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Noise</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="noises_combobox">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QComboBox {
+background-color: rgb(219,222,230);
+    color: white;  /* Text color */
+color: rgb(2, 39, 35);
+
+    border-radius: 15px;  /* Rounded corners */
+    padding: 5px;
+    font: italic 10pt &quot;Georgia&quot;;
+}
+
+QComboBox::drop-down {
+    border: none;
+    border-radius: 10px;  /* Rounded corners for the arrow box */
+background-color: rgb(188, 191, 198);
+    width: 30px;
+}
+
+QComboBox::down-arrow {
+    width: 15px;
+    height: 15px;
+    color: white;  /* Arrow color */
+}
+
+QComboBox QAbstractItemView {
+ /* Selected item background color */
+selection-background-color: rgb(4, 79, 70);
+    background-color: rgb(169, 171, 178);;  /* Dropdown background color */
+    border-radius: 10px;
+}
+</string>
+                  </property>
+                  <property name="currentText">
+                   <string>select noise</string>
                   </property>
                   <item>
-                   <widget class="QLabel" name="label_6">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
+                   <property name="text">
+                    <string>select noise</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Uniform</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Gaussian</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Salt &amp; Pepper</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="uniform_layout_min">
+                  <item>
+                   <widget class="QLabel" name="min_range_label">
                     <property name="styleSheet">
                      <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
+font: 10pt &quot;MS Shell Dlg 2&quot;;
 border : 2px solid rgb(6,131,116,255);
-</string>
+font-weight: bold;</string>
                     </property>
                     <property name="text">
-                     <string>Noise</string>
+                     <string>Minimum Range: </string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="noises_combobox">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>16777215</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">QComboBox {
-background-color: rgb(219,222,230);
-    color: white;  /* Text color */
-color: rgb(2, 39, 35);
-
-    border-radius: 15px;  /* Rounded corners */
-    padding: 5px;
-    font: italic 10pt &quot;Georgia&quot;;
-}
-
-QComboBox::drop-down {
-    border: none;
-    border-radius: 10px;  /* Rounded corners for the arrow box */
-background-color: rgb(188, 191, 198);
-    width: 30px;
-}
-
-QComboBox::down-arrow {
-    width: 15px;
-    height: 15px;
-    color: white;  /* Arrow color */
-}
-
-QComboBox QAbstractItemView {
- /* Selected item background color */
-selection-background-color: rgb(4, 79, 70);
-    background-color: rgb(169, 171, 178);;  /* Dropdown background color */
-    border-radius: 10px;
-}
-</string>
-                    </property>
-                    <property name="currentText">
-                     <string>select noise</string>
-                    </property>
-                    <item>
-                     <property name="text">
-                      <string>select noise</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Uniform</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Gaussian</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Salt &amp; Pepper</string>
-                     </property>
-                    </item>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="uniform_layout_min">
-                    <item>
-                     <widget class="QLabel" name="min_range_label">
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-font-weight: bold;</string>
-                      </property>
-                      <property name="text">
-                       <string>Minimum Range: </string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="min_range_slider">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QSlider {
- 	border : 2px solid rgb(6,131,116,255);
-}
-QSlider::groove:horizontal {
-    height: 8px;
-   background: rgb(255,255,255); /* Lighter shade of the dark color */
-    border-radius: 4px;
-}
-
-QSlider::handle:horizontal {
-    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
-    border: 2px solid rgb(255,255,255); /* Matches groove */
-    width: 20px;
-    height: 20px;
-    margin: -6px 0;
-    border-radius: 10px;
-}
-
-QSlider::sub-page:horizontal {
-    background:rgb(161, 164, 171); /* Matches handle */
-    border-radius: 4px;
-}
-
-QSlider::add-page:horizontal {
-    background:  rgb(188, 191, 198); /* Matches groove */
-    border-radius: 4px;
-}
-</string>
-                      </property>
-                      <property name="minimum">
-                       <number>-200</number>
-                      </property>
-                      <property name="maximum">
-                       <number>0</number>
-                      </property>
-                      <property name="value">
-                       <number>-200</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_10">
-                    <item>
-                     <widget class="QLabel" name="max_range_label">
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-font-weight: bold;</string>
-                      </property>
-                      <property name="text">
-                       <string>Maximum Range: </string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="max_range_slider">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QSlider {
- 	border : 2px solid rgb(6,131,116,255);
-}
-QSlider::groove:horizontal {
-    height: 8px;
-   background: rgb(255,255,255); /* Lighter shade of the dark color */
-    border-radius: 4px;
-}
-
-QSlider::handle:horizontal {
-    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
-    border: 2px solid rgb(255,255,255); /* Matches groove */
-    width: 20px;
-    height: 20px;
-    margin: -6px 0;
-    border-radius: 10px;
-}
-
-QSlider::sub-page:horizontal {
-    background:rgb(161, 164, 171); /* Matches handle */
-    border-radius: 4px;
-}
-
-QSlider::add-page:horizontal {
-    background:  rgb(188, 191, 198); /* Matches groove */
-    border-radius: 4px;
-}
-</string>
-                      </property>
-                      <property name="minimum">
-                       <number>1</number>
-                      </property>
-                      <property name="maximum">
-                       <number>200</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_6">
-                    <item>
-                     <widget class="QLabel" name="mean_label">
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-font-weight: bold;</string>
-                      </property>
-                      <property name="text">
-                       <string>Mean:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="mean_slider">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QSlider {
- 	border : 2px solid rgb(6,131,116,255);
-}
-QSlider::groove:horizontal {
-    height: 8px;
-   background: rgb(255,255,255); /* Lighter shade of the dark color */
-    border-radius: 4px;
-}
-
-QSlider::handle:horizontal {
-    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
-    border: 2px solid rgb(255,255,255); /* Matches groove */
-    width: 20px;
-    height: 20px;
-    margin: -6px 0;
-    border-radius: 10px;
-}
-
-QSlider::sub-page:horizontal {
-    background:rgb(161, 164, 171); /* Matches handle */
-    border-radius: 4px;
-}
-
-QSlider::add-page:horizontal {
-    background:  rgb(188, 191, 198); /* Matches groove */
-    border-radius: 4px;
-}
-</string>
-                      </property>
-                      <property name="minimum">
-                       <number>-100</number>
-                      </property>
-                      <property name="maximum">
-                       <number>100</number>
-                      </property>
-                      <property name="value">
-                       <number>-100</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_11">
-                    <item>
-                     <widget class="QLabel" name="sigma_label">
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-font-weight: bold;</string>
-                      </property>
-                      <property name="text">
-                       <string>Sigma:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="sigma_slider">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QSlider {
- 	border : 2px solid rgb(6,131,116,255);
-}
-QSlider::groove:horizontal {
-    height: 8px;
-   background: rgb(255,255,255); /* Lighter shade of the dark color */
-    border-radius: 4px;
-}
-
-QSlider::handle:horizontal {
-    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
-    border: 2px solid rgb(255,255,255); /* Matches groove */
-    width: 20px;
-    height: 20px;
-    margin: -6px 0;
-    border-radius: 10px;
-}
-
-QSlider::sub-page:horizontal {
-    background:rgb(161, 164, 171); /* Matches handle */
-    border-radius: 4px;
-}
-
-QSlider::add-page:horizontal {
-    background:  rgb(188, 191, 198); /* Matches groove */
-    border-radius: 4px;
-}
-</string>
-                      </property>
-                      <property name="minimum">
-                       <number>1</number>
-                      </property>
-                      <property name="maximum">
-                       <number>100</number>
-                      </property>
-                      <property name="value">
-                       <number>1</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <widget class="QSplitter" name="splitter">
-                    <property name="styleSheet">
-                     <string notr="true">border : 0px solid rgb(255, 255, 255); </string>
-                    </property>
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_7">
-                    <item>
-                     <widget class="QLabel" name="probability_label">
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-font-weight: bold;</string>
-                      </property>
-                      <property name="text">
-                       <string>Probability:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="probability_slider">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QSlider {
- 	border : 2px solid rgb(6,131,116,255);
-}
-QSlider::groove:horizontal {
-    height: 8px;
-   background: rgb(255,255,255); /* Lighter shade of the dark color */
-    border-radius: 4px;
-}
-
-QSlider::handle:horizontal {
-    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
-    border: 2px solid rgb(255,255,255); /* Matches groove */
-    width: 20px;
-    height: 20px;
-    margin: -6px 0;
-    border-radius: 10px;
-}
-
-QSlider::sub-page:horizontal {
-    background:rgb(161, 164, 171); /* Matches handle */
-    border-radius: 4px;
-}
-
-QSlider::add-page:horizontal {
-    background:  rgb(188, 191, 198); /* Matches groove */
-    border-radius: 4px;
-}
-</string>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>10</number>
-                      </property>
-                      <property name="value">
-                       <number>0</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_13">
-                    <item>
-                     <widget class="QLabel" name="ratio_label">
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-font-weight: bold;</string>
-                      </property>
-                      <property name="text">
-                       <string>Salt to Pepper Ratio:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="ratio_slider">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QSlider {
- 	border : 2px solid rgb(6,131,116,255);
-}
-QSlider::groove:horizontal {
-    height: 8px;
-   background: rgb(255,255,255); /* Lighter shade of the dark color */
-    border-radius: 4px;
-}
-
-QSlider::handle:horizontal {
-    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
-    border: 2px solid rgb(255,255,255); /* Matches groove */
-    width: 20px;
-    height: 20px;
-    margin: -6px 0;
-    border-radius: 10px;
-}
-
-QSlider::sub-page:horizontal {
-    background:rgb(161, 164, 171); /* Matches handle */
-    border-radius: 4px;
-}
-
-QSlider::add-page:horizontal {
-    background:  rgb(188, 191, 198); /* Matches groove */
-    border-radius: 4px;
-}
-</string>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>10</number>
-                      </property>
-                      <property name="value">
-                       <number>0</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_9">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-</string>
-                    </property>
-                    <property name="text">
-                     <string>Filter</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="filters_combobox">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>16777215</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">QComboBox {
-background-color: rgb(219,222,230);
-    color: white;  /* Text color */
-color: rgb(2, 39, 35);
-
-    border-radius: 15px;  /* Rounded corners */
-    padding: 5px;
-    font: italic 10pt &quot;Georgia&quot;;
-}
-
-QComboBox::drop-down {
-    border: none;
-    border-radius: 10px;  /* Rounded corners for the arrow box */
-background-color: rgb(188, 191, 198);
-    width: 30px;
-}
-
-QComboBox::down-arrow {
-    width: 15px;
-    height: 15px;
-    color: white;  /* Arrow color */
-}
-
-QComboBox QAbstractItemView {
- /* Selected item background color */
-selection-background-color: rgb(4, 79, 70);
-    background-color: rgb(169, 171, 178);;  /* Dropdown background color */
-    border-radius: 10px;
-}
-</string>
-                    </property>
-                    <item>
-                     <property name="text">
-                      <string>select filter</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Average</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Gaussian </string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Median</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Low-Pass Filter</string>
-                     </property>
-                    </item>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_11">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);</string>
-                    </property>
-                    <property name="text">
-                     <string>Edge Detection</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="edge_filters_combobox">
+                   <widget class="QSlider" name="min_range_slider">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -980,192 +495,12 @@ border : 2px solid rgb(6,131,116,255);</string>
                     </property>
                     <property name="minimumSize">
                      <size>
-                      <width>0</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>16777215</width>
-                      <height>30</height>
+                      <width>200</width>
+                      <height>0</height>
                      </size>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true">QComboBox {
-background-color: rgb(219,222,230);
-    color: white;  /* Text color */
-color: rgb(2, 39, 35);
-
-    border-radius: 15px;  /* Rounded corners */
-    padding: 5px;
-    font: italic 10pt &quot;Georgia&quot;;
-}
-
-QComboBox::drop-down {
-    border: none;
-    border-radius: 10px;  /* Rounded corners for the arrow box */
-background-color: rgb(188, 191, 198);
-    width: 30px;
-}
-
-QComboBox::down-arrow {
-    width: 15px;
-    height: 15px;
-    color: white;  /* Arrow color */
-}
-
-QComboBox QAbstractItemView {
- /* Selected item background color */
-selection-background-color: rgb(4, 79, 70);
-    background-color: rgb(169, 171, 178);;  /* Dropdown background color */
-    border-radius: 10px;
-}
-</string>
-                    </property>
-                    <item>
-                     <property name="text">
-                      <string>select edge detection filter</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Sobel</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Roberts</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Prewitt</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Canny</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>High-Pass Filter</string>
-                     </property>
-                    </item>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_10">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);</string>
-                    </property>
-                    <property name="text">
-                     <string>Threshold</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="threshold_combobox">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>16777215</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">QComboBox {
-background-color: rgb(219,222,230);
-    color: white;  /* Text color */
-color: rgb(2, 39, 35);
-
-    border-radius: 15px;  /* Rounded corners */
-    padding: 5px;
-    font: italic 10pt &quot;Georgia&quot;;
-}
-
-QComboBox::drop-down {
-    border: none;
-    border-radius: 10px;  /* Rounded corners for the arrow box */
-background-color: rgb(188, 191, 198);
-    width: 30px;
-}
-
-QComboBox::down-arrow {
-    width: 15px;
-    height: 15px;
-    color: white;  /* Arrow color */
-}
-
-QComboBox QAbstractItemView {
- /* Selected item background color */
-selection-background-color: rgb(4, 79, 70);
-    background-color: rgb(169, 171, 178);;  /* Dropdown background color */
-    border-radius: 10px;
-}
-</string>
-                    </property>
-                    <item>
-                     <property name="text">
-                      <string>select thresholding type</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Local</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Global</string>
-                     </property>
-                    </item>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_15">
-                    <item>
-                     <widget class="QLabel" name="kernel_size_label">
-                      <property name="styleSheet">
-                       <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-font-weight: bold;</string>
-                      </property>
-                      <property name="text">
-                       <string>Kernel Size:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSlider" name="kernel_size_slider">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QSlider {
+                     <string notr="true">QSlider {
  	border : 2px solid rgb(6,131,116,255);
 }
 QSlider::groove:horizontal {
@@ -1193,350 +528,1048 @@ QSlider::add-page:horizontal {
     border-radius: 4px;
 }
 </string>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>2</number>
-                      </property>
-                      <property name="singleStep">
-                       <number>1</number>
-                      </property>
-                      <property name="value">
-                       <number>0</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                    </property>
+                    <property name="minimum">
+                     <number>-200</number>
+                    </property>
+                    <property name="maximum">
+                     <number>0</number>
+                    </property>
+                    <property name="value">
+                     <number>-200</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <item>
+                   <widget class="QLabel" name="max_range_label">
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                    </property>
+                    <property name="text">
+                     <string>Maximum Range: </string>
+                    </property>
+                   </widget>
                   </item>
                   <item>
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
+                   <widget class="QSlider" name="max_range_slider">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
                     </property>
-                    <property name="sizeHint" stdset="0">
+                    <property name="minimumSize">
                      <size>
-                      <width>20</width>
-                      <height>10</height>
+                      <width>200</width>
+                      <height>0</height>
                      </size>
                     </property>
-                   </spacer>
+                    <property name="styleSheet">
+                     <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>200</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                  <item>
+                   <widget class="QLabel" name="mean_label">
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                    </property>
+                    <property name="text">
+                     <string>Mean:</string>
+                    </property>
+                   </widget>
                   </item>
                   <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_18">
-                    <item>
-                     <widget class="QPushButton" name="normalization_button">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="cursor">
-                       <cursorShape>OpenHandCursor</cursorShape>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+                   <widget class="QSlider" name="mean_slider">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                    </property>
+                    <property name="minimum">
+                     <number>-100</number>
+                    </property>
+                    <property name="maximum">
+                     <number>100</number>
+                    </property>
+                    <property name="value">
+                     <number>-100</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_11">
+                  <item>
+                   <widget class="QLabel" name="sigma_label">
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                    </property>
+                    <property name="text">
+                     <string>Sigma:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="sigma_slider">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>100</number>
+                    </property>
+                    <property name="value">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <widget class="QLabel" name="probability_label">
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                    </property>
+                    <property name="text">
+                     <string>Probability:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="probability_slider">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>10</number>
+                    </property>
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_13">
+                  <item>
+                   <widget class="QLabel" name="ratio_label">
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                    </property>
+                    <property name="text">
+                     <string>Salt to Pepper Ratio:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="ratio_slider">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>10</number>
+                    </property>
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_10">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_9">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Filter</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="filters_combobox">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QComboBox {
+background-color: rgb(219,222,230);
+    color: white;  /* Text color */
+color: rgb(2, 39, 35);
+
+    border-radius: 15px;  /* Rounded corners */
+    padding: 5px;
+    font: italic 10pt &quot;Georgia&quot;;
+}
+
+QComboBox::drop-down {
+    border: none;
+    border-radius: 10px;  /* Rounded corners for the arrow box */
+background-color: rgb(188, 191, 198);
+    width: 30px;
+}
+
+QComboBox::down-arrow {
+    width: 15px;
+    height: 15px;
+    color: white;  /* Arrow color */
+}
+
+QComboBox QAbstractItemView {
+ /* Selected item background color */
+selection-background-color: rgb(4, 79, 70);
+    background-color: rgb(169, 171, 178);;  /* Dropdown background color */
+    border-radius: 10px;
+}
+</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>select filter</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Average</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Gaussian </string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Median</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Low-Pass Filter</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_5">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_11">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Edge Detection</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="edge_filters_combobox">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QComboBox {
+background-color: rgb(219,222,230);
+    color: white;  /* Text color */
+color: rgb(2, 39, 35);
+
+    border-radius: 15px;  /* Rounded corners */
+    padding: 5px;
+    font: italic 10pt &quot;Georgia&quot;;
+}
+
+QComboBox::drop-down {
+    border: none;
+    border-radius: 10px;  /* Rounded corners for the arrow box */
+background-color: rgb(188, 191, 198);
+    width: 30px;
+}
+
+QComboBox::down-arrow {
+    width: 15px;
+    height: 15px;
+    color: white;  /* Arrow color */
+}
+
+QComboBox QAbstractItemView {
+ /* Selected item background color */
+selection-background-color: rgb(4, 79, 70);
+    background-color: rgb(169, 171, 178);;  /* Dropdown background color */
+    border-radius: 10px;
+}
+</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>select edge detection filter</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Sobel</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Roberts</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Prewitt</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Canny</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>High-Pass Filter</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_8">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::MinimumExpanding</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_10">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Threshold</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="threshold_combobox">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QComboBox {
+background-color: rgb(219,222,230);
+    color: white;  /* Text color */
+color: rgb(2, 39, 35);
+
+    border-radius: 15px;  /* Rounded corners */
+    padding: 5px;
+    font: italic 10pt &quot;Georgia&quot;;
+}
+
+QComboBox::drop-down {
+    border: none;
+    border-radius: 10px;  /* Rounded corners for the arrow box */
+background-color: rgb(188, 191, 198);
+    width: 30px;
+}
+
+QComboBox::down-arrow {
+    width: 15px;
+    height: 15px;
+    color: white;  /* Arrow color */
+}
+
+QComboBox QAbstractItemView {
+ /* Selected item background color */
+selection-background-color: rgb(4, 79, 70);
+    background-color: rgb(169, 171, 178);;  /* Dropdown background color */
+    border-radius: 10px;
+}
+</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>select thresholding type</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Local</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Global</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_15">
+                  <item>
+                   <widget class="QLabel" name="kernel_size_label">
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                    </property>
+                    <property name="text">
+                     <string>Kernel Size:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="kernel_size_slider">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>2</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_9">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_6">
+                  <item>
+                   <widget class="QPushButton" name="equalization_button">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>OpenHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
 background-color: rgb(219,222,230);
 color: rgb(255, 255, 255);
 color: rgb(2, 39, 35);
 
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                      </property>
-                      <property name="text">
-                       <string>Normalize</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="equalization_button">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="cursor">
-                       <cursorShape>OpenHandCursor</cursorShape>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+border-radius: 10px;
+margin-bottom: 10px;</string>
+                    </property>
+                    <property name="text">
+                     <string>Equalize</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="normalization_button">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>OpenHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
 background-color: rgb(219,222,230);
 color: rgb(255, 255, 255);
 color: rgb(2, 39, 35);
 
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                      </property>
-                      <property name="text">
-                       <string>Equalize</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+border-radius: 10px;
+margin-bottom: 10px;</string>
+                    </property>
+                    <property name="text">
+                     <string>Normalize</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="gray_scale_button">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>100</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>OpenHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;
+margin-bottom: 10px;</string>
+                    </property>
+                    <property name="text">
+                     <string>GrayScale</string>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
                </layout>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(255, 255, 255);
+              </item>
+              <item row="2" column="1">
+               <spacer name="verticalSpacer_11">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
 color: rgb(2, 39, 35);
-
 font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
-               </property>
-               <property name="text">
-                <string>Input Image</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="label_4">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
-               </property>
-               <property name="text">
-                <string>Output Image</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QGraphicsView" name="input_image">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(255, 255, 255);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <layout class="QHBoxLayout" name="horizontalLayout_19">
-               <item>
-                <widget class="QLabel" name="label_8">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(255, 255, 255);
+             </property>
+             <property name="text">
+              <string>Output Image</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="label_8">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
 font: 9pt &quot;MS Shell Dlg 2&quot;;
 color: rgb(2, 39, 35);
 </string>
-                 </property>
-                 <property name="text">
-                  <string>Output Histogram</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QRadioButton" name="red_histogram">
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(2, 39, 35);</string>
-                 </property>
-                 <property name="text">
-                  <string>Red</string>
-                 </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QRadioButton" name="green_histogram">
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(2, 39, 35);</string>
-                 </property>
-                 <property name="text">
-                  <string>Green</string>
-                 </property>
-                 <property name="checked">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QRadioButton" name="blue_histogram">
-                 <property name="font">
-                  <font>
-                   <family>MS Shell Dlg 2</family>
-                   <pointsize>8</pointsize>
-                   <weight>50</weight>
-                   <italic>false</italic>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(2, 39, 35);</string>
-                 </property>
-                 <property name="text">
-                  <string>Blue</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="2" column="1">
-              <widget class="QGraphicsView" name="output_image">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(37, 42, 64);
+             </property>
+             <property name="text">
+              <string>Output Histogram</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="label_16">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+
+font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Output Distribution Curve</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QGraphicsView" name="output_image">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
 background-color: rgb(255, 255, 255);
 border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_7">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-
-font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
-               </property>
-               <property name="text">
-                <string>Input Histogram</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <layout class="QHBoxLayout" name="horizontalLayout_24">
-               <item>
-                <widget class="QLabel" name="label_13">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-
-font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
-                 </property>
-                 <property name="text">
-                  <string>Distribution Curve</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_3">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QRadioButton" name="red_cdf">
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(2, 39, 35);</string>
-                 </property>
-                 <property name="text">
-                  <string>Red</string>
-                 </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QRadioButton" name="green_cdf">
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(2, 39, 35);</string>
-                 </property>
-                 <property name="text">
-                  <string>Green</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QRadioButton" name="blue_cdf">
-                 <property name="font">
-                  <font>
-                   <family>MS Shell Dlg 2</family>
-                   <pointsize>8</pointsize>
-                   <weight>50</weight>
-                   <italic>false</italic>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(2, 39, 35);</string>
-                 </property>
-                 <property name="text">
-                  <string>Blue</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QFrame" name="output_histogram">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QFrame" name="output_distribution_curve">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -1545,18 +1578,6 @@ color: rgb(2, 39, 35);</string>
            <string>Hybrid</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_2">
-             <property name="styleSheet">
-              <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(2, 39, 35);</string>
-             </property>
-             <property name="text">
-              <string>First Output</string>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="1">
             <widget class="QLabel" name="label_3">
              <property name="styleSheet">
@@ -1566,18 +1587,6 @@ color: rgb(2, 39, 35);</string>
              </property>
              <property name="text">
               <string>Second Output</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QGraphicsView" name="input1_image">
-             <property name="styleSheet">
-              <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(255, 255, 255);
-
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
              </property>
             </widget>
            </item>
@@ -1602,6 +1611,78 @@ color: rgb(2, 39, 35);</string>
              </property>
              <property name="text">
               <string>First Input </string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QGraphicsView" name="input1_image">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(255, 255, 255);
+
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
+font: 9pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(2, 39, 35);</string>
+             </property>
+             <property name="text">
+              <string>First Output</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_14">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
+font: 9pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(2, 39, 35);</string>
+             </property>
+             <property name="text">
+              <string>Hybrid Image</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2" rowspan="3">
+            <widget class="QGraphicsView" name="hybrid_image">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(255, 255, 255);
+
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QGraphicsView" name="output2_image">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(255, 255, 255);
+
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
              </property>
             </widget>
            </item>
@@ -1643,54 +1724,6 @@ color: rgb(2, 39, 35);</string>
            </item>
            <item row="2" column="1">
             <widget class="QGraphicsView" name="input2_image">
-             <property name="styleSheet">
-              <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(255, 255, 255);
-
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2" rowspan="3">
-            <widget class="QGraphicsView" name="hybrid_image">
-             <property name="styleSheet">
-              <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(255, 255, 255);
-
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_14">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>100</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(2, 39, 35);</string>
-             </property>
-             <property name="text">
-              <string>Hybrid Image</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QGraphicsView" name="output2_image">
              <property name="styleSheet">
               <string notr="true">background-color: rgb(37, 42, 64);
 background-color: rgb(255, 255, 255);
