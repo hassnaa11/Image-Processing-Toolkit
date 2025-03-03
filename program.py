@@ -20,6 +20,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # upload buttons
         self.original_image: Image = None
+
         self.upload_button.clicked.connect(lambda:self.upload_image(1))
         self.input1_button.clicked.connect(lambda:self.upload_image(2))
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
@@ -65,7 +66,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # convert to grayscale
         self.gray_scale_button.clicked.connect(self.convert_to_grayscale)
-        self.is_gray_scale = False
+        #self.is_gray_scale = False
         
         
     def upload_image(self, key):  
@@ -258,21 +259,34 @@ class MainWindow(QtWidgets.QMainWindow):
         self.display_histogram(self.img, "out")
         self.display_cdf(self.img, "out")
     
-    def convert_to_grayscale(self):
-        modified_image = np.copy(self.original_image)
-        filter_processor = FilterProcessor(modified_image)
-        self.is_gray_scale = not self.is_gray_scale
+    # def convert_to_grayscale(self):
+    #     modified_image: Image = np.copy(self.original_image)
+    #     filter_processor = FilterProcessor(modified_image)
+    #     #self.is_gray_scale = not self.is_gray_scale
         
-        if self.is_gray_scale:
-            self.rgb_image = np.copy(self.original_image)
-            self.gray_scale_button.setText("Original") 
-            modified_image = filter_processor.rgb_to_grayscale()
-        else: 
-            self.gray_scale_button.setText("GrayScale") 
-            modified_image = np.copy(self.rgb_image)
+    #     if modified_image.is_RGB():
+    #         self.rgb_image = np.copy(self.original_image)
+    #         self.gray_scale_button.setText("Original") 
+    #         #modified_image = filter_processor.rgb_to_grayscale()
+    #         modified_image.rgb2gray()
+    #     else: 
+    #         self.gray_scale_button.setText("GrayScale") 
+    #         modified_image = np.copy(self.rgb_image)
 
-        self.original_image = np.copy(modified_image)
-        self.apply_changes(type="filters")
+    #     self.original_image = np.copy(modified_image)
+    #     self.apply_changes(type="filters")
+        
+    def convert_to_grayscale(self):
+        modified_image: Image = np.copy(self.original_image)
+        
+        if modified_image.is_RGB():
+            modified_image.rgb2gray()
+            self.display_histogram(modified_image, "out")
+            self.display_cdf(modified_image, "out")
+            
+        else:
+            print("Image is already grayscale")
+            return       
    
         
     def change_kernel(self):

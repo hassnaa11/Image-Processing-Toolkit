@@ -14,24 +14,19 @@ class Image:
         self.image = None
         self.image_path = None
     
-    def read_image(self, path, force_gray = False):
-        self.image_path = path
-                
-        if force_gray:
-            # Read directly as grayscale
-            self.image = cv2.imread(self.image_path, cv2.IMREAD_GRAYSCALE)
-            print("Image forced to grayscale")
-        else:
-            # First read normally
-            self.image = cv2.imread(self.image_path)
+    def read_image(self, path):
+        self.image_path = path    
+        self.image = cv2.imread(self.image_path)
             
-            # Convert BGR to RGB if image has 3 channels
-            if self.is_RGB():
-                self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
-                print("RGB image read")
-            else:
-                print("Grayscale image read")    
+        # Convert BGR to RGB if image has 3 channels
+        if self.is_RGB():
+            self.image = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+            print("RGB image read")
+        else:
+            self.image = cv2.imread(self.image_path, cv2.IMREAD_GRAYSCALE)
+            print("Grayscale image read")    
 
+    
     def is_RGB(self):
         """checks if an image is colored or grayscale"""
         if len(self.image.shape) == 3 and self.image.shape[2] == 3:
@@ -179,4 +174,10 @@ class Image:
         return canvas 
     
     def get_cdf_canvas(self):
-        return self.__cdf_canvas   
+        return self.__cdf_canvas
+    
+    def rgb2gray(self):
+        if self.is_RGB():
+            self.image = cv2.cvtColor(self.image, cv2.COLOR_RGB2GRAY)
+            print("RGB image converted to gray")
+        else: print("Image is already in grayscale")       
