@@ -20,7 +20,6 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # upload buttons
         self.original_image: Image = None
-        self.output_image: Image = None
         self.upload_button.clicked.connect(lambda:self.upload_image(1))
         self.input1_button.clicked.connect(lambda:self.upload_image(2))
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
