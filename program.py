@@ -9,6 +9,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from Image import Image
 from image_processor import FilterProcessor, NoiseAdder , edge_detection , thresholding
+from typing import Dict, List
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
 Color =('r', 'g', 'b')
@@ -17,6 +18,9 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         uic.loadUi('ui.ui', self)
+        
+        self.database:Dict [str: Image] = {}
+        self.curr_grayscale_img: List = None
         
         # upload buttons
         self.original_image: Image = None
@@ -77,9 +81,10 @@ class MainWindow(QtWidgets.QMainWindow):
             self.img = Image()
             
             self.img.read_image(self.file_path)
-            self.noisy_image = Image()  # shelehom ya eman ma3lsh
-            self.noisy_image.read_image(self.file_path)
+            # self.noisy_image = Image()  # shelehom ya eman ma3lsh
+            # self.noisy_image.read_image(self.file_path)
             self.original_image = np.copy(self.img.image)
+            self.input_image: Image= self.img
             
             scene = self.img.display_image()
             if key == 1:
@@ -186,14 +191,14 @@ class MainWindow(QtWidgets.QMainWindow):
                 print(modified_image)
                 modified_image =  thresholding_processor.apply_threshold(thresholding_type)
 
-            self.img.image = modified_image
+            self.output_image = self.img.image = modified_image
             
-            scene = self.img.display_image()
+            scene = self.output_image.display_image()
             self.output_image.setScene(scene) 
             self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             
-            self.display_histogram(self.img, "out")
-            self.display_cdf(self.img, "out")
+            self.display_histogram(self.output_image, "out")
+            self.display_cdf(self.output_image, "out")
         
     def normalize_image(self):
         
@@ -213,14 +218,14 @@ class MainWindow(QtWidgets.QMainWindow):
         normalized_image = normalized_image.astype(np.uint8)
         
         #display the normalized image
-        self.img.image = normalized_image
+        self.output_image = self.img.image = normalized_image
         
-        scene = self.img.display_image()
+        scene = self.output_image.display_image()
         self.output_image.setScene(scene) 
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         
-        self.display_histogram(self.img, "out")
-        self.display_cdf(self.img, "out") 
+        self.display_histogram(self.output_image, "out")
+        self.display_cdf(self.output_image, "out") 
     
     def get_noise_parameters(self, selected_noise):
         self.show_hide_parameters(selected_noise)
@@ -251,13 +256,13 @@ class MainWindow(QtWidgets.QMainWindow):
         modified_image = np.copy(self.original_image)
         filter_processor = FilterProcessor(modified_image)
         modified_image = filter_processor.histogram_equalization()
-        self.img.image = modified_image
+        self.output_image = self.img.image = modified_image
         scene = self.img.display_image()
         self.output_image.setScene(scene) 
         self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
 
-        self.display_histogram(self.img, "out")
-        self.display_cdf(self.img, "out")
+        self.display_histogram(self.output_image, "out")
+        self.display_cdf(self.output_image, "out")
     
     # def convert_to_grayscale(self):
     #     modified_image: Image = np.copy(self.original_image)
@@ -276,18 +281,19 @@ class MainWindow(QtWidgets.QMainWindow):
     #     self.original_image = np.copy(modified_image)
     #     self.apply_changes(type="filters")
         
-    def convert_to_grayscale(self):
-        modified_image: Image = np.copy(self.original_image)
+    def convert_to_grayscale(self, view_port: str):
+        if view_port=="in": image: Image = self.input_image
+        else : image: Image = self.output_image
         
-        if modified_image.is_RGB():
-            modified_image.rgb2gray()
-            self.display_histogram(modified_image, "out")
-            self.display_cdf(modified_image, "out")
+        if image.is_RGB():
+            rgb_image: Image = np.copy(image)
+            self.database
+            image.rgb2gray()
+            self.display_histogram(image, "out")
+            self.display_cdf(image, "out")
             
-        else:
-            print("Image is already grayscale")
-            return       
-   
+        else: print("Image is already grayscale")
+           
         
     def change_kernel(self):
         self.kernel_index = self.kernel_size_slider.value()
