@@ -10,19 +10,19 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from Image import Image
 from typing import Dict, List
 from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder, edge_detection, thresholding
+
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
 Color =('r', 'g', 'b')
 filters = ['Average','Gaussian','Median','select filter']
 edge_detection_filters = ['Sobel', 'Roberts', 'Prewitt', 'Canny']
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         uic.loadUi('ui.ui', self)
         
         self.database: List[Image] = []
-        
-        self.ID_counter = 0
         # upload buttons
         self.original_image: Image = None
 
