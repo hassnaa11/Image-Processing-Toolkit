@@ -252,7 +252,7 @@ class MainWindow(QtWidgets.QMainWindow):
             modified_image = np.copy(self.original_input2)
             
             if filter_type == 'Low-Pass Frequency Domain' or filter_type == 'High-Pass Frequency Domain':
-                filter_processor = FilterProcessor(modified_image)
+                filter_processor = FrequencyFilterProcessor(modified_image)
                 modified_image = filter_processor.apply_frequency_filter(0.5, filter_type)
             elif filter_type in filters:
                 filter_processor = FilterProcessor(modified_image)
