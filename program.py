@@ -102,8 +102,8 @@ class MainWindow(QtWidgets.QMainWindow):
             scene = self.img.display_image()
             
             if key == 1: # upload in filter tap
-                self.input_image.setScene(scene)
-                self.input_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+                self.input_image_frame.setScene(scene)
+                self.input_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
                 self.noises_combobox.setDisabled(False)
                 self.filters_combobox.setDisabled(False)
                 self.edge_filters_combobox.setDisabled(False)
@@ -227,8 +227,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.output_image = self.img.image = modified_image
             
             scene = self.output_image.display_image()
-            self.output_image.setScene(scene) 
-            self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+            self.output_image_frame.setScene(scene) 
+            self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             
             self.display_histogram(self.output_image, "out")
             self.display_cdf(self.output_image, "out")
@@ -306,8 +306,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         
         scene = self.output_image.display_image()
-        self.output_image.setScene(scene) 
-        self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        self.output_image_frame.setScene(scene) 
+        self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         
         self.display_histogram(self.output_image, "out")
         self.display_cdf(self.output_image, "out") 
@@ -348,8 +348,8 @@ class MainWindow(QtWidgets.QMainWindow):
         modified_image = filter_processor.histogram_equalization()
         self.output_image = self.img.image = modified_image
         scene = self.img.display_image()
-        self.output_image.setScene(scene) 
-        self.output_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+        self.output_image_frame.setScene(scene) 
+        self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
 
         self.display_histogram(self.output_image, "out")
         self.display_cdf(self.output_image, "out")
@@ -498,9 +498,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.filters_combobox.setDisabled(True)
             self.edge_filters_combobox.setDisabled(True)
             self.threshold_combobox.setDisabled(True)
-            self.input_image.scene().clear()
-            if self.output_image.scene() is not None:
-                self.output_image.scene().clear()
+            self.input_image_frame.scene().clear()
+            if self.output_image_frame.scene() is not None:
+                self.output_image_frame.scene().clear()
 
 
 if __name__ == "__main__":
