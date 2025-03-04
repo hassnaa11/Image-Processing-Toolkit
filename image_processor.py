@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 from PyQt5.QtGui import *
-import cv2
-#from Image import Image
 
 class NoiseAdder:
     def __init__(self, image_array):
@@ -60,13 +58,14 @@ class FilterProcessor:
                
         elif selected_filter == 'Average':
             average_kernel = np.ones(shape=(kernel_size, kernel_size))/ (kernel_size * kernel_size)
-            filtered_image = cv2.filter2D(self.image_array,-1, average_kernel)
-            # filtered_image  = cv2.blur(image_array, (3,3))
-
+            filtered_image = self.apply_kernel(average_kernel, kernel_size)
+            # filtered_image = cv2.filter2D(self.image_array,-1, average_kernel) 
+            # filtered_image  = cv2.blur(image_array, (3,3))  # opencv filter method
+        
         elif selected_filter == 'Gaussian ':
             gaussian_kernel = self.get_gaussian_kernel(kernel_size)
-            filtered_image = cv2.filter2D(self.image_array,-1, gaussian_kernel)
-            # filtered_image = cv2.GaussianBlur(image_array, (5,5), 0)
+            filtered_image = self.apply_kernel(gaussian_kernel, kernel_size) 
+            # filtered_image = cv2.filter2D(self.image_array,-1, average_kernel)
                     
         elif selected_filter == 'Median':
             pad_size = kernel_size // 2
@@ -80,11 +79,37 @@ class FilterProcessor:
                 for j in range(self.image_array.shape[1]):
                     region = padded_image[i:i+kernel_size, j:j+kernel_size]
                     filtered_image[i, j] = np.median(region, axis=(0, 1))   
-            # filtered_image = cv2.medianBlur(image_array, 5)
-        elif selected_filter == 'Low-Pass Filter':
-            kernel = np.ones((kernel_size, kernel_size), np.float32) / (kernel_size ** 2)
-            filtered_image = cv2.filter2D(self.image_array, -1, kernel)
+            # filtered_image = cv2.medianBlur(image_array, 5)   # opencv filter method
+        
         return filtered_image   
+    
+    
+    def apply_kernel(self, kernel, kernel_size):
+        pad_size = kernel_size // 2
+
+        # Handle padding for grayscale and RGB images
+        if len(self.image_array.shape) == 2:  # Grayscale
+            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size)), mode='constant')
+            filtered_image = np.zeros_like(self.image_array, dtype=np.float32)
+
+            for i in range(self.image_array.shape[0]):
+                for j in range(self.image_array.shape[1]):
+                    region = padded_image[i:i+kernel_size, j:j+kernel_size]
+                    filtered_image[i, j] = np.sum(region * kernel)  # Summation added
+
+        else:  # RGB Image
+            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size), (0, 0)), mode='constant')
+            filtered_image = np.zeros_like(self.image_array, dtype=np.float32)
+
+            for i in range(self.image_array.shape[0]):
+                for j in range(self.image_array.shape[1]):
+                    for c in range(self.image_array.shape[2]):  # Loop over channels
+                        region = padded_image[i:i+kernel_size, j:j+kernel_size, c]
+                        filtered_image[i, j, c] = np.sum(region * kernel)  # Summation added
+
+        # Convert to uint8 
+        filtered_image = np.clip(filtered_image, 0, 255).astype(np.uint8)
+        return filtered_image
     
             
     def get_gaussian_kernel(self, kernel_size):
@@ -104,70 +129,65 @@ class FilterProcessor:
                 kernel[x][y] = (1 / (2 * np.pi * sigma**2)) * np.exp(-(x_shifted**2 + y_shifted**2) / (2 * sigma**2))
         
         kernel /= np.sum(kernel)
-        return kernel   
-import numpy as np
-from scipy import ndimage
+        return kernel  
 
 
-class HybridProcessor:
-    def __init__(self, image_array_1, image_array_2):
-        self.image_1 = image_array_1  # Original first image
-        self.image_2 = image_array_2  # Original second image
-        self.low_filtered = None
-        self.high_filtered = None
 
-    def apply_low_pass_filter(self, image, sigma=3):
-        """Apply Gaussian low-pass filter to image"""
-        return ndimage.gaussian_filter(image, sigma=sigma)
+class FrequencyFilterProcessor:
+    def __init__(self, image_array):
+        self.image_array = image_array
 
-    def apply_high_pass_filter(self, image, sigma=3):
-        """Apply high-pass filter by subtracting low-pass from original"""
-        low_pass = self.apply_low_pass_filter(image, sigma)
-        return image - low_pass
-
-    def hyprid(self, low_sigma=3, high_sigma=3):
-        """Apply low-pass filter to first image, high-pass filter to second image, and combine them"""
-        # Apply low-pass filter to the first image
-        self.low_filtered = self.apply_low_pass_filter(self.image_1, sigma=low_sigma)
-
-        # Apply high-pass filter to the second image
-        self.high_filtered = self.apply_high_pass_filter(self.image_2, sigma=high_sigma)
-
-        # Combine the filtered images to create the hybrid image
-        hybrid_image = self.low_filtered + self.high_filtered
-
-        # Ensure pixel values are within valid range (0-255 for 8-bit images)
-        hybrid_image = np.clip(hybrid_image, 0, 255).astype(np.uint8)
-
-        return hybrid_image
+    def frequency_filter(self, cutoff, filter_type='Low-Pass Frequency Domain'):
+        rows, cols = self.image_array.shape
+        crow, ccol = rows // 2, cols // 2  # Center of the frequency domain
         
+        # Create meshgrid of distances from the center
+        u = np.arange(rows) - crow
+        v = np.arange(cols) - ccol
+        U, V = np.meshgrid(v, u)
+        D = np.sqrt(U**2 + V**2)  # Distance matrix
+        
+        # Normalize the cutoff frequency to pixel units
+        D0 = cutoff * min(rows, cols) / 2  
+        
+        if filter_type == 'Low-Pass Frequency Domain':
+            filter_mask = (D <= D0).astype(np.float32)
+        elif filter_type == 'High-Pass Frequency Domain':
+            filter_mask = (D > D0).astype(np.float32)
+        
+        return filter_mask
+
+
+    def apply_frequency_filter(self, cutoff, filter_type='Low-Pass Frequency Domain'):
+        is_rgb = len(self.image_array.shape) == 3 and self.image_array.shape[2] == 3
+        
+        if is_rgb:
+            # Split channels
+            channels = cv2.split(self.image_array)
+            filtered_channels = [FrequencyFilterProcessor(ch).apply_frequency_filter(cutoff, filter_type) for ch in channels]
+            return cv2.merge(filtered_channels)
+        
+        # Convert image to float32
+        image = np.float32(self.image_array)
+        
+        # Compute FFT and shift zero frequency component to center
+        dft = np.fft.fft2(image)
+        dft_shift = np.fft.fftshift(dft)
+        
+        # Create the frequency filter
+        filter_mask = self.frequency_filter(cutoff, filter_type)
+        
+        # Apply filter in frequency domain
+        dft_filtered = dft_shift * filter_mask
+        
+        # Inverse FFT to get the filtered image
+        dft_ishift = np.fft.ifftshift(dft_filtered)
+        filtered_image = np.fft.ifft2(dft_ishift)
+        filtered_image = np.abs(filtered_image)
+        
+        return np.uint8(cv2.normalize(filtered_image, None, 0, 255, cv2.NORM_MINMAX))
     
-    def histogram_equalization(self):
-        # flatten the image to 1D array
-        flat_image = self.image_array.flatten()
-        
-        # compute histogram
-        hist, bins = np.histogram(flat_image, bins=256, range=[0,256])
-        
-        # compute CDF
-        cdf = hist.cumsum()
-        
-        # normalize the image to map the values between 0, 255
-        cdf_normalized = (cdf - cdf.min()) * 255 / (cdf.max() - cdf.min())
-        
-        # Use the normalized CDF as a lookup table
-        equalized_image = cdf_normalized[flat_image]
-        
-        # reshape back to original image shape
-        equalized_image = equalized_image.reshape(self.image_array.shape).astype(np.uint8)
-        
-        return equalized_image
     
-    
-    def rgb_to_grayscale(self):
-        # luminosity method
-        grayscale_image = np.dot(self.image_array[..., :3], [0.2989, 0.5870, 0.1140])
-        return grayscale_image.astype(np.uint8)
     
 class edge_detection:
     def __init__(self, image_array):
@@ -257,6 +277,7 @@ class edge_detection:
             processed_array = np.stack((edges,) * 3, axis=-1)
             
         return processed_array
+    
     
 class thresholding:
     def __init__(self, image_array):

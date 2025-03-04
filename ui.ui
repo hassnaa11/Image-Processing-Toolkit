@@ -1020,7 +1020,7 @@ selection-background-color: rgb(4, 79, 70);
                   </item>
                   <item>
                    <property name="text">
-                    <string>Low-Pass Filter</string>
+                    <string>Low-Pass Frequency Domain</string>
                    </property>
                   </item>
                  </widget>
@@ -1139,7 +1139,7 @@ selection-background-color: rgb(4, 79, 70);
                   </item>
                   <item>
                    <property name="text">
-                    <string>High-Pass Filter</string>
+                    <string>High-Pass Frequency Domain</string>
                    </property>
                   </item>
                  </widget>
@@ -1822,7 +1822,7 @@ border : 2px solid rgb(6,131,116,255);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="input2_combobox">
+                 <widget class="QComboBox" name="input1_combobox">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1869,12 +1869,52 @@ selection-background-color: rgb(4, 79, 70);
                   </property>
                   <item>
                    <property name="text">
-                    <string>High-Pass Filter</string>
+                    <string>select filter</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>Low-Pass Filter</string>
+                    <string>High-Pass Frequency Domain</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Low-Pass Frequency Domain</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Average</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Gaussian</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Median</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Sobel</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Roberts</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Prewitt</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Canny</string>
                    </property>
                   </item>
                  </widget>
@@ -1945,7 +1985,13 @@ border : 2px solid rgb(6,131,116,255);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="input1_combobox">
+                 <widget class="QComboBox" name="input2_combobox">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>30</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
@@ -1986,12 +2032,52 @@ selection-background-color: rgb(4, 79, 70);
                   </property>
                   <item>
                    <property name="text">
-                    <string>High-Pass Filter</string>
+                    <string>select filter</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>Low-Pass Filter</string>
+                    <string>High-Pass Frequency Domain</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Low-Pass Frequency Domain</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Average</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Gaussian</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Median</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Sobel</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Roberts</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Prewitt</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Canny</string>
                    </property>
                   </item>
                  </widget>
