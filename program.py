@@ -20,8 +20,9 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__()
         uic.loadUi('ui.ui', self)
         
-        self.database:Dict [str: Image] = {}
-        self.curr_grayscale_img: List = None
+        self.database: List[Image] = []
+        
+        self.ID_counter = 0
         # upload buttons
         self.original_image: Image = None
 
@@ -371,18 +372,53 @@ class MainWindow(QtWidgets.QMainWindow):
     #     self.apply_changes(type="filters")
         
     def convert_to_grayscale(self, view_port: str):
-        if view_port=="in": image: Image = self.input_image
-        else : image: Image = self.output_image
+        if view_port=="in": 
+            image: Image = self.input_image
+            self.input_colored_version_path = self.input_image.image_path
+            
+        else : 
+            image: Image = self.output_image
+            self.output_colored_version_path = self.input_image.image_path
         
         if image.is_RGB():
-            rgb_image: Image = np.copy(image)
-            self.database
-            image.rgb2gray()
-            self.display_histogram(image, "out")
-            self.display_cdf(image, "out")
+            cpy_image: Image = np.copy(image)
+            cpy_image.rgb2gray()
+            
+            self.database.append(image)
+            
+            self.display_histogram(cpy_image, view_port)
+            self.display_cdf(cpy_image, view_port)
+            
+            if view_port=="in": self.input_image = cpy_image
+            else: self.output_image=cpy_image
             
         else: print("Image is already grayscale")
            
+     
+    def convert_gray_to_rgb(self, view_port: str):
+        if image.is_RGB():
+            print("image is already RGB")
+            return 
+        
+        else:
+            if view_port=="in": 
+                image: Image = self.input_image
+                rgb_version_path = self.input_colored_version_path
+            
+            else: 
+                image: Image = self.output_image
+                rgb_version_path = self.output_colored_version_path
+            
+            for img in self.database:
+                if img.image_path == rgb_version_path:
+                    self.display_histogram(img, view_port)
+                    self.display_cdf(img, view_port)
+                    target_img = img
+                    break
+                
+            if view_port=="in": self.input_image = target_img
+            else: self.output_image = target_img      
+             
         
     def change_kernel(self):
         self.kernel_index = self.kernel_size_slider.value()
