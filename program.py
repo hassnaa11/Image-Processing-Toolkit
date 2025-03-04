@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, uic
-from PyQt5.QtWidgets import QFrame
+from PyQt5.QtWidgets import QFrame, QGraphicsScene, QGraphicsView
 import sys
 from PyQt5.QtGui import *
 import numpy as np
@@ -24,7 +24,6 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.database: List[Image] = []
         # upload buttons
-        self.original_image: Image = None
 
         self.upload_button.clicked.connect(lambda:self.upload_image(1))
         self.input1_button.clicked.connect(lambda:self.upload_image(2))
@@ -93,13 +92,10 @@ class MainWindow(QtWidgets.QMainWindow):
             self, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
         )
         if self.file_path:
-            self.img = Image()
-            self.img.read_image(self.file_path)
-            # self.noisy_image = Image()  # shelehom ya eman ma3lsh
-            # self.noisy_image.read_image(self.file_path)
-            self.original_image = np.copy(self.img.image)
-            self.input_image: Image= self.img
-            scene = self.img.display_image()
+            self.input_image = Image()
+            self.input_image.read_image(self.file_path)
+
+            scene = self.input_image.display_image()
             
             if key == 1: # upload in filter tap
                 self.input_image_frame.setScene(scene)
@@ -108,8 +104,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.filters_combobox.setDisabled(False)
                 self.edge_filters_combobox.setDisabled(False)
                 self.threshold_combobox.setDisabled(False)
-                self.display_histogram(self.img)
-                self.display_cdf(self.img)
+                self.display_histogram(self.input_image)
+                self.display_cdf(self.input_image)
                 
             elif key == 2:  # upload in hybrid tap first input
                 self.is_hybrid_mode = True
@@ -186,55 +182,56 @@ class MainWindow(QtWidgets.QMainWindow):
     def apply_changes(self,type):
         kernel_size = kernel_sizes[self.kernel_index]
         if self.img and self.original_image is not None:
-            modified_image = np.copy(self.original_image)
+            input_img_arr_cpy = np.copy(self.input_image.image)
+            
+            modified_image = Image(input_img_arr_cpy)
 
             # Apply noise if selected
             noise_type = self.noises_combobox.currentText()
             if noise_type != "None" and (type == "noises" or type == "filters"):
                 parameters = self.get_noise_parameters(noise_type)
-                noise_adder = NoiseAdder(modified_image)
-                modified_image = noise_adder.apply_noise(noise_type, parameters)
+                noise_adder = NoiseAdder(modified_image.image)
+                modified_image.image = noise_adder.apply_noise(noise_type, parameters)
 
             # Apply filter if selected
             filter_type = self.filters_combobox.currentText()
             print(filter_type)
             if filter_type != "None" and (type == "filters" or type == "noises"):
                 if filter_type == 'Low-Pass Frequency Domain':
-                    filter_processor = FrequencyFilterProcessor(modified_image)
-                    modified_image = filter_processor.apply_frequency_filter(0.5, filter_type)
+                    filter_processor = FrequencyFilterProcessor(modified_image.image)
+                    modified_image.image = filter_processor.apply_frequency_filter(0.5, filter_type)
                 else:    
-                    filter_processor = FilterProcessor(modified_image)
-                    modified_image = filter_processor.apply_filter(filter_type, kernel_size)
+                    filter_processor = FilterProcessor(modified_image.image)
+                    modified_image.image = filter_processor.apply_filter(filter_type, kernel_size)
 
             # apply edge detection
             edge_detection_type = self.edge_filters_combobox.currentText()
             if edge_detection_type != "None" and type == "edge":
                 if edge_detection_type == 'High-Pass Frequency Domain':
-                    filter_processor = FrequencyFilterProcessor(modified_image)
-                    modified_image = filter_processor.apply_frequency_filter(0.5, edge_detection_type)
+                    filter_processor = FrequencyFilterProcessor(modified_image.image)
+                    modified_image.image = filter_processor.apply_frequency_filter(0.5, edge_detection_type)
                 else:  
-                    edge_detection_processor = edge_detection(modified_image)
-                    modified_image = edge_detection_processor.apply_edge_detection_filter(edge_detection_type)
+                    edge_detection_processor = edge_detection(modified_image.image)
+                    modified_image.image = edge_detection_processor.apply_edge_detection_filter(edge_detection_type)
 
             # apply thresholding
             thresholding_type = self.threshold_combobox.currentText()
             if thresholding_type != "None" and type == "threshold":
                 print(thresholding_type)
-                thresholding_processor = thresholding(modified_image)
-                print(modified_image)
-                modified_image = thresholding_processor.apply_threshold(thresholding_type)
-
-            self.output_image = self.img.image = modified_image
+                thresholding_processor = thresholding(modified_image.image)
+                print(modified_image.image)
+                modified_image.image = thresholding_processor.apply_threshold(thresholding_type)
             
-            scene = self.output_image.display_image()
+            self.output_image = modified_image
+            
+            scene = self.output_image.display_image()        
             self.output_image_frame.setScene(scene) 
             self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             
             self.display_histogram(self.output_image, "out")
             self.display_cdf(self.output_image, "out")
 
-    
-    
+        
     def apply_hybrid_changes(self):
         if self.original_input1 is not None:
             filter_type = self.input1_combobox.currentText()
@@ -281,15 +278,15 @@ class MainWindow(QtWidgets.QMainWindow):
             self.hybrid_image.setScene(scene)
             self.hybrid_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         
-        
+
     def normalize_image(self):
 
-        modified_image = np.copy(self.original_image)
+        modified_image = Image(np.copy(self.input_image))
         # Convert to grayscale if it's a color image
-        if len(modified_image.shape) == 3:
-            grayscale_image = np.mean(modified_image, axis=2)
+        if modified_image.is_RGB():
+            grayscale_image = np.mean(modified_image.image, axis=2)
         else:
-            grayscale_image = modified_image
+            grayscale_image = modified_image.image
 
         # Calculate min and max pixel values
         I_min = np.min(grayscale_image)
@@ -301,16 +298,24 @@ class MainWindow(QtWidgets.QMainWindow):
 
         
         #display the normalized image
-        self.output_image = self.img.image = normalized_image
-
-
+        self.img.image = normalized_image
         
+        normalized_image = Image(normalized_image)
+        
+        self.output_image = Image(normalized_image)
+
         scene = self.output_image.display_image()
-        self.output_image_frame.setScene(scene) 
-        self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        
+        if isinstance(self.output_image_frame, QGraphicsView) and scene:
+            print("QGraphicsScene Was Set Successfully")
+            self.output_image_frame.setScene(scene) 
+            self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         
         self.display_histogram(self.output_image, "out")
         self.display_cdf(self.output_image, "out") 
+
+    def rgb_normalize_image():
+        pass
     
     def get_noise_parameters(self, selected_noise):
         self.show_hide_parameters(selected_noise)
@@ -342,14 +347,20 @@ class MainWindow(QtWidgets.QMainWindow):
 
         return parameters
 
+
     def equalize_image(self):
         modified_image = np.copy(self.original_image)
         filter_processor = FilterProcessor(modified_image)
         modified_image = filter_processor.histogram_equalization()
-        self.output_image = self.img.image = modified_image
-        scene = self.img.display_image()
-        self.output_image_frame.setScene(scene) 
-        self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+        self.img.image = modified_image
+        
+        self.output_image = Image(modified_image)
+        
+        scene = self.output_image.display_image()
+        if isinstance(self.output_image_frame, QGraphicsView) and scene:
+            print("QGraphicsScene Was Set Successfully")
+            self.output_image_frame.setScene(scene) 
+            self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
 
         self.display_histogram(self.output_image, "out")
         self.display_cdf(self.output_image, "out")
@@ -388,6 +399,11 @@ class MainWindow(QtWidgets.QMainWindow):
             
             self.display_histogram(cpy_image, view_port)
             self.display_cdf(cpy_image, view_port)
+            
+            scene = cpy_image.display_image()
+            self.output_image_frame.setScene(scene) 
+            self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+            
             
             if view_port=="in": self.input_image = cpy_image
             else: self.output_image=cpy_image

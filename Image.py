@@ -10,8 +10,8 @@ from typing import List
 rgb_channels = ["red", "green", "blue"]
 
 class Image:
-    def __init__(self):
-        self.image = None
+    def __init__(self, image_arr = None):
+        self.image = image_arr
         self.image_path = None
     
     def read_image(self, path):
