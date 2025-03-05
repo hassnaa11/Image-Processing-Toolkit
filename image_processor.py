@@ -204,8 +204,7 @@ class edge_detection:
         self.image_array = image_array  
         
     def apply_kernel(self, kernel, image=None):
-        if image is None:
-            self.preserved_image = self.image
+        
         if len(image.shape) == 3:  # Color image
             gray_image = np.mean(image, axis=2).astype(np.uint8)
         else:
@@ -225,8 +224,7 @@ class edge_detection:
     def normalize_and_adjust(self,image):
         # Normalize to 0-255
         norm_image = (image - np.min(image)) / (np.max(image) - np.min(image) + 1e-5) * 255
-        threshold = 30
-        norm_image = np.where(norm_image > threshold, norm_image, 0)
+       
         return np.clip(norm_image, 0, 255).astype(np.uint8)
 
     def apply_edge_detection_filter(self, selected_edge_detection_filter):
@@ -293,7 +291,7 @@ class thresholding:
     def __init__(self, image_array):
         self.image_array = image_array 
 
-    def apply_threshold(self,thresholding_type ,  window_size=15, C=10):
+    def apply_threshold(self,thresholding_type ,  window_size=15):
         # Convert to grayscale if it's a color image
         if len( self.image_array.shape) == 3:
             self.image_array = np.mean(self.image_array, axis=2).astype(np.uint8)
@@ -317,7 +315,7 @@ class thresholding:
                     local_mean = np.mean(local_region)
                     
                     # Apply threshold
-                    if self.image_array[i, j] > (local_mean - C):
+                    if self.image_array[i, j] > (local_mean ):
                         binary_image[i, j] = 255
                     else:
                         binary_image[i, j] = 0
