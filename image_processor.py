@@ -50,7 +50,7 @@ class FilterProcessor:
         self.image_array = image_array  
         
         
-    def apply_filter(self, selected_filter, kernel_size):
+    def apply_filter(self,sigma, selected_filter, kernel_size):
         filtered_image = self.image_array
 
         if selected_filter == 'select filter':
@@ -62,8 +62,8 @@ class FilterProcessor:
             # filtered_image = cv2.filter2D(self.image_array,-1, average_kernel) 
             # filtered_image  = cv2.blur(image_array, (3,3))  # opencv filter method
         
-        elif selected_filter == 'Gaussian ':
-            gaussian_kernel = self.get_gaussian_kernel(kernel_size)
+        elif selected_filter == 'Gaussian':
+            gaussian_kernel = self.get_gaussian_kernel(sigma, kernel_size)
             filtered_image = self.apply_kernel(gaussian_kernel, kernel_size) 
             # filtered_image = cv2.filter2D(self.image_array,-1, average_kernel)
                     
@@ -112,14 +112,7 @@ class FilterProcessor:
         return filtered_image
     
             
-    def get_gaussian_kernel(self, kernel_size):
-        if kernel_size == 3:
-            sigma = 1
-        elif kernel_size == 5:
-            sigma = 1.4
-        elif kernel_size == 7:
-            sigma = 1.6        
-
+    def get_gaussian_kernel(self,sigma, kernel_size):
         kernel = np.zeros(shape=(kernel_size, kernel_size))
         center = kernel_size // 2
         for x in range(kernel_size):

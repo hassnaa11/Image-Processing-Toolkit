@@ -61,6 +61,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.max_range_slider.valueChanged.connect(lambda: self.apply_changes("noises"))
         self.mean_slider.valueChanged.connect(lambda: self.apply_changes("noises"))
         self.sigma_slider.valueChanged.connect(lambda: self.apply_changes("noises"))
+        self.sigma_filter_slider.valueChanged.connect(lambda: self.apply_changes("filters"))
+        self.sigma_filter_slider.hide()
+        self.sigma_filter_label.hide()
         self.probability_slider.valueChanged.connect(
             lambda: self.apply_changes("noises")
         )
@@ -96,6 +99,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.input_image.read_image(self.file_path)
 
             scene = self.input_image.display_image()
+            self.img = Image()
+            self.img.read_image(self.file_path)
+
+            # scene = self.img.display_image()
+            self.original_image = np.copy(self.img.image)
+            
             
             if key == 1: # upload in filter tap
                 self.input_image_frame.setScene(scene)
@@ -196,13 +205,22 @@ class MainWindow(QtWidgets.QMainWindow):
             # Apply filter if selected
             filter_type = self.filters_combobox.currentText()
             print(filter_type)
+            sigma = 1
             if filter_type != "None" and (type == "filters" or type == "noises"):
                 if filter_type == 'Low-Pass Frequency Domain':
                     filter_processor = FrequencyFilterProcessor(modified_image.image)
                     modified_image.image = filter_processor.apply_frequency_filter(0.5, filter_type)
                 else:    
+                    if filter_type == 'Gaussian':
+                        self.sigma_filter_slider.show()
+                        self.sigma_filter_label.show()
+                        sigma = self.sigma_filter_slider.value()
+                        self.sigma_filter_label.setText(f"Sigma: {sigma/2.0}")
+                    else:
+                        self.sigma_filter_slider.hide()
+                        self.sigma_filter_label.hide()   
                     filter_processor = FilterProcessor(modified_image.image)
-                    modified_image.image = filter_processor.apply_filter(filter_type, kernel_size)
+                    modified_image.image = filter_processor.apply_filter(sigma/2.0, filter_type, kernel_size)
 
             # apply edge detection
             edge_detection_type = self.edge_filters_combobox.currentText()
@@ -242,7 +260,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 modified_image = filter_processor.apply_frequency_filter(0.5, filter_type)
             elif filter_type in filters:
                 filter_processor = FilterProcessor(modified_image)
-                modified_image = filter_processor.apply_filter(filter_type, 3)
+                modified_image = filter_processor.apply_filter(1,filter_type, 3)
             elif filter_type in edge_detection_filters:
                 edge_detection_processor = edge_detection(modified_image)
                 modified_image = edge_detection_processor.apply_edge_detection_filter(filter_type)        
@@ -261,7 +279,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 modified_image = filter_processor.apply_frequency_filter(0.5, filter_type)
             elif filter_type in filters:
                 filter_processor = FilterProcessor(modified_image)
-                modified_image = filter_processor.apply_filter(filter_type, 3)
+                modified_image = filter_processor.apply_filter(1,filter_type, 3)
             elif filter_type in edge_detection_filters:
                 edge_detection_processor = edge_detection(modified_image)
                 modified_image = edge_detection_processor.apply_edge_detection_filter(filter_type)        
