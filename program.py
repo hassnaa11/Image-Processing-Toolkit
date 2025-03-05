@@ -78,7 +78,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.equalization_button.clicked.connect(self.equalize_image)
 
         # convert to grayscale
-        self.gray_scale_button.clicked.connect(self.convert_to_grayscale)
+        self.gray_scale_button.clicked.connect(self.convert_color_domain)
         self.is_gray_scale = False
 
         # reset_button
@@ -392,9 +392,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
     #     self.original_image = np.copy(modified_image)
     #     self.apply_changes(type="filters")
+    
+    def convert_color_domain(self):
+        if self.gray_scale_button.text() == "GrayScale":
+            self.convert_to_grayscale()
+        else: self.convert_to_rgb()    
         
-    def convert_to_grayscale(self, view_port: str):        
+    def convert_to_grayscale(self):        
         if self.input_image.is_RGB() and self.input_image:
+            self.prev_rgb_input_img = Image(np.copy(self.input_image.image))
+            
             cpy_image: Image = Image(np.copy(self.input_image.image))
             cpy_image.rgb2gray()
             
@@ -405,7 +412,11 @@ class MainWindow(QtWidgets.QMainWindow):
             self.input_image_frame.setScene(scene) 
             self.input_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
             
+            self.input_image = cpy_image
+            
         if self.output_image.is_RGB() and self.output_image:
+            self.prev_rgb_output_img = Image(np.copy(self.output_image.image))
+            
             cpy_image: Image = Image(np.copy(self.output_image.image))
             cpy_image.rgb2gray()
             
@@ -416,31 +427,34 @@ class MainWindow(QtWidgets.QMainWindow):
             self.output_image_frame.setScene(scene) 
             self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
           
-     
-    def convert_gray_to_rgb(self, view_port: str):
-        if image.is_RGB():
-            print("image is already RGB")
-            return 
+            self.output_image = cpy_image
         
-        else:
-            if view_port=="in": 
-                image: Image = self.input_image
-                rgb_version_path = self.input_colored_version_path
+        self.gray_scale_button.setText("Back to RGB")
+     
+    def convert_to_rgb(self):
+        if self.input_image and self.input_image.is_RGB() == False:     
+            scene = self.prev_rgb_input_img.display_image()
+            self.input_image_frame.setScene(scene) 
+            self.input_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             
-            else: 
-                image: Image = self.output_image
-                rgb_version_path = self.output_colored_version_path
+            self.display_histogram(self.prev_rgb_input_img)
+            self.display_cdf(self.prev_rgb_input_img)
             
-            for img in self.database:
-                if img.image_path == rgb_version_path:
-                    self.display_histogram(img, view_port)
-                    self.display_cdf(img, view_port)
-                    target_img = img
-                    break
-                
-            if view_port=="in": self.input_image = target_img
-            else: self.output_image = target_img      
-             
+            self.input_image = self.prev_rgb_input_img
+            self.prev_rgb_input_img = None
+            
+        if self.output_image and self.output_image.is_RGB() == False:     
+            scene = self.prev_rgb_output_img.display_image()
+            self.output_image_frame.setScene(scene) 
+            self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+            
+            self.display_histogram(self.prev_rgb_output_img, "out")
+            self.display_cdf(self.prev_rgb_output_img, "out")
+            
+            self.output_image = self.prev_rgb_output_img
+            self.prev_rgb_output_img = None    
+        
+        self.gray_scale_button.setText("GrayScale")
         
     def change_kernel(self):
         self.kernel_index = self.kernel_size_slider.value()
