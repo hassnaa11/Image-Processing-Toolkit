@@ -208,8 +208,7 @@ class edge_detection:
         self.image_array = image_array  
         
     def apply_kernel(self, kernel, image=None):
-        if image is None:
-            self.preserved_image = self.image
+        
         if len(image.shape) == 3:  # Color image
             gray_image = np.mean(image, axis=2).astype(np.uint8)
         else:
