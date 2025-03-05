@@ -91,6 +91,10 @@ class MainWindow(QtWidgets.QMainWindow):
         
 
     def upload_image(self, key):
+        if self.output_image_frame.scene() is not None:
+                self.output_image_frame.scene().clear()
+                self.output_image = None
+        
         self.file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
         )
@@ -389,34 +393,29 @@ class MainWindow(QtWidgets.QMainWindow):
     #     self.original_image = np.copy(modified_image)
     #     self.apply_changes(type="filters")
         
-    def convert_to_grayscale(self, view_port: str):
-        if view_port=="in": 
-            image: Image = self.input_image
-            self.input_colored_version_path = self.input_image.image_path
-            
-        else : 
-            image: Image = self.output_image
-            self.output_colored_version_path = self.input_image.image_path
-        
-        if image.is_RGB():
-            cpy_image: Image = np.copy(image)
+    def convert_to_grayscale(self, view_port: str):        
+        if self.input_image.is_RGB() and self.input_image:
+            cpy_image: Image = Image(np.copy(self.input_image.image))
             cpy_image.rgb2gray()
             
-            self.database.append(image)
+            self.display_histogram(cpy_image)
+            self.display_cdf(cpy_image)
             
-            self.display_histogram(cpy_image, view_port)
-            self.display_cdf(cpy_image, view_port)
+            scene = cpy_image.display_image()
+            self.input_image_frame.setScene(scene) 
+            self.input_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+            
+        if self.output_image.is_RGB() and self.output_image:
+            cpy_image: Image = Image(np.copy(self.output_image.image))
+            cpy_image.rgb2gray()
+            
+            self.display_histogram(cpy_image)
+            self.display_cdf(cpy_image)
             
             scene = cpy_image.display_image()
             self.output_image_frame.setScene(scene) 
-            self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
-            
-            
-            if view_port=="in": self.input_image = cpy_image
-            else: self.output_image=cpy_image
-            
-        else: print("Image is already grayscale")
-           
+            self.output_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+          
      
     def convert_gray_to_rgb(self, view_port: str):
         if image.is_RGB():
