@@ -22,13 +22,9 @@ class NoiseAdder:
             self.image_array = cv2.add(self.image_array, gauss)
         
         elif noise_type == 'Salt & Pepper':
-            # print("parameters ", parameters)
             ratio, probability = parameters[0], parameters[1]
             num_salt = np.ceil(probability * ratio * self.image_array.size)
             num_pepper = np.ceil(probability * (1 - ratio) * self.image_array.size)
-            # print("num_salt:  ", num_salt,"num_pepper: ", num_pepper)
-            # print( "self.image_array.size: ", self.image_array.size)
-            # print("self.image_array.shape[:2]:  ", self.image_array.shape[:2])
             if len(self.image_array.shape) == 2:
                 coordinates = [np.random.randint(0, i , int(num_salt)) for i in self.image_array.shape]
                 self.image_array[coordinates[0],coordinates[1]] = 255

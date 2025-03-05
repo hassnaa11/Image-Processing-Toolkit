@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1198</width>
-    <height>1163</height>
+    <height>1194</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -111,7 +111,7 @@ QTabWidget::pane {
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <property name="iconSize">
           <size>
