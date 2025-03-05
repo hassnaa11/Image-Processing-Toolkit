@@ -181,7 +181,7 @@ class MainWindow(QtWidgets.QMainWindow):
     
     def apply_changes(self,type):
         kernel_size = kernel_sizes[self.kernel_index]
-        if self.img and self.original_image is not None:
+        if self.input_image:
             input_img_arr_cpy = np.copy(self.input_image.image)
             
             modified_image = Image(input_img_arr_cpy)
@@ -281,28 +281,21 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def normalize_image(self):
 
-        modified_image = Image(np.copy(self.input_image))
+        modified_image = Image(np.copy(self.input_image.image))
         # Convert to grayscale if it's a color image
-        if modified_image.is_RGB():
-            grayscale_image = np.mean(modified_image.image, axis=2)
-        else:
-            grayscale_image = modified_image.image
+        
+        if modified_image.is_RGB(): modified_image.rgb2gray()
+        grayscale_image = modified_image
 
         # Calculate min and max pixel values
-        I_min = np.min(grayscale_image)
-        I_max = np.max(grayscale_image)
+        I_min = np.min(grayscale_image.image)
+        I_max = np.max(grayscale_image.image)
 
         # Perform normalization
-        normalized_image = (grayscale_image - I_min) / (I_max - I_min) * 255
-        normalized_image = normalized_image.astype(np.uint8)
-
+        normalized_image_arr = (grayscale_image.image - I_min) / (I_max - I_min) * 255
+        normalized_image_arr = normalized_image_arr.astype(np.uint8)
         
-        #display the normalized image
-        self.img.image = normalized_image
-        
-        normalized_image = Image(normalized_image)
-        
-        self.output_image = Image(normalized_image)
+        self.output_image = Image(normalized_image_arr)
 
         scene = self.output_image.display_image()
         
@@ -313,9 +306,6 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.display_histogram(self.output_image, "out")
         self.display_cdf(self.output_image, "out") 
-
-    def rgb_normalize_image():
-        pass
     
     def get_noise_parameters(self, selected_noise):
         self.show_hide_parameters(selected_noise)
@@ -349,12 +339,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def equalize_image(self):
-        modified_image = np.copy(self.original_image)
-        filter_processor = FilterProcessor(modified_image)
-        modified_image = filter_processor.histogram_equalization()
-        self.img.image = modified_image
+        modified_image = Image(np.copy(self.input_image.image))
+        filter_processor = FilterProcessor(modified_image.image)
+        modified_image.image = filter_processor.histogram_equalization()
         
-        self.output_image = Image(modified_image)
+        self.output_image = modified_image
         
         scene = self.output_image.display_image()
         if isinstance(self.output_image_frame, QGraphicsView) and scene:
@@ -502,9 +491,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def reset(self):
-        if self.img and self.original_image is not None:
-            self.original_image = None
-            self.img = None
+        if self.input_image:
             self.show_hide_parameters("select noise")
             self.noises_combobox.setCurrentText("select noise")
             self.filters_combobox.setCurrentText("select filter")

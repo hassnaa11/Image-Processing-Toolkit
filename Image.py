@@ -43,11 +43,13 @@ class Image:
     def display_image(self):
         height, width = self.image.shape[:2]
         if not self.is_RGB(): # gray-scale image
+            img_data = np.ascontiguousarray(self.image).tobytes()
             bytes_per_line = width
-            q_image = QImage(self.image, width, height, bytes_per_line, QImage.Format_Grayscale8)
+            q_image = QImage(img_data, width, height, bytes_per_line, QImage.Format_Grayscale8)
         else:  # RGB image 
+            img_data = np.ascontiguousarray(self.image).tobytes()
             bytes_per_line = 3 * width 
-            q_image = QImage(self.image, width, height, bytes_per_line, QImage.Format_RGB888)
+            q_image = QImage(img_data, width, height, bytes_per_line, QImage.Format_RGB888)
 
         # convert QImage to QPixmap
         pixmap = QPixmap.fromImage(q_image) 
@@ -82,7 +84,7 @@ class Image:
         """compute the comulative distribution function for RGB or Grayscale image.\n
         requires histogram to be computed first
         """
-        if not self.__hg:
+        if self.__hg is None:
             print("Histogram must be computed first")
             return
         
