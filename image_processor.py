@@ -202,6 +202,7 @@ class FrequencyFilterProcessor:
 class edge_detection:
     def __init__(self, image_array):
         self.image_array = image_array  
+        self.gradient_magnitude = 0
         
     def apply_kernel(self, kernel, image=None):
         
@@ -245,7 +246,7 @@ class edge_detection:
             gx = self.apply_kernel(sobel_x, self.image_array)
             gy = self.apply_kernel(sobel_y, self.image_array)
             sobel_magnitude = np.sqrt(gx**2 + gy**2)
-            
+            self.gradient_magnitude = sobel_magnitude
             processed_array = self.normalize_and_adjust(sobel_magnitude)
             processed_array = np.stack((processed_array,) * 3, axis=-1)
             
