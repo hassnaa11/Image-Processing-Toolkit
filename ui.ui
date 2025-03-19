@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1465</width>
-    <height>1198</height>
+    <width>1306</width>
+    <height>1194</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -383,6 +383,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                    <font>
                     <family>MS Shell Dlg 2</family>
                     <pointsize>10</pointsize>
+                    <weight>50</weight>
                     <italic>false</italic>
                     <bold>false</bold>
                    </font>
@@ -2167,453 +2168,549 @@ selection-background-color: rgb(4, 79, 70);
           <attribute name="title">
            <string>Contour And Edge detection</string>
           </attribute>
-          <widget class="QGraphicsView" name="contour_image">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>11</y>
-             <width>681</width>
-             <height>311</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(37, 42, 64);
+          <layout class="QGridLayout" name="gridLayout_10">
+           <item row="2" column="3">
+            <widget class="QFrame" name="frame_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>200</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>300</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_8">
+              <item row="1" column="0" colspan="2">
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="label_25">
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Hough Transform</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="lines">
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Lines</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="ellipes">
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Ellipes</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="circle">
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Circle</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <item>
+                 <widget class="QLabel" name="label_26">
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Thresholding Value</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="threshold_slider">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>200</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                  </property>
+                  <property name="minimum">
+                   <number>-200</number>
+                  </property>
+                  <property name="maximum">
+                   <number>0</number>
+                  </property>
+                  <property name="value">
+                   <number>-200</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_2">
+                  <item>
+                   <widget class="QPushButton" name="superimpose_button">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                    </property>
+                    <property name="text">
+                     <string>Superimpose</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="reset_button_2">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                    </property>
+                    <property name="text">
+                     <string>Reset</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="save_button">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                  </property>
+                  <property name="text">
+                   <string>Save</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QGraphicsView" name="contour_output_image">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
 background-color: rgb(255, 255, 255);
 
 border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
-           </property>
-          </widget>
-          <widget class="QGraphicsView" name="edge_detect_image">
-           <property name="geometry">
-            <rect>
-             <x>750</x>
-             <y>10</y>
-             <width>671</width>
-             <height>311</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(37, 42, 64);
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QGraphicsView" name="hough_transform_output_image">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
 background-color: rgb(255, 255, 255);
 
 border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
-           </property>
-          </widget>
-          <widget class="QFrame" name="framebig">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>350</y>
-             <width>671</width>
-             <height>171</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">#framebig {
-    border: 2px solid white;
-}</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <widget class="QLabel" name="label_13">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>141</width>
-              <height>21</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_13">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+
+font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Active Contour (Snake)</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="label_19">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+
+font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Hough Transform</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QFrame" name="framebig">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>200</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>300</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
 color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_6">
+              <item row="0" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <item>
+                 <widget class="QPushButton" name="load_button">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
-            </property>
-            <property name="text">
-             <string>Active Contour</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="label_20">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>50</y>
-              <width>111</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Type of Contour</string>
-            </property>
-           </widget>
-           <widget class="QCheckBox" name="circle_contour">
-            <property name="geometry">
-             <rect>
-              <x>170</x>
-              <y>50</y>
-              <width>91</width>
-              <height>24</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Circle </string>
-            </property>
-           </widget>
-           <widget class="QCheckBox" name="square">
-            <property name="geometry">
-             <rect>
-              <x>350</x>
-              <y>50</y>
-              <width>91</width>
-              <height>24</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Square</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="label_22">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>130</y>
-              <width>63</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Beta</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="label_23">
-            <property name="geometry">
-             <rect>
-              <x>170</x>
-              <y>90</y>
-              <width>63</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Gamma</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="label_24">
-            <property name="geometry">
-             <rect>
-              <x>170</x>
-              <y>130</y>
-              <width>71</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Iterations</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="apply_button">
-            <property name="geometry">
-             <rect>
-              <x>520</x>
-              <y>60</y>
-              <width>121</width>
-              <height>29</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+                  </property>
+                  <property name="text">
+                   <string>Load image</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="apply_contour_button">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
+background-color: rgb(219,222,230);
+
 color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
-            </property>
-            <property name="text">
-             <string>Apply contour</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="load_button">
-            <property name="geometry">
-             <rect>
-              <x>520</x>
-              <y>100</y>
-              <width>121</width>
-              <height>29</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
-color: rgb(255, 255, 255);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-            </property>
-            <property name="text">
-             <string>Load image</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="label_21">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>90</y>
-              <width>63</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Alpha</string>
-            </property>
-           </widget>
-           <widget class="QPlainTextEdit" name="alpha">
-            <property name="geometry">
-             <rect>
-              <x>60</x>
-              <y>90</y>
-              <width>104</width>
-              <height>21</height>
-             </rect>
-            </property>
-           </widget>
-           <widget class="QPlainTextEdit" name="beta">
-            <property name="geometry">
-             <rect>
-              <x>60</x>
-              <y>130</y>
-              <width>104</width>
-              <height>21</height>
-             </rect>
-            </property>
-           </widget>
-           <widget class="QPlainTextEdit" name="gamma">
-            <property name="geometry">
-             <rect>
-              <x>240</x>
-              <y>90</y>
-              <width>104</width>
-              <height>21</height>
-             </rect>
-            </property>
-           </widget>
-           <widget class="QPlainTextEdit" name="iterations">
-            <property name="geometry">
-             <rect>
-              <x>240</x>
-              <y>130</y>
-              <width>104</width>
-              <height>21</height>
-             </rect>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QFrame" name="frame_2">
-           <property name="geometry">
-            <rect>
-             <x>760</x>
-             <y>350</y>
-             <width>661</width>
-             <height>171</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">#frame_2 {
-    border: 2px solid white;
-}</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <widget class="QLabel" name="label_19">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>121</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
-color: rgb(255, 255, 255);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-            </property>
-            <property name="text">
-             <string>Edge Detection</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="label_25">
-            <property name="geometry">
-             <rect>
-              <x>20</x>
-              <y>50</y>
-              <width>81</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Filter Type</string>
-            </property>
-           </widget>
-           <widget class="QCheckBox" name="canny">
-            <property name="geometry">
-             <rect>
-              <x>110</x>
-              <y>50</y>
-              <width>91</width>
-              <height>24</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Canny</string>
-            </property>
-           </widget>
-           <widget class="QCheckBox" name="lines">
-            <property name="geometry">
-             <rect>
-              <x>210</x>
-              <y>50</y>
-              <width>91</width>
-              <height>24</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Lines</string>
-            </property>
-           </widget>
-           <widget class="QCheckBox" name="ellipes">
-            <property name="geometry">
-             <rect>
-              <x>320</x>
-              <y>50</y>
-              <width>91</width>
-              <height>24</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Ellipes</string>
-            </property>
-           </widget>
-           <widget class="QCheckBox" name="circle">
-            <property name="geometry">
-             <rect>
-              <x>430</x>
-              <y>50</y>
-              <width>91</width>
-              <height>24</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Circle</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="label_26">
-            <property name="geometry">
-             <rect>
-              <x>20</x>
-              <y>90</y>
-              <width>151</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Thresholding Value</string>
-            </property>
-           </widget>
-           <widget class="QSlider" name="threshold_slider">
-            <property name="geometry">
-             <rect>
-              <x>20</x>
-              <y>120</y>
-              <width>181</width>
-              <height>22</height>
-             </rect>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="superimpose_button">
-            <property name="geometry">
-             <rect>
-              <x>400</x>
-              <y>80</y>
-              <width>101</width>
-              <height>29</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
-color: rgb(255, 255, 255);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-            </property>
-            <property name="text">
-             <string>Superimpose</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="reset_button_2">
-            <property name="geometry">
-             <rect>
-              <x>530</x>
-              <y>80</y>
-              <width>101</width>
-              <height>29</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
-color: rgb(255, 255, 255);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-            </property>
-            <property name="text">
-             <string>Reset</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="save_button">
-            <property name="geometry">
-             <rect>
-              <x>470</x>
-              <y>110</y>
-              <width>101</width>
-              <height>29</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
-color: rgb(255, 255, 255);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-            </property>
-            <property name="text">
-             <string>Save</string>
-            </property>
-           </widget>
-          </widget>
+                  </property>
+                  <property name="text">
+                   <string>Apply contour</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <layout class="QGridLayout" name="gridLayout_7">
+                <property name="verticalSpacing">
+                 <number>12</number>
+                </property>
+                <item row="0" column="1">
+                 <widget class="QDoubleSpinBox" name="alpha_snake"/>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QDoubleSpinBox" name="iterations_snake"/>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_22">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Beta</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_21">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Alpha</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QLabel" name="label_24">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Iterations</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QDoubleSpinBox" name="gamma_snake">
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QDoubleSpinBox" name="beta_snake"/>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QDoubleSpinBox" name="sigma_snake"/>
+                </item>
+                <item row="2" column="3">
+                 <widget class="QDoubleSpinBox" name="widow_size_snake"/>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QLabel" name="label_27">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Window Size</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_28">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Sigma</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="label_23">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Gamma</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>
