@@ -1,13 +1,16 @@
 import numpy as np 
-from image_processor import edge_detection
+from image_processor import edge_detection, FilterProcessor
 import cv2
 
 class ActiveContourProcessor:
     def __init__(self, image, alpha=0.1, beta=0.3, gamma=0.1, window_size=5, iterations=500):
-        # Apply histogram equalization to enhance edges
-        image = cv2.GaussianBlur(image, (5, 5), sigmaX=3)
+        # smooth the image
+        # image = cv2.GaussianBlur(image, (5, 5), sigmaX=3)
+        filter_processor = FilterProcessor(image)
+        image = filter_processor.apply_filter(3, 'Gaussian', 5)
         plt.imshow(image, cmap="gray")
         plt.show() 
+        
         # image = cv2.equalizeHist(image)
         # plt.imshow(image, cmap="gray")
         # plt.show() 
@@ -17,34 +20,45 @@ class ActiveContourProcessor:
         self.gamma = gamma
         self.window_size = window_size
         self.iterations = iterations
+        
         self.inint_snake = self.initialize_snake()
         self.snake = self.inint_snake.copy()
-        # edge_detection_processor = edge_detection(image)
-        # edge_detection_processor.apply_edge_detection_filter("Sobel")
-        # gradient = edge_detection_processor.gradient_magnitude
-        # gradient = cv2.normalize(gradient, None, 0, 255, cv2.NORM_MINMAX)
-        # self.gradient = gradient.astype(np.float64)
         
-        # Sobel X (detects vertical edges)
-        sobel_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=5)
-
-        # Sobel Y (detects horizontal edges)
-        sobel_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=5)
-
-        # Compute the gradient magnitude
-        sobel_combined = cv2.magnitude(sobel_x, sobel_y)
-
-        # Normalize gradient to avoid overflow issues
-        sobel_combined = cv2.normalize(sobel_combined, None, 0, 255, cv2.NORM_MINMAX)
-        
-        # Increase contrast of edges only
-        edge_enhanced = np.clip(sobel_combined * 2, 0, 255)
-
+        edge_detection_processor = edge_detection(image)
+        edge_detection_processor.apply_edge_detection_filter("Canny")
+        edges = edge_detection_processor.gradient
+        # Normalize edge values to [0, 255]
+        edges_normalized = cv2.normalize(edges.astype(np.float64), None, 0, 255, cv2.NORM_MINMAX)
+        # Increase contrast for edges only
+        edge_enhanced = np.clip(edges_normalized * 1.5, 0, 255)
         # Convert to float64 for safe computations
         self.gradient = edge_enhanced.astype(np.float64)
-        # self.gradient = cv2.normalize(self.gradient, None, 0, 1, cv2.NORM_MINMAX)
+        # Display result
         plt.imshow(self.gradient, cmap="gray")
-        plt.show() 
+        plt.show()
+        
+        
+        
+        # # Sobel X (detects vertical edges)
+        # sobel_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=5)
+
+        # # Sobel Y (detects horizontal edges)
+        # sobel_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=5)
+
+        # # Compute the gradient magnitude
+        # sobel_combined = cv2.magnitude(sobel_x, sobel_y)
+
+        # # Normalize gradient to avoid overflow issues
+        # sobel_combined = cv2.normalize(sobel_combined, None, 0, 255, cv2.NORM_MINMAX)
+        
+        # # Increase contrast of edges only
+        # edge_enhanced = np.clip(sobel_combined * 2, 0, 255)
+
+        # # Convert to float64 for safe computations
+        # self.gradient = edge_enhanced.astype(np.float64)
+        # self.gradient = cv2.normalize(self.gradient, None, 0, 1, cv2.NORM_MINMAX)
+        # plt.imshow(edges)
+        # plt.show() 
         
         # # mask_high = image > 130
         # # self.gradient[mask_high] = np.clip(self.gradient[mask_high] * 4, 0, 255)
@@ -68,16 +82,38 @@ class ActiveContourProcessor:
         # plt.show() 
         
         
+        # Apply Canny Edge Detection
+        # edges = cv2.Canny(image, threshold1=50, threshold2=150)
+
+        # # Normalize edge values to [0, 255]
+        # edges_normalized = cv2.normalize(edges.astype(np.float64), None, 0, 255, cv2.NORM_MINMAX)
+
+        # # Increase contrast for edges only
+        # edge_enhanced = np.clip(edges_normalized * 1.5, 0, 255)
+
+        # # Convert to float64 for safe computations
+        # self.gradient = edge_enhanced.astype(np.float64)
+
+        # # Display result
+        # plt.imshow(self.gradient, cmap="gray")
+        # plt.show()
+
+        
             
     def initialize_snake(self):
-        width, height = self.image.shape[:2]
+        height, width = self.image.shape[:2]
+        print(width, height)
         center_x, center_y = width // 2 , height // 2 
-        if width > height: radius = width // 2 
-        else: radius = height // 2 
+        
+        radius_x, radius_y = width // 2, height // 2
+        print(radius_x, radius_y)
         s = np.linspace(0, 2 * np.pi, 100)
-        x = center_x + radius * np.cos(s)
-        y = center_y + radius * np.sin(s)
+        x = center_x + radius_x * np.cos(s)
+        y = center_y + radius_y * np.sin(s)
         snake = np.array([x, y]).T
+        plt.imshow(self.image, cmap="gray")
+        plt.plot(snake[:, 0], snake[:, 1], color="b") 
+        plt.show() 
         return snake
         
         
@@ -129,7 +165,7 @@ class ActiveContourProcessor:
 import matplotlib.pyplot as plt
 import cv2    
 if __name__ == "__main__":
-    image = cv2.imread(r"data\banana2.png", cv2.IMREAD_GRAYSCALE)
+    image = cv2.imread(r"data\dog.jpg", cv2.IMREAD_GRAYSCALE)
     # if len(image.shape) == 3 and image.shape[2] == 3:
     #     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     #     print("RGB image read")
@@ -137,7 +173,7 @@ if __name__ == "__main__":
     # image = cv2.imread(r"data\apple3.png", cv2.IMREAD_GRAYSCALE)
     print("Grayscale image read")    
 
-    snake_model = ActiveContourProcessor(image, alpha=0.05, beta=0.1, window_size=12)
+    snake_model = ActiveContourProcessor(image, alpha=0.05, beta=0.1, window_size=5)
     
     snake_model.update_snake()
     final_snake, init_snake,image_final = snake_model.get_snake()

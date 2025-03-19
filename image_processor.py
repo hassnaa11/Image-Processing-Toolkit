@@ -79,34 +79,12 @@ class FilterProcessor:
         
         return filtered_image   
     
-    
-    def histogram_equalization(self):
-        # flatten the image to 1D array
-        flat_image = self.image_array.flatten()
-        
-        # compute histogram
-        hist, bins = np.histogram(flat_image, bins=256, range=[0,256])
-        
-        # compute CDF
-        cdf = hist.cumsum()
-        
-        # normalize the image to map the values between 0, 255
-        cdf_normalized = (cdf - cdf.min()) * 255 / (cdf.max() - cdf.min())
-        
-        # Use the normalized CDF as a lookup table
-        equalized_image = cdf_normalized[flat_image]
-        
-        # reshape back to original image shape
-        equalized_image = equalized_image.reshape(self.image_array.shape).astype(np.uint8)
-        
-        return equalized_image
-    
     def apply_kernel(self, kernel, kernel_size):
         pad_size = kernel_size // 2
 
         # Handle padding for grayscale and RGB images
         if len(self.image_array.shape) == 2:  # Grayscale
-            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size)), mode='constant')
+            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size)), mode='reflect')
             filtered_image = np.zeros_like(self.image_array, dtype=np.float32)
 
             for i in range(self.image_array.shape[0]):
@@ -115,7 +93,7 @@ class FilterProcessor:
                     filtered_image[i, j] = np.sum(region * kernel)  # Summation added
 
         else:  # RGB Image
-            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size), (0, 0)), mode='constant')
+            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size), (0, 0)), mode='reflect')
             filtered_image = np.zeros_like(self.image_array, dtype=np.float32)
 
             for i in range(self.image_array.shape[0]):
@@ -140,6 +118,28 @@ class FilterProcessor:
         
         kernel /= np.sum(kernel)
         return kernel  
+    
+    
+    def histogram_equalization(self):
+        # flatten the image to 1D array
+        flat_image = self.image_array.flatten()
+        
+        # compute histogram
+        hist, bins = np.histogram(flat_image, bins=256, range=[0,256])
+        
+        # compute CDF
+        cdf = hist.cumsum()
+        
+        # normalize the image to map the values between 0, 255
+        cdf_normalized = (cdf - cdf.min()) * 255 / (cdf.max() - cdf.min())
+        
+        # Use the normalized CDF as a lookup table
+        equalized_image = cdf_normalized[flat_image]
+        
+        # reshape back to original image shape
+        equalized_image = equalized_image.reshape(self.image_array.shape).astype(np.uint8)
+        
+        return equalized_image
 
 
 
@@ -202,7 +202,7 @@ class FrequencyFilterProcessor:
 class edge_detection:
     def __init__(self, image_array):
         self.image_array = image_array  
-        self.gradient_magnitude = 0
+        self.gradient = 0
         
     def apply_kernel(self, kernel, image=None):
         
@@ -246,7 +246,7 @@ class edge_detection:
             gx = self.apply_kernel(sobel_x, self.image_array)
             gy = self.apply_kernel(sobel_y, self.image_array)
             sobel_magnitude = np.sqrt(gx**2 + gy**2)
-            self.gradient_magnitude = sobel_magnitude
+            self.gradient = sobel_magnitude
             processed_array = self.normalize_and_adjust(sobel_magnitude)
             processed_array = np.stack((processed_array,) * 3, axis=-1)
             
@@ -281,7 +281,7 @@ class edge_detection:
             threshold1 = 100  # Lower threshold
             threshold2 = 200  # Upper threshold
             edges = cv2.Canny(self.image_array, threshold1, threshold2)
-            
+            self.gradient = edges
             # Convert edges to 3 channels (RGB) for display consistency
             processed_array = np.stack((edges,) * 3, axis=-1)
             
