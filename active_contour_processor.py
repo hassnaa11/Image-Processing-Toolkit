@@ -7,7 +7,7 @@ class ActiveContourProcessor:
         # smooth the image
         # image = cv2.GaussianBlur(image, (5, 5), sigmaX=3)
         filter_processor = FilterProcessor(image)
-        image = filter_processor.apply_filter(3, 'Gaussian', sigma)
+        image = filter_processor.apply_filter(sigma, 'Gaussian', 5)
         # plt.imshow(image, cmap="gray")
         # plt.show() 
         
