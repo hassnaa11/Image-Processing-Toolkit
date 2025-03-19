@@ -2167,7 +2167,7 @@ selection-background-color: rgb(4, 79, 70);
           <attribute name="title">
            <string>Contour And Edge detection</string>
           </attribute>
-          <widget class="QGraphicsView" name="graphicsView">
+          <widget class="QGraphicsView" name="contour_image">
            <property name="geometry">
             <rect>
              <x>40</x>
@@ -2185,7 +2185,7 @@ box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
            </property>
           </widget>
-          <widget class="QGraphicsView" name="graphicsView_2">
+          <widget class="QGraphicsView" name="edge_detect_image">
            <property name="geometry">
             <rect>
              <x>630</x>
@@ -2252,7 +2252,7 @@ border-radius: 10px;</string>
              <string>Type of Contour</string>
             </property>
            </widget>
-           <widget class="QCheckBox" name="checkBox">
+           <widget class="QCheckBox" name="circle_contour">
             <property name="geometry">
              <rect>
               <x>170</x>
@@ -2265,7 +2265,7 @@ border-radius: 10px;</string>
              <string>Circle </string>
             </property>
            </widget>
-           <widget class="QCheckBox" name="checkBox_2">
+           <widget class="QCheckBox" name="square">
             <property name="geometry">
              <rect>
               <x>350</x>
@@ -2317,7 +2317,7 @@ border-radius: 10px;</string>
              <string>Iterations</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="apply_button">
             <property name="geometry">
              <rect>
               <x>350</x>
@@ -2338,7 +2338,7 @@ border-radius: 10px;</string>
              <string>Apply contour</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="load_button">
             <property name="geometry">
              <rect>
               <x>350</x>
@@ -2372,7 +2372,7 @@ border-radius: 10px;</string>
              <string>Alpha</string>
             </property>
            </widget>
-           <widget class="QPlainTextEdit" name="plainTextEdit">
+           <widget class="QPlainTextEdit" name="alpha">
             <property name="geometry">
              <rect>
               <x>60</x>
@@ -2382,7 +2382,7 @@ border-radius: 10px;</string>
              </rect>
             </property>
            </widget>
-           <widget class="QPlainTextEdit" name="plainTextEdit_2">
+           <widget class="QPlainTextEdit" name="beta">
             <property name="geometry">
              <rect>
               <x>60</x>
@@ -2392,7 +2392,7 @@ border-radius: 10px;</string>
              </rect>
             </property>
            </widget>
-           <widget class="QPlainTextEdit" name="plainTextEdit_3">
+           <widget class="QPlainTextEdit" name="gamma">
             <property name="geometry">
              <rect>
               <x>240</x>
@@ -2402,7 +2402,7 @@ border-radius: 10px;</string>
              </rect>
             </property>
            </widget>
-           <widget class="QPlainTextEdit" name="plainTextEdit_4">
+           <widget class="QPlainTextEdit" name="iterations">
             <property name="geometry">
              <rect>
               <x>240</x>
@@ -2411,6 +2411,17 @@ border-radius: 10px;</string>
               <height>21</height>
              </rect>
             </property>
+           </widget>
+           <widget class="QWidget" name="formLayoutWidget">
+            <property name="geometry">
+             <rect>
+              <x>-11</x>
+              <y>-1</y>
+              <width>591</width>
+              <height>161</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout"/>
            </widget>
           </widget>
           <widget class="QFrame" name="frame_2">
@@ -2462,7 +2473,7 @@ border-radius: 10px;</string>
              <string>Filter Type</string>
             </property>
            </widget>
-           <widget class="QCheckBox" name="checkBox_3">
+           <widget class="QCheckBox" name="canny">
             <property name="geometry">
              <rect>
               <x>110</x>
@@ -2475,7 +2486,7 @@ border-radius: 10px;</string>
              <string>Canny</string>
             </property>
            </widget>
-           <widget class="QCheckBox" name="checkBox_4">
+           <widget class="QCheckBox" name="lines">
             <property name="geometry">
              <rect>
               <x>210</x>
@@ -2488,7 +2499,7 @@ border-radius: 10px;</string>
              <string>Lines</string>
             </property>
            </widget>
-           <widget class="QCheckBox" name="checkBox_5">
+           <widget class="QCheckBox" name="ellipes">
             <property name="geometry">
              <rect>
               <x>320</x>
@@ -2501,7 +2512,7 @@ border-radius: 10px;</string>
              <string>Ellipes</string>
             </property>
            </widget>
-           <widget class="QCheckBox" name="checkBox_6">
+           <widget class="QCheckBox" name="circle">
             <property name="geometry">
              <rect>
               <x>430</x>
@@ -2527,7 +2538,7 @@ border-radius: 10px;</string>
              <string>Thresholding Value</string>
             </property>
            </widget>
-           <widget class="QSlider" name="horizontalSlider">
+           <widget class="QSlider" name="threshold_slider">
             <property name="geometry">
              <rect>
               <x>20</x>
@@ -2540,7 +2551,7 @@ border-radius: 10px;</string>
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="superimpose_button">
             <property name="geometry">
              <rect>
               <x>300</x>
@@ -2561,7 +2572,7 @@ border-radius: 10px;</string>
              <string>Superimpose</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="reset_button_2">
             <property name="geometry">
              <rect>
               <x>410</x>
@@ -2582,7 +2593,7 @@ border-radius: 10px;</string>
              <string>Reset</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="pushButton_5">
+           <widget class="QPushButton" name="save_button">
             <property name="geometry">
              <rect>
               <x>360</x>
@@ -2603,6 +2614,28 @@ border-radius: 10px;</string>
              <string>Save</string>
             </property>
            </widget>
+           <widget class="QWidget" name="formLayoutWidget_2">
+            <property name="geometry">
+             <rect>
+              <x>-1</x>
+              <y>-1</y>
+              <width>541</width>
+              <height>161</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_2"/>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="horizontalLayoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>29</x>
+             <y>-1</y>
+             <width>1151</width>
+             <height>511</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout"/>
           </widget>
          </widget>
         </widget>
