@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1198</width>
+    <width>1465</width>
     <height>1198</height>
    </rect>
   </property>
@@ -2170,9 +2170,9 @@ selection-background-color: rgb(4, 79, 70);
           <widget class="QGraphicsView" name="contour_image">
            <property name="geometry">
             <rect>
-             <x>40</x>
+             <x>10</x>
              <y>11</y>
-             <width>561</width>
+             <width>681</width>
              <height>311</height>
             </rect>
            </property>
@@ -2188,9 +2188,9 @@ border : 2px solid rgb(255, 255, 255); </string>
           <widget class="QGraphicsView" name="edge_detect_image">
            <property name="geometry">
             <rect>
-             <x>630</x>
+             <x>750</x>
              <y>10</y>
-             <width>541</width>
+             <width>671</width>
              <height>311</height>
             </rect>
            </property>
@@ -2203,14 +2203,19 @@ box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
            </property>
           </widget>
-          <widget class="QFrame" name="frame">
+          <widget class="QFrame" name="framebig">
            <property name="geometry">
             <rect>
-             <x>40</x>
-             <y>340</y>
-             <width>561</width>
-             <height>151</height>
+             <x>20</x>
+             <y>350</y>
+             <width>671</width>
+             <height>171</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">#framebig {
+    border: 2px solid white;
+}</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -2320,8 +2325,8 @@ border-radius: 10px;</string>
            <widget class="QPushButton" name="apply_button">
             <property name="geometry">
              <rect>
-              <x>350</x>
-              <y>90</y>
+              <x>520</x>
+              <y>60</y>
               <width>121</width>
               <height>29</height>
              </rect>
@@ -2341,8 +2346,8 @@ border-radius: 10px;</string>
            <widget class="QPushButton" name="load_button">
             <property name="geometry">
              <rect>
-              <x>350</x>
-              <y>120</y>
+              <x>520</x>
+              <y>100</y>
               <width>121</width>
               <height>29</height>
              </rect>
@@ -2412,26 +2417,20 @@ border-radius: 10px;</string>
              </rect>
             </property>
            </widget>
-           <widget class="QWidget" name="formLayoutWidget">
-            <property name="geometry">
-             <rect>
-              <x>-11</x>
-              <y>-1</y>
-              <width>591</width>
-              <height>161</height>
-             </rect>
-            </property>
-            <layout class="QFormLayout" name="formLayout"/>
-           </widget>
           </widget>
           <widget class="QFrame" name="frame_2">
            <property name="geometry">
             <rect>
-             <x>630</x>
-             <y>340</y>
-             <width>531</width>
-             <height>151</height>
+             <x>760</x>
+             <y>350</y>
+             <width>661</width>
+             <height>171</height>
             </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">#frame_2 {
+    border: 2px solid white;
+}</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -2554,8 +2553,8 @@ border-radius: 10px;</string>
            <widget class="QPushButton" name="superimpose_button">
             <property name="geometry">
              <rect>
-              <x>300</x>
-              <y>90</y>
+              <x>400</x>
+              <y>80</y>
               <width>101</width>
               <height>29</height>
              </rect>
@@ -2575,8 +2574,8 @@ border-radius: 10px;</string>
            <widget class="QPushButton" name="reset_button_2">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>90</y>
+              <x>530</x>
+              <y>80</y>
               <width>101</width>
               <height>29</height>
              </rect>
@@ -2596,8 +2595,8 @@ border-radius: 10px;</string>
            <widget class="QPushButton" name="save_button">
             <property name="geometry">
              <rect>
-              <x>360</x>
-              <y>120</y>
+              <x>470</x>
+              <y>110</y>
               <width>101</width>
               <height>29</height>
              </rect>
@@ -2614,28 +2613,6 @@ border-radius: 10px;</string>
              <string>Save</string>
             </property>
            </widget>
-           <widget class="QWidget" name="formLayoutWidget_2">
-            <property name="geometry">
-             <rect>
-              <x>-1</x>
-              <y>-1</y>
-              <width>541</width>
-              <height>161</height>
-             </rect>
-            </property>
-            <layout class="QFormLayout" name="formLayout_2"/>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="horizontalLayoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>29</x>
-             <y>-1</y>
-             <width>1151</width>
-             <height>511</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout"/>
           </widget>
          </widget>
         </widget>
