@@ -573,6 +573,15 @@ class MainWindow(QtWidgets.QMainWindow):
         scene.addItem(final_snake_item)
         
         self.contour_output_frame.setScene(scene)
+        
+        # Compute perimeter
+        final_snake_int = np.array(final_snake, dtype=np.int32)
+        perimeter = cv2.arcLength(final_snake_int, closed=False)
+        self.perimeter_label.setText(f"Perimeter: {perimeter:.2f} pixels")
+
+        # Compute Area
+        area = cv2.contourArea(final_snake_int)
+        self.area_label.setText(f"Area: {area:.2f} square pixels")
     
     
     def get_contour_parameters(self):
