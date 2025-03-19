@@ -3,9 +3,9 @@ from image_processor import edge_detection
 import cv2
 
 class ActiveContourProcessor:
-    def __init__(self, image, alpha=0.1, beta=0.3, gamma=0.1, window_size=3, iterations=500):
+    def __init__(self, image, alpha=0.1, beta=0.3, gamma=0.1, window_size=5, iterations=500):
         # Apply histogram equalization to enhance edges
-        image = cv2.GaussianBlur(image, (5, 5), sigmaX=1)
+        image = cv2.GaussianBlur(image, (5, 5), sigmaX=3)
         plt.imshow(image, cmap="gray")
         plt.show() 
         # image = cv2.equalizeHist(image)
@@ -26,23 +26,48 @@ class ActiveContourProcessor:
         # self.gradient = gradient.astype(np.float64)
         
         # Sobel X (detects vertical edges)
-        sobel_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=3)
+        sobel_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=5)
 
         # Sobel Y (detects horizontal edges)
-        sobel_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=3)
+        sobel_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=5)
 
         # Compute the gradient magnitude
         sobel_combined = cv2.magnitude(sobel_x, sobel_y)
 
         # Normalize gradient to avoid overflow issues
         sobel_combined = cv2.normalize(sobel_combined, None, 0, 255, cv2.NORM_MINMAX)
+        
+        # Increase contrast of edges only
+        edge_enhanced = np.clip(sobel_combined * 2, 0, 255)
 
         # Convert to float64 for safe computations
-        self.gradient = sobel_combined.astype(np.float64)
+        self.gradient = edge_enhanced.astype(np.float64)
         # self.gradient = cv2.normalize(self.gradient, None, 0, 1, cv2.NORM_MINMAX)
         plt.imshow(self.gradient, cmap="gray")
         plt.show() 
+        
+        # # mask_high = image > 130
+        # # self.gradient[mask_high] = np.clip(self.gradient[mask_high] * 4, 0, 255)
+        # # mask_low = image <= 130
+        # # self.gradient[mask_low] = np.clip(self.gradient[mask_low] * 0.1, 0, 255)
 
+        
+        
+        # edges = np.sqrt(sobel_x**2 + sobel_y**2)
+        # edges = np.uint8(255 * edges / np.max(edges))  # Normalize edges to 0-255
+
+        # # Create a contrast-enhanced image
+        # contrast_image = np.clip(image * 1.5, 0, 255).astype(np.uint8)
+
+        # # Apply contrast only to edge regions
+        # mask = edges > 50  # Threshold to select strong edges
+        # self.gradient = image.copy()
+        # self.gradient[mask] = contrast_image[mask]  # Apply enhancement only at edges
+        # enhanced_edges = np.clip(edges * 1.5, 0, 255).astype(np.uint8)  # Multiply by contrast factor
+        # plt.imshow(self.gradient, cmap="gray")
+        # plt.show() 
+        
+        
             
     def initialize_snake(self):
         width, height = self.image.shape[:2]
@@ -64,10 +89,10 @@ class ActiveContourProcessor:
         image_energy = -self.gradient[int(y), int(x)]
         # internal_energy (elasticity)
         # elasticity = self.alpha * np.linalg.norm(previous_point - point)
-        elasticity = self.alpha * ((x_next - x) ** 2 + (y_next - y) ** 2)
+        elasticity = self.alpha * np.sqrt(((x_next - x) ** 2 + (y_next - y) ** 2))
         # internal_energy (smoothness) 
         # smoothness = self.beta * np.linalg.norm(previous_point - 2 * point + next_point)   
-        smoothness = self.beta * ((x_next - 2 * x + x_prev) ** 2 + (y_next - 2 * y + y_prev) ** 2)
+        smoothness = self.beta * np.sqrt(((x_next - 2 * x + x_prev) ** 2 + (y_next - 2 * y + y_prev) ** 2))
         
         return image_energy + elasticity + smoothness
     
@@ -98,13 +123,13 @@ class ActiveContourProcessor:
             
             
     def get_snake(self):
-        return self.snake, self.inint_snake, self.image
+        return self.snake, self.inint_snake, self.gradient
     
     
 import matplotlib.pyplot as plt
 import cv2    
 if __name__ == "__main__":
-    image = cv2.imread(r"data\apple.jpg", cv2.IMREAD_GRAYSCALE)
+    image = cv2.imread(r"data\banana2.png", cv2.IMREAD_GRAYSCALE)
     # if len(image.shape) == 3 and image.shape[2] == 3:
     #     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     #     print("RGB image read")
@@ -112,7 +137,7 @@ if __name__ == "__main__":
     # image = cv2.imread(r"data\apple3.png", cv2.IMREAD_GRAYSCALE)
     print("Grayscale image read")    
 
-    snake_model = ActiveContourProcessor(image, alpha=0.05, beta=0.1, window_size=5)
+    snake_model = ActiveContourProcessor(image, alpha=0.05, beta=0.1, window_size=12)
     
     snake_model.update_snake()
     final_snake, init_snake,image_final = snake_model.get_snake()
