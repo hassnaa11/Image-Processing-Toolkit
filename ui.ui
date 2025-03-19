@@ -2180,7 +2180,7 @@ selection-background-color: rgb(4, 79, 70);
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>200</height>
+               <height>300</height>
               </size>
              </property>
              <property name="maximumSize">
@@ -2348,6 +2348,9 @@ QSlider::add-page:horizontal {
                       <height>40</height>
                      </size>
                     </property>
+                    <property name="cursor">
+                     <cursorShape>OpenHandCursor</cursorShape>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
@@ -2370,6 +2373,9 @@ border-radius: 10px;</string>
                       <width>0</width>
                       <height>40</height>
                      </size>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>OpenHandCursor</cursorShape>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">font: italic 10pt &quot;Georgia&quot;;
@@ -2396,6 +2402,9 @@ border-radius: 10px;</string>
                     <height>40</height>
                    </size>
                   </property>
+                  <property name="cursor">
+                   <cursorShape>OpenHandCursor</cursorShape>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
@@ -2417,7 +2426,7 @@ border-radius: 10px;</string>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QGraphicsView" name="contour_output_image">
+            <widget class="QGraphicsView" name="contour_output_frame">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -2435,7 +2444,7 @@ border : 2px solid rgb(255, 255, 255); </string>
             </widget>
            </item>
            <item row="1" column="3">
-            <widget class="QGraphicsView" name="hough_transform_output_image">
+            <widget class="QGraphicsView" name="hough_transform_output_frame">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -2489,7 +2498,7 @@ font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>200</height>
+               <height>300</height>
               </size>
              </property>
              <property name="maximumSize">
@@ -2513,67 +2522,17 @@ border : 2px solid rgb(255, 255, 255); </string>
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QGridLayout" name="gridLayout_6">
-              <item row="0" column="1">
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item>
-                 <widget class="QPushButton" name="load_button">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                  </property>
-                  <property name="text">
-                   <string>Load image</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="apply_contour_button">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                  </property>
-                  <property name="text">
-                   <string>Apply contour</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
+             <layout class="QGridLayout" name="gridLayout_5">
               <item row="0" column="0">
-               <layout class="QGridLayout" name="gridLayout_7">
-                <property name="verticalSpacing">
-                 <number>12</number>
+               <layout class="QGridLayout" name="gridLayout_7" rowstretch="20,0,0">
+                <property name="horizontalSpacing">
+                 <number>15</number>
                 </property>
-                <item row="0" column="1">
-                 <widget class="QDoubleSpinBox" name="alpha_snake"/>
-                </item>
-                <item row="1" column="3">
-                 <widget class="QDoubleSpinBox" name="iterations_snake"/>
+                <property name="verticalSpacing">
+                 <number>20</number>
+                </property>
+                <item row="2" column="3">
+                 <widget class="QSpinBox" name="window_size_snake"/>
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_22">
@@ -2594,6 +2553,9 @@ font-weight: bold;</string>
                   </property>
                  </widget>
                 </item>
+                <item row="0" column="1">
+                 <widget class="QDoubleSpinBox" name="alpha_snake"/>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_21">
                   <property name="sizePolicy">
@@ -2610,6 +2572,13 @@ font-weight: bold;</string>
                   </property>
                   <property name="text">
                    <string>Alpha</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QSpinBox" name="iterations_snake">
+                  <property name="maximum">
+                   <number>1000</number>
                   </property>
                  </widget>
                 </item>
@@ -2642,11 +2611,24 @@ font-weight: bold;</string>
                 <item row="1" column="1">
                  <widget class="QDoubleSpinBox" name="beta_snake"/>
                 </item>
-                <item row="2" column="1">
-                 <widget class="QDoubleSpinBox" name="sigma_snake"/>
-                </item>
-                <item row="2" column="3">
-                 <widget class="QDoubleSpinBox" name="widow_size_snake"/>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_28">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                  </property>
+                  <property name="text">
+                   <string>Sigma</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="2" column="2">
                  <widget class="QLabel" name="label_27">
@@ -2667,25 +2649,6 @@ font-weight: bold;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_28">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(255, 255, 255);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 2px solid rgb(6,131,116,255);
-font-weight: bold;</string>
-                  </property>
-                  <property name="text">
-                   <string>Sigma</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="2">
                  <widget class="QLabel" name="label_23">
                   <property name="sizePolicy">
@@ -2702,6 +2665,95 @@ font-weight: bold;</string>
                   </property>
                   <property name="text">
                    <string>Gamma</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QSpinBox" name="sigma_snake"/>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="2">
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <property name="leftMargin">
+                 <number>15</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="upload_image_contour">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>200</width>
+                    <height>38</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>OpenHandCursor</cursorShape>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                  </property>
+                  <property name="text">
+                   <string>Upload Image</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="apply_contour_button">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>200</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>OpenHandCursor</cursorShape>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                  </property>
+                  <property name="text">
+                   <string>Apply contour</string>
                   </property>
                  </widget>
                 </item>
