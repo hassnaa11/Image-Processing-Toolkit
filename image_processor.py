@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from PyQt5.QtGui import *
-
+import pandas as pd
 class NoiseAdder:
     def __init__(self, image_array):
         self.image_array = image_array
@@ -281,13 +281,109 @@ class edge_detection:
           
            
         elif selected_edge_detection_filter == "Canny":
-            threshold1 = 100  # Lower threshold
-            threshold2 = 200  # Upper threshold
-            edges = cv2.Canny(self.image_array, threshold1, threshold2)
-            
-            # Convert edges to 3 channels (RGB) for display consistency
-            processed_array = np.stack((edges,) * 3, axis=-1)
-            
+            filter =FilterProcessor(self.image_array)
+            high_threshold=100
+            lower_threshold=50
+            modified_image=filter.apply_filter(sigma=1, selected_filter="Gaussian",kernel_size= 3) #apply gaussian filter
+            sobel_x = np.array([[-1, 0, 1], 
+                                [-2, 0, 2], 
+                                [-1, 0, 1]])
+            sobel_y = np.array([[-1, -2, -1], 
+                                [0, 0, 0], 
+                                [1, 2, 1]])
+            gx = self.apply_kernel(sobel_x, modified_image)
+            gy = self.apply_kernel(sobel_y, modified_image)
+            magnitude = np.sqrt(gx**2 + gy**2)
+            direction = np.arctan2(gy, gx)
+            h,w=magnitude.shape
+            angle = np.rad2deg(direction) % 180 
+            suppressed = np.zeros((h, w), dtype=np.float32)
+            angle = np.rad2deg(direction) % 180  # Convert to degrees
+            for i in range(1, h - 1):
+                for j in range(1, w - 1):
+                    try:
+                        q, r = 255, 255
+                        print("tryyyy")
+                        if (0 <= angle[i, j] < 45):
+                            q = magnitude[i, j + 1]
+                            r = magnitude[i, j - 1]
+                        elif 45 <= angle[i, j] <90:
+                            q = magnitude[i + 1, j - 1]
+                            r = magnitude[i - 1, j + 1]
+                        elif 90 == angle[i, j]:
+                            q = magnitude[i + 1, j]
+                            r = magnitude[i - 1, j]
+                        elif 90 <= angle[i, j] < 180:
+                            q = magnitude[i - 1, j - 1]
+                            r = magnitude[i + 1, j + 1]
+
+                        if (magnitude[i, j] >= q) and (magnitude[i, j] >= r):
+                            suppressed[i, j] = magnitude[i, j]
+                        else:
+                            suppressed[i, j] = 0
+                    except IndexError:
+                        pass
+            strong = 255
+            weak = 0
+            strong_edges = (suppressed >= high_threshold)
+            weak_edges = (suppressed <= lower_threshold) 
+            intermediate= (suppressed>= lower_threshold) & (suppressed < high_threshold)
+            result = np.zeros(suppressed.shape, dtype=np.uint8)
+            result[strong_edges] = strong
+            result[weak_edges] = weak
+            result[intermediate]=lower_threshold
+            for i in range(1, h - 1):
+                for j in range(1, w - 1):
+                 if  result[i, j] == lower_threshold:
+                    if np.any( result[i-1:i+2, j-1:j+2] == strong):
+                                result[i, j] = strong
+                    else:
+                                result[i, j] = 0
+
+            processed_array=result
+
+
+            #again
+            # filter=FilterProcessor(self.image_array)
+            # modified_image=filter.apply_filter(selected_filter="gaussian")
+            # sobelx=np.array[[-1,0,1],[-2,0,2],[-1,0,1]]
+            # sobely=np.array[[-1,-2,-1],[0,0,0],[1,2,1]]
+            # gx=self.apply_kernel(sobelx,modified_image)
+            # gy=self.apply_kernel(sobely,modified_image)
+            # magnitude=np.sqrt(gx**2+gy**2)
+            # direction=np.arctan(gy/gx)
+            # angle=np.rad2deg(direction)
+            # h ,w = magnitude.shape
+            # for i in w:
+            #     for j in h:
+            #         q, r = 255, 255
+            #         if angle[i,j]>=0 and angle[i,j]<=45:
+            #             q=magnitude[i,j+1]
+            #             r=magnitude[i,j-1]
+            #         elif angle[i,j]>45 and angle[i,j]<=90:
+            #             q=magnitude[i-1,j+1]
+            #             r=magnitude[i+1,j-1]
+            #         elif angle[i,j] == 90:
+            #             q=magnitude[i-1,j]
+            #             r=magnitude[i+1,j]
+            #         elif angle[i,j]>90 and angle[i ,j]<=180:
+            #             q=magnitude[i-1,j-1]
+            #             r=magnitude[i+1,j+1]
+                    
+            #         if magnitude[i,j]>q and magnitude[i,j]>r:
+            #             continue
+            #         else : magnitude[i,j]=0
+            # thresholdmax=200
+            # thresholdmin=50
+            # for i in 
+
+
+
+
+                 
+
+
+                                
         return processed_array
     
     
