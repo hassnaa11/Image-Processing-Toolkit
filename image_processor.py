@@ -22,13 +22,9 @@ class NoiseAdder:
             self.image_array = cv2.add(self.image_array, gauss)
         
         elif noise_type == 'Salt & Pepper':
-            # print("parameters ", parameters)
             ratio, probability = parameters[0], parameters[1]
             num_salt = np.ceil(probability * ratio * self.image_array.size)
             num_pepper = np.ceil(probability * (1 - ratio) * self.image_array.size)
-            # print("num_salt:  ", num_salt,"num_pepper: ", num_pepper)
-            # print( "self.image_array.size: ", self.image_array.size)
-            # print("self.image_array.shape[:2]:  ", self.image_array.shape[:2])
             if len(self.image_array.shape) == 2:
                 coordinates = [np.random.randint(0, i , int(num_salt)) for i in self.image_array.shape]
                 self.image_array[coordinates[0],coordinates[1]] = 255
@@ -83,34 +79,12 @@ class FilterProcessor:
         
         return filtered_image   
     
-    
-    def histogram_equalization(self):
-        # flatten the image to 1D array
-        flat_image = self.image_array.flatten()
-        
-        # compute histogram
-        hist, bins = np.histogram(flat_image, bins=256, range=[0,256])
-        
-        # compute CDF
-        cdf = hist.cumsum()
-        
-        # normalize the image to map the values between 0, 255
-        cdf_normalized = (cdf - cdf.min()) * 255 / (cdf.max() - cdf.min())
-        
-        # Use the normalized CDF as a lookup table
-        equalized_image = cdf_normalized[flat_image]
-        
-        # reshape back to original image shape
-        equalized_image = equalized_image.reshape(self.image_array.shape).astype(np.uint8)
-        
-        return equalized_image
-    
     def apply_kernel(self, kernel, kernel_size):
         pad_size = kernel_size // 2
 
         # Handle padding for grayscale and RGB images
         if len(self.image_array.shape) == 2:  # Grayscale
-            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size)), mode='constant')
+            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size)), mode='reflect')
             filtered_image = np.zeros_like(self.image_array, dtype=np.float32)
 
             for i in range(self.image_array.shape[0]):
@@ -119,7 +93,7 @@ class FilterProcessor:
                     filtered_image[i, j] = np.sum(region * kernel)  # Summation added
 
         else:  # RGB Image
-            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size), (0, 0)), mode='constant')
+            padded_image = np.pad(self.image_array, ((pad_size, pad_size), (pad_size, pad_size), (0, 0)), mode='reflect')
             filtered_image = np.zeros_like(self.image_array, dtype=np.float32)
 
             for i in range(self.image_array.shape[0]):
@@ -144,6 +118,28 @@ class FilterProcessor:
         
         kernel /= np.sum(kernel)
         return kernel  
+    
+    
+    def histogram_equalization(self):
+        # flatten the image to 1D array
+        flat_image = self.image_array.flatten()
+        
+        # compute histogram
+        hist, bins = np.histogram(flat_image, bins=256, range=[0,256])
+        
+        # compute CDF
+        cdf = hist.cumsum()
+        
+        # normalize the image to map the values between 0, 255
+        cdf_normalized = (cdf - cdf.min()) * 255 / (cdf.max() - cdf.min())
+        
+        # Use the normalized CDF as a lookup table
+        equalized_image = cdf_normalized[flat_image]
+        
+        # reshape back to original image shape
+        equalized_image = equalized_image.reshape(self.image_array.shape).astype(np.uint8)
+        
+        return equalized_image
 
 
 
@@ -206,6 +202,7 @@ class FrequencyFilterProcessor:
 class edge_detection:
     def __init__(self, image_array):
         self.image_array = image_array  
+        self.gradient = 0
         
     def apply_kernel(self, kernel, image=None):
         
@@ -249,7 +246,7 @@ class edge_detection:
             gx = self.apply_kernel(sobel_x, self.image_array)
             gy = self.apply_kernel(sobel_y, self.image_array)
             sobel_magnitude = np.sqrt(gx**2 + gy**2)
-            
+            self.gradient = sobel_magnitude
             processed_array = self.normalize_and_adjust(sobel_magnitude)
             processed_array = np.stack((processed_array,) * 3, axis=-1)
             
@@ -294,6 +291,7 @@ class edge_detection:
             gx = self.apply_kernel(sobel_x, modified_image)
             gy = self.apply_kernel(sobel_y, modified_image)
             magnitude = np.sqrt(gx**2 + gy**2)
+            self.gradient =magnitude
             direction = np.arctan2(gy, gx)
             h,w=magnitude.shape
             angle = np.rad2deg(direction) % 180 
@@ -303,7 +301,6 @@ class edge_detection:
                 for j in range(1, w - 1):
                     try:
                         q, r = 255, 255
-                        print("tryyyy")
                         if (0 <= angle[i, j] < 45):
                             q = magnitude[i, j + 1]
                             r = magnitude[i, j - 1]
@@ -341,49 +338,10 @@ class edge_detection:
                                 result[i, j] = 0
 
             processed_array=result
+            print("Canny output type:", type(processed_array))
+            print("Canny output shape:", processed_array.shape)
 
-
-            #again
-            # filter=FilterProcessor(self.image_array)
-            # modified_image=filter.apply_filter(selected_filter="gaussian")
-            # sobelx=np.array[[-1,0,1],[-2,0,2],[-1,0,1]]
-            # sobely=np.array[[-1,-2,-1],[0,0,0],[1,2,1]]
-            # gx=self.apply_kernel(sobelx,modified_image)
-            # gy=self.apply_kernel(sobely,modified_image)
-            # magnitude=np.sqrt(gx**2+gy**2)
-            # direction=np.arctan(gy/gx)
-            # angle=np.rad2deg(direction)
-            # h ,w = magnitude.shape
-            # for i in w:
-            #     for j in h:
-            #         q, r = 255, 255
-            #         if angle[i,j]>=0 and angle[i,j]<=45:
-            #             q=magnitude[i,j+1]
-            #             r=magnitude[i,j-1]
-            #         elif angle[i,j]>45 and angle[i,j]<=90:
-            #             q=magnitude[i-1,j+1]
-            #             r=magnitude[i+1,j-1]
-            #         elif angle[i,j] == 90:
-            #             q=magnitude[i-1,j]
-            #             r=magnitude[i+1,j]
-            #         elif angle[i,j]>90 and angle[i ,j]<=180:
-            #             q=magnitude[i-1,j-1]
-            #             r=magnitude[i+1,j+1]
-                    
-            #         if magnitude[i,j]>q and magnitude[i,j]>r:
-            #             continue
-            #         else : magnitude[i,j]=0
-            # thresholdmax=200
-            # thresholdmin=50
-            # for i in 
-
-
-
-
-                 
-
-
-                                
+                  
         return processed_array
     
     

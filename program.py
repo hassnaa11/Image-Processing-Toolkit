@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, uic
-from PyQt5.QtWidgets import QFrame, QGraphicsScene, QGraphicsView
+from PyQt5.QtWidgets import QGraphicsPixmapItem,QGraphicsPathItem, QFrame, QGraphicsScene, QGraphicsView
 import sys
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 import numpy as np
 import cv2
@@ -10,6 +11,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from Image import Image
 from typing import Dict, List
 from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder, edge_detection, thresholding
+from active_contour_processor import ActiveContourProcessor
 
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
@@ -17,17 +19,20 @@ Color =('r', 'g', 'b')
 filters = ['Average','Gaussian','Median','select filter']
 edge_detection_filters = ['Sobel', 'Roberts', 'Prewitt', 'Canny']
 
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         uic.loadUi('ui.ui', self)
         
         self.database: List[Image] = []
+        
         # upload buttons
-
         self.upload_button.clicked.connect(lambda:self.upload_image(1))
         self.input1_button.clicked.connect(lambda:self.upload_image(2))
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
+        self.upload_image_contour.clicked.connect(lambda:self.upload_image(4))
+       
         
         # noises checkbox
         self.noises_combobox.setDisabled(True)
@@ -89,6 +94,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.original_input1 = None
         self.original_input2 = None
         
+        # contour 
+        self.apply_contour_button.clicked.connect(self.apply_contour)
+
+        #chain code
+        self.chaincode_button.clicked.connect(self.apply_chain_code)
+        
 
     def upload_image(self, key):
         if self.output_image_frame.scene() is not None:
@@ -101,14 +112,9 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.file_path:
             self.input_image = Image()
             self.input_image.read_image(self.file_path)
-
             scene = self.input_image.display_image()
-            self.img = Image()
-            self.img.read_image(self.file_path)
 
-            # scene = self.img.display_image()
-            self.original_image = np.copy(self.img.image)
-            
+            self.original_image = np.copy(self.input_image.image)            
             
             if key == 1: # upload in filter tap
                 self.input_image_frame.setScene(scene)
@@ -138,6 +144,10 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.input2_combobox.currentIndexChanged.connect(self.apply_hybrid_changes)
                 self.input2_image.setScene(scene)
                 self.input2_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+                
+            elif key == 4: # upload in contour tap
+                self.contour_output_frame.setScene(scene)
+                self.contour_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)    
 
 
     def display_histogram(self, image:Image, viewport = "in"):
@@ -535,7 +545,106 @@ class MainWindow(QtWidgets.QMainWindow):
             self.input_image_frame.scene().clear()
             if self.output_image_frame.scene() is not None:
                 self.output_image_frame.scene().clear()
+    def apply_chain_code(self):
+        direction_map_8 = {
+            (1, 0): 0,   # Right →
+            (1, -1): 1,  # Up-Right ↗
+            (0, -1): 2,  # Up ↑
+            (-1, -1): 3, # Up-Left ↖
+            (-1, 0): 4,  # Left ←
+            (-1, 1): 5,  # Down-Left ↙
+            (0, 1): 6,   # Down ↓
+            (1, 1): 7    # Down-Right ↘
+        }
 
+        chain_code = []
+        final_snake, init_snake = self.snake_model.get_snake()
+       
+        final_snake = np.array(final_snake)
+        final_snake= np.flip(final_snake, axis=0)
+        print(final_snake)
+
+        # Find the top-left point (minimum y, then minimum x)
+        min_index = np.lexsort((final_snake[:, 1], final_snake[:, 0]))[0]
+        print(min_index)
+
+        # Reorder the snake to start from this point
+        ordered_snake = np.roll(final_snake, -min_index, axis=0)
+
+        # Ensure integer coordinates
+        ordered_snake = np.round(ordered_snake ).astype(int)
+
+        for i in range(len(ordered_snake ) - 1):  # Loop through snake points
+            x1, y1 = ordered_snake [i]
+            x2, y2 = ordered_snake [i + 1]
+
+            move = (x2 - x1, y2 - y1)  # Compute movement vector
+
+            if move in direction_map_8:  # Valid movement
+                chain_code.append(direction_map_8[move])
+            else:
+                # If move is not in the direction map, find the nearest valid move
+                closest_move = min(direction_map_8.keys(), key=lambda k: np.linalg.norm(np.array(move) - np.array(k)))
+                chain_code.append(direction_map_8[closest_move])
+
+        print("Chain Code:", chain_code)
+        return chain_code
+
+
+
+        
+    def apply_contour(self):
+        input_image_copy = np.copy(self.input_image.image)
+        alpha, beta, gamma, window_size, iterations, sigma = self.get_contour_parameters()
+        self.snake_model = ActiveContourProcessor(input_image_copy, alpha, beta, gamma, window_size, iterations, sigma)
+        self.snake_model.update_snake()
+        print("done update snake loop")
+        final_snake, init_snake = self.snake_model.get_snake()
+        
+        scene = self.input_image.display_image()
+
+        # Draw initial snake (Blue)
+        path_init = QPainterPath()
+        path_init.moveTo(init_snake[0, 0], init_snake[0, 1])
+        for point in init_snake[1:]:
+            path_init.lineTo(point[0], point[1])
+        
+        init_snake_item = QGraphicsPathItem(path_init)
+        init_snake_item.setPen(QPen(Qt.blue, 1.7))
+        scene.addItem(init_snake_item)
+
+        # Draw final snake (Red)
+        path_final = QPainterPath()
+        path_final.moveTo(final_snake[0, 0], final_snake[0, 1])
+        for point in final_snake[1:]:
+            path_final.lineTo(point[0], point[1])
+        
+        final_snake_item = QGraphicsPathItem(path_final)
+        final_snake_item.setPen(QPen(Qt.red, 1.7))
+        scene.addItem(final_snake_item)
+        
+        self.contour_output_frame.setScene(scene)
+        
+        # Compute perimeter
+        final_snake_int = np.array(final_snake, dtype=np.int32)
+        perimeter = cv2.arcLength(final_snake_int, closed=False)
+        self.perimeter_label.setText(f"Perimeter: {perimeter:.2f} pixels")
+
+        # Compute Area
+        area = cv2.contourArea(final_snake_int)
+        self.area_label.setText(f"Area: {area:.2f} square pixels")
+    
+    
+    def get_contour_parameters(self):
+        alpha = self.alpha_snake.value()
+        beta = self.beta_snake.value()
+        gamma = self.gamma_snake.value()
+        window_size = self.window_size_snake.value()
+        iterations = self.iterations_snake.value()
+        sigma = self.sigma_snake.value()
+        return alpha, beta, gamma, window_size, iterations, sigma
+
+        
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
