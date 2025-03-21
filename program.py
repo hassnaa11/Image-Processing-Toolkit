@@ -118,13 +118,14 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.edge_filters_combobox.setDisabled(False)
                 self.threshold_combobox.setDisabled(False)
                 self.display_histogram(self.input_image)
-                self.display_cdf(self.input_image)
+                self.display_cdf(self.input_image) 
                 
             elif key == 2:  # upload in hybrid tap first input
                 self.is_hybrid_mode = True
                 self.image_input1 = Image()
                 self.image_input1.read_image(self.file_path)
                 self.original_input1 = np.copy(self.image_input1.image)
+                
                 self.input1_combobox.currentIndexChanged.connect(self.apply_hybrid_changes)
                 self.input1_image.setScene(scene)
                 self.input1_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)

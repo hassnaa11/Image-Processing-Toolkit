@@ -130,7 +130,7 @@ class Image:
             ax.legend()
             ax.set_title('RGB Histogram')
         else:
-            ax.bar(bin_edges[:-1], self.__hg.flatten(), width=1, color='black')
+            ax.bar(bin_edges[:-1], self.__hg.flatten(), width=1, color='yellow')
             ax.set_title('Grayscale Histogram')
             
         ax.set_xlabel('Pixel Value')
@@ -165,7 +165,7 @@ class Image:
             ax.legend()
             ax.set_title('RGB CDF')
         else:
-            ax.plot(self.__cdf, color='k')
+            ax.plot(self.__cdf, color='yellow')
             ax.set_title('Grayscale CDF')
             
         ax.set_xlabel('Pixel Value')
