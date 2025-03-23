@@ -76,8 +76,15 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         self.ratio_slider.valueChanged.connect(lambda: self.apply_changes("noises"))
         self.show_hide_parameters("select noise")
-        self.low_threshold_slider.setRange(0, 100)
-        self.high_threshold_slider.setRange(0,150)
+        self.low_threshold_label.setText(f"Low Threshold: 50")
+        self.high_threshold_label.setText(f"High Threshold: 100")
+        self.low_threshold_slider.setMinimum(0)   # Minimum value
+        self.low_threshold_slider.setMaximum(100) # Maximum value
+        self.low_threshold_slider.setValue(50) 
+        self.high_threshold_slider.setMinimum(0)   # Minimum value
+        self.high_threshold_slider.setMaximum(150) # Maximum value
+        self.high_threshold_slider.setValue(100) 
+        self.sigma_canny_slider.setRange(1,30)
         self.low_threshold_slider.setSingleStep(10)
         self.high_threshold_slider.setSingleStep(10)
         self.low_threshold_slider.hide()

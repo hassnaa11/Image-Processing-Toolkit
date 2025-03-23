@@ -229,9 +229,10 @@ class edge_detection:
         return np.clip(norm_image, 0, 255).astype(np.uint8)
 
     def apply_edge_detection_filter(self, selected_edge_detection_filter, low_threshold,high_threshold, sigma_gaussian):
-      
+        print(low_threshold)
         if len(self.image_array.shape) == 3 and self.image_array.shape[2] == 3:
             self.image_array = np.mean(self.image_array, axis=2).astype(np.uint8)
+
         
         if selected_edge_detection_filter == "select edge detection filter":
             return self.image_array
@@ -279,8 +280,6 @@ class edge_detection:
            
         elif selected_edge_detection_filter == "Canny":
             filter =FilterProcessor(self.image_array)
-            # high_threshold=100
-            # low_threshold=50
             modified_image=filter.apply_filter(sigma=sigma_gaussian, selected_filter="Gaussian",kernel_size= 3) #apply gaussian filter
             sobel_x = np.array([[-1, 0, 1], 
                                 [-2, 0, 2], 
