@@ -607,7 +607,6 @@ class MainWindow(QtWidgets.QMainWindow):
         final_snake, init_snake = self.snake_model.get_snake()
        
         final_snake = np.array(final_snake)
-        final_snake= np.flip(final_snake, axis=0)
         print(final_snake)
 
         # Find the top-left point (minimum y, then minimum x)
