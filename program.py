@@ -12,6 +12,8 @@ from Image import Image
 from typing import Dict, List
 from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder, edge_detection, thresholding
 from active_contour_processor import ActiveContourProcessor
+from reportlab.pdfgen import canvas
+
 
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
@@ -74,11 +76,19 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         self.ratio_slider.valueChanged.connect(lambda: self.apply_changes("noises"))
         self.show_hide_parameters("select noise")
+        self.low_threshold_slider.setRange(0, 100)
+        self.high_threshold_slider.setRange(0,150)
+        self.low_threshold_slider.setSingleStep(10)
+        self.high_threshold_slider.setSingleStep(10)
+       
 
         # kernel size
         self.kernel_index = 0
         self.kernel_size_slider.valueChanged.connect(self.change_kernel)
 
+        #low and high threshold sliders
+        self.low_threshold_slider.valueChanged.connect(self.change_slider_value)
+        self.high_threshold_slider.valueChanged.connect(self.change_slider_value)
         # equalize button
         self.equalization_button.clicked.connect(self.equalize_image)
 
@@ -150,6 +160,11 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.contour_output_frame.setScene(scene)
                 self.contour_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)    
 
+    def change_slider_value(self):
+        low_threshold=self.low_threshold_slider.value()
+        high_threshold=self.high_threshold_slider.value()
+        self.low_threshold_label.setText(f"Low Threshold: {low_threshold}")
+        self.high_threshold_label.setText(f"High Threshold: {high_threshold}")
 
     def display_histogram(self, image:Image, viewport = "in"):
         """Display histogram in the UI"""
@@ -244,8 +259,9 @@ class MainWindow(QtWidgets.QMainWindow):
                     filter_processor = FrequencyFilterProcessor(modified_image.image)
                     modified_image.image = filter_processor.apply_frequency_filter(0.5, edge_detection_type)
                 else:  
+                    low_threshold,high_threshold, sigma_gaussian = self.low_threshold_slider.value(), self.high_threshold_slider.value(),self.sigma_canny_slider.value()
                     edge_detection_processor = edge_detection(modified_image.image)
-                    modified_image.image = edge_detection_processor.apply_edge_detection_filter(edge_detection_type)
+                    modified_image.image = edge_detection_processor.apply_edge_detection_filter(edge_detection_type,low_threshold,high_threshold, sigma_gaussian)
 
             # apply thresholding
             thresholding_type = self.threshold_combobox.currentText()
@@ -587,9 +603,35 @@ class MainWindow(QtWidgets.QMainWindow):
                 # If move is not in the direction map, find the nearest valid move
                 closest_move = min(direction_map_8.keys(), key=lambda k: np.linalg.norm(np.array(move) - np.array(k)))
                 chain_code.append(direction_map_8[closest_move])
-
+        self.save_chain_code_to_pdf(chain_code)
         print("Chain Code:", chain_code)
         return chain_code
+ 
+
+    def save_chain_code_to_pdf(self, chain_code, filename="chain_code.pdf"):
+        # Create a PDF canvas
+        c = canvas.Canvas(filename)
+
+        # Add title
+        c.setFont("Helvetica-Bold", 14)
+        c.drawString(100, 800, "Snake Chain Code Representation")
+
+        # Add chain code
+        c.setFont("Helvetica", 12)
+        y_position = 780  # Start position for text
+        chain_text = "Chain Code: " + " ".join(map(str, chain_code))
+
+        # Split text if too long
+        max_width = 80  # Characters per line
+        lines = [chain_text[i:i+max_width] for i in range(0, len(chain_text), max_width)]
+
+        for line in lines:
+            c.drawString(100, y_position, line)
+            y_position -= 20  # Move down for next line
+
+        # Save PDF
+        c.save()
+        print(f"Chain code saved to {filename}")
 
 
 
