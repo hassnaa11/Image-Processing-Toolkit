@@ -33,7 +33,7 @@ class ActiveContourProcessor:
         height, width = self.image.shape[:2]
         center_x, center_y = width // 2 , height // 2 
         radius_x, radius_y = width // 2, height // 2
-        s = np.linspace(0, 2 * np.pi, 100)
+        s = np.linspace(0, 2 * np.pi, 200)
         x = center_x + radius_x * np.cos(s)
         y = center_y + radius_y * np.sin(s)
         snake = np.array([x, y]).T
