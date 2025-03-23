@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1258, 965)
+        MainWindow.resize(1338, 1303)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -23,7 +23,6 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet("background-color: rgb(46, 51, 73);\n"
 "background-color: rgb(242,243,247);\n"
 "background-color: rgb(219,222,230);\n"
-"\n"
 "\n"
 "")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -55,6 +54,7 @@ class Ui_MainWindow(object):
 "    border-radius: 15px;  \n"
 "    padding: 5px;\n"
 "    font: italic 10pt \"Georgia\";  \n"
+"\n"
 "}\n"
 "\n"
 "QTabBar::tab {\n"
@@ -92,34 +92,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
-        self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.tab)
-        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
-        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout = QtWidgets.QGridLayout(self.tab)
         self.gridLayout.setObjectName("gridLayout")
-        self.output_histogram = QtWidgets.QGraphicsView(self.tab)
-        self.output_histogram.setStyleSheet("background-color: rgb(37, 42, 64);\n"
-"background-color: rgb(255, 255, 255);\n"
-"border-radius: 15px;\n"
-"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
-"border : 2px solid rgb(255, 255, 255); ")
-        self.output_histogram.setObjectName("output_histogram")
-        self.gridLayout.addWidget(self.output_histogram, 4, 1, 1, 1)
-        self.distribution_curve = QtWidgets.QGraphicsView(self.tab)
-        self.distribution_curve.setStyleSheet("background-color: rgb(37, 42, 64);\n"
-"background-color: rgb(255, 255, 255);\n"
-"border-radius: 15px;\n"
-"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
-"border : 2px solid rgb(255, 255, 255); ")
-        self.distribution_curve.setObjectName("distribution_curve")
-        self.gridLayout.addWidget(self.distribution_curve, 4, 2, 1, 1)
-        self.input_histogram = QtWidgets.QGraphicsView(self.tab)
-        self.input_histogram.setStyleSheet("background-color: rgb(37, 42, 64);\n"
-"background-color: rgb(255, 255, 255);\n"
-"border-radius: 15px;\n"
-"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
-"border : 2px solid rgb(255, 255, 255); ")
-        self.input_histogram.setObjectName("input_histogram")
-        self.gridLayout.addWidget(self.input_histogram, 4, 0, 1, 1)
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.upload_button = QtWidgets.QPushButton(self.tab)
@@ -139,23 +113,6 @@ class Ui_MainWindow(object):
 "border-radius: 10px;")
         self.upload_button.setObjectName("upload_button")
         self.horizontalLayout_8.addWidget(self.upload_button)
-        self.gray_scale_button = QtWidgets.QPushButton(self.tab)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.gray_scale_button.sizePolicy().hasHeightForWidth())
-        self.gray_scale_button.setSizePolicy(sizePolicy)
-        self.gray_scale_button.setMinimumSize(QtCore.QSize(100, 38))
-        self.gray_scale_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
-        self.gray_scale_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
-"background-color: rgb(57, 143, 252);\n"
-"background-color: rgb(6,131,116);\n"
-"\n"
-"color: rgb(255, 255, 255);\n"
-"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
-"border-radius: 10px;")
-        self.gray_scale_button.setObjectName("gray_scale_button")
-        self.horizontalLayout_8.addWidget(self.gray_scale_button)
         self.reset_button = QtWidgets.QPushButton(self.tab)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -175,8 +132,77 @@ class Ui_MainWindow(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_8.addItem(spacerItem)
         self.gridLayout.addLayout(self.horizontalLayout_8, 0, 0, 1, 2)
+        self.label = QtWidgets.QLabel(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
+        self.label.setStyleSheet("color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"\n"
+"font: 9pt \"MS Shell Dlg 2\";")
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 1, 0, 1, 1)
+        self.label_7 = QtWidgets.QLabel(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
+        self.label_7.setSizePolicy(sizePolicy)
+        self.label_7.setStyleSheet("color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"\n"
+"font: 9pt \"MS Shell Dlg 2\";")
+        self.label_7.setObjectName("label_7")
+        self.gridLayout.addWidget(self.label_7, 1, 1, 1, 1)
+        self.label_18 = QtWidgets.QLabel(self.tab)
+        self.label_18.setStyleSheet("color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"\n"
+"font: 9pt \"MS Shell Dlg 2\";")
+        self.label_18.setObjectName("label_18")
+        self.gridLayout.addWidget(self.label_18, 1, 2, 1, 1)
+        self.input_image_frame = QtWidgets.QGraphicsView(self.tab)
+        self.input_image_frame.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.input_image_frame.setObjectName("input_image_frame")
+        self.gridLayout.addWidget(self.input_image_frame, 2, 0, 1, 1)
+        self.input_histogram = QtWidgets.QFrame(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.input_histogram.sizePolicy().hasHeightForWidth())
+        self.input_histogram.setSizePolicy(sizePolicy)
+        self.input_histogram.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.input_histogram.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.input_histogram.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.input_histogram.setObjectName("input_histogram")
+        self.gridLayout.addWidget(self.input_histogram, 2, 1, 1, 1)
+        self.input_distribution_curve = QtWidgets.QFrame(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.input_distribution_curve.sizePolicy().hasHeightForWidth())
+        self.input_distribution_curve.setSizePolicy(sizePolicy)
+        self.input_distribution_curve.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.input_distribution_curve.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.input_distribution_curve.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.input_distribution_curve.setObjectName("input_distribution_curve")
+        self.gridLayout.addWidget(self.input_distribution_curve, 2, 2, 1, 1)
         self.verticalFrame_3 = QtWidgets.QFrame(self.tab)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.verticalFrame_3.sizePolicy().hasHeightForWidth())
@@ -191,6 +217,8 @@ class Ui_MainWindow(object):
         self.verticalFrame_3.setObjectName("verticalFrame_3")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.verticalFrame_3)
         self.gridLayout_3.setObjectName("gridLayout_3")
+        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_3.addItem(spacerItem1, 0, 1, 1, 1)
         self.verticalLayout_12 = QtWidgets.QVBoxLayout()
         self.verticalLayout_12.setContentsMargins(-1, -1, -1, 10)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
@@ -200,14 +228,21 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
         self.label_6.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.label_6.setFont(font)
         self.label_6.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 9pt \"MS Shell Dlg 2\";\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
 "border : 2px solid rgb(6,131,116,255);\n"
 "")
         self.label_6.setObjectName("label_6")
         self.verticalLayout_12.addWidget(self.label_6)
         self.noises_combobox = QtWidgets.QComboBox(self.verticalFrame_3)
-        self.noises_combobox.setMinimumSize(QtCore.QSize(0, 30))
+        self.noises_combobox.setMinimumSize(QtCore.QSize(0, 40))
         self.noises_combobox.setMaximumSize(QtCore.QSize(16777215, 30))
         self.noises_combobox.setStyleSheet("QComboBox {\n"
 "background-color: rgb(219,222,230);\n"
@@ -240,6 +275,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.noises_combobox.setObjectName("noises_combobox")
+        self.noises_combobox.addItem("")
         self.noises_combobox.addItem("")
         self.noises_combobox.addItem("")
         self.noises_combobox.addItem("")
@@ -447,11 +483,6 @@ class Ui_MainWindow(object):
         self.sigma_slider.setObjectName("sigma_slider")
         self.horizontalLayout_11.addWidget(self.sigma_slider)
         self.verticalLayout_12.addLayout(self.horizontalLayout_11)
-        self.splitter = QtWidgets.QSplitter(self.verticalFrame_3)
-        self.splitter.setStyleSheet("border : 0px solid rgb(255, 255, 255); ")
-        self.splitter.setOrientation(QtCore.Qt.Vertical)
-        self.splitter.setObjectName("splitter")
-        self.verticalLayout_12.addWidget(self.splitter)
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.probability_label = QtWidgets.QLabel(self.verticalFrame_3)
@@ -554,6 +585,8 @@ class Ui_MainWindow(object):
         self.ratio_slider.setObjectName("ratio_slider")
         self.horizontalLayout_13.addWidget(self.ratio_slider)
         self.verticalLayout_12.addLayout(self.horizontalLayout_13)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_12.addItem(spacerItem2)
         self.label_9 = QtWidgets.QLabel(self.verticalFrame_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -561,13 +594,13 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
         self.label_9.setSizePolicy(sizePolicy)
         self.label_9.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 9pt \"MS Shell Dlg 2\";\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
 "border : 2px solid rgb(6,131,116,255);\n"
 "")
         self.label_9.setObjectName("label_9")
         self.verticalLayout_12.addWidget(self.label_9)
         self.filters_combobox = QtWidgets.QComboBox(self.verticalFrame_3)
-        self.filters_combobox.setMinimumSize(QtCore.QSize(0, 30))
+        self.filters_combobox.setMinimumSize(QtCore.QSize(0, 40))
         self.filters_combobox.setMaximumSize(QtCore.QSize(16777215, 30))
         self.filters_combobox.setStyleSheet("QComboBox {\n"
 "background-color: rgb(219,222,230);\n"
@@ -651,12 +684,14 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.sigma_filter_slider.setMinimum(1)
-        self.sigma_filter_slider.setMaximum(100)
+        self.sigma_filter_slider.setMaximum(10)
         self.sigma_filter_slider.setProperty("value", 1)
         self.sigma_filter_slider.setOrientation(QtCore.Qt.Horizontal)
         self.sigma_filter_slider.setObjectName("sigma_filter_slider")
         self.horizontalLayout_14.addWidget(self.sigma_filter_slider)
         self.verticalLayout_12.addLayout(self.horizontalLayout_14)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_12.addItem(spacerItem3)
         self.label_11 = QtWidgets.QLabel(self.verticalFrame_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -664,8 +699,9 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.label_11.sizePolicy().hasHeightForWidth())
         self.label_11.setSizePolicy(sizePolicy)
         self.label_11.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 9pt \"MS Shell Dlg 2\";\n"
-"border : 2px solid rgb(6,131,116,255);")
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"")
         self.label_11.setObjectName("label_11")
         self.verticalLayout_12.addWidget(self.label_11)
         self.edge_filters_combobox = QtWidgets.QComboBox(self.verticalFrame_3)
@@ -674,7 +710,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.edge_filters_combobox.sizePolicy().hasHeightForWidth())
         self.edge_filters_combobox.setSizePolicy(sizePolicy)
-        self.edge_filters_combobox.setMinimumSize(QtCore.QSize(0, 30))
+        self.edge_filters_combobox.setMinimumSize(QtCore.QSize(0, 40))
         self.edge_filters_combobox.setMaximumSize(QtCore.QSize(16777215, 30))
         self.edge_filters_combobox.setStyleSheet("QComboBox {\n"
 "background-color: rgb(219,222,230);\n"
@@ -711,7 +747,164 @@ class Ui_MainWindow(object):
         self.edge_filters_combobox.addItem("")
         self.edge_filters_combobox.addItem("")
         self.edge_filters_combobox.addItem("")
+        self.edge_filters_combobox.addItem("")
+        self.edge_filters_combobox.addItem("")
         self.verticalLayout_12.addWidget(self.edge_filters_combobox)
+        self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_16.setObjectName("horizontalLayout_16")
+        self.sigma_canny_label = QtWidgets.QLabel(self.verticalFrame_3)
+        self.sigma_canny_label.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.sigma_canny_label.setObjectName("sigma_canny_label")
+        self.horizontalLayout_16.addWidget(self.sigma_canny_label)
+        self.sigma_canny_slider = QtWidgets.QSlider(self.verticalFrame_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.sigma_canny_slider.sizePolicy().hasHeightForWidth())
+        self.sigma_canny_slider.setSizePolicy(sizePolicy)
+        self.sigma_canny_slider.setMinimumSize(QtCore.QSize(200, 0))
+        self.sigma_canny_slider.setStyleSheet("QSlider {\n"
+"     border : 2px solid rgb(6,131,116,255);\n"
+"}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 8px;\n"
+"   background: rgb(255,255,255); /* Lighter shade of the dark color */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */\n"
+"    border: 2px solid rgb(255,255,255); /* Matches groove */\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"    margin: -6px 0;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal {\n"
+"    background:rgb(161, 164, 171); /* Matches handle */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal {\n"
+"    background:  rgb(188, 191, 198); /* Matches groove */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"")
+        self.sigma_canny_slider.setMinimum(1)
+        self.sigma_canny_slider.setMaximum(100)
+        self.sigma_canny_slider.setProperty("value", 1)
+        self.sigma_canny_slider.setOrientation(QtCore.Qt.Horizontal)
+        self.sigma_canny_slider.setObjectName("sigma_canny_slider")
+        self.horizontalLayout_16.addWidget(self.sigma_canny_slider)
+        self.verticalLayout_12.addLayout(self.horizontalLayout_16)
+        self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_17.setObjectName("horizontalLayout_17")
+        self.low_threshold_label = QtWidgets.QLabel(self.verticalFrame_3)
+        self.low_threshold_label.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.low_threshold_label.setObjectName("low_threshold_label")
+        self.horizontalLayout_17.addWidget(self.low_threshold_label)
+        self.low_threshold_slider = QtWidgets.QSlider(self.verticalFrame_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.low_threshold_slider.sizePolicy().hasHeightForWidth())
+        self.low_threshold_slider.setSizePolicy(sizePolicy)
+        self.low_threshold_slider.setMinimumSize(QtCore.QSize(200, 0))
+        self.low_threshold_slider.setStyleSheet("QSlider {\n"
+"     border : 2px solid rgb(6,131,116,255);\n"
+"}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 8px;\n"
+"   background: rgb(255,255,255); /* Lighter shade of the dark color */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */\n"
+"    border: 2px solid rgb(255,255,255); /* Matches groove */\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"    margin: -6px 0;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal {\n"
+"    background:rgb(161, 164, 171); /* Matches handle */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal {\n"
+"    background:  rgb(188, 191, 198); /* Matches groove */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"")
+        self.low_threshold_slider.setMinimum(1)
+        self.low_threshold_slider.setMaximum(100)
+        self.low_threshold_slider.setProperty("value", 1)
+        self.low_threshold_slider.setOrientation(QtCore.Qt.Horizontal)
+        self.low_threshold_slider.setObjectName("low_threshold_slider")
+        self.horizontalLayout_17.addWidget(self.low_threshold_slider)
+        self.verticalLayout_12.addLayout(self.horizontalLayout_17)
+        self.horizontalLayout_18 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
+        self.high_threshold_label = QtWidgets.QLabel(self.verticalFrame_3)
+        self.high_threshold_label.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.high_threshold_label.setObjectName("high_threshold_label")
+        self.horizontalLayout_18.addWidget(self.high_threshold_label)
+        self.high_threshold_slider = QtWidgets.QSlider(self.verticalFrame_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.high_threshold_slider.sizePolicy().hasHeightForWidth())
+        self.high_threshold_slider.setSizePolicy(sizePolicy)
+        self.high_threshold_slider.setMinimumSize(QtCore.QSize(200, 0))
+        self.high_threshold_slider.setStyleSheet("QSlider {\n"
+"     border : 2px solid rgb(6,131,116,255);\n"
+"}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 8px;\n"
+"   background: rgb(255,255,255); /* Lighter shade of the dark color */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */\n"
+"    border: 2px solid rgb(255,255,255); /* Matches groove */\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"    margin: -6px 0;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal {\n"
+"    background:rgb(161, 164, 171); /* Matches handle */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal {\n"
+"    background:  rgb(188, 191, 198); /* Matches groove */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"")
+        self.high_threshold_slider.setMinimum(1)
+        self.high_threshold_slider.setMaximum(100)
+        self.high_threshold_slider.setProperty("value", 1)
+        self.high_threshold_slider.setOrientation(QtCore.Qt.Horizontal)
+        self.high_threshold_slider.setObjectName("high_threshold_slider")
+        self.horizontalLayout_18.addWidget(self.high_threshold_slider)
+        self.verticalLayout_12.addLayout(self.horizontalLayout_18)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.MinimumExpanding)
+        self.verticalLayout_12.addItem(spacerItem4)
         self.label_10 = QtWidgets.QLabel(self.verticalFrame_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -719,12 +912,13 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.label_10.sizePolicy().hasHeightForWidth())
         self.label_10.setSizePolicy(sizePolicy)
         self.label_10.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 9pt \"MS Shell Dlg 2\";\n"
-"border : 2px solid rgb(6,131,116,255);")
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"")
         self.label_10.setObjectName("label_10")
         self.verticalLayout_12.addWidget(self.label_10)
         self.threshold_combobox = QtWidgets.QComboBox(self.verticalFrame_3)
-        self.threshold_combobox.setMinimumSize(QtCore.QSize(0, 30))
+        self.threshold_combobox.setMinimumSize(QtCore.QSize(0, 40))
         self.threshold_combobox.setMaximumSize(QtCore.QSize(16777215, 30))
         self.threshold_combobox.setStyleSheet("QComboBox {\n"
 "background-color: rgb(219,222,230);\n"
@@ -759,26 +953,68 @@ class Ui_MainWindow(object):
         self.threshold_combobox.setObjectName("threshold_combobox")
         self.threshold_combobox.addItem("")
         self.threshold_combobox.addItem("")
+        self.threshold_combobox.addItem("")
         self.verticalLayout_12.addWidget(self.threshold_combobox)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_12.addItem(spacerItem1)
-        self.horizontalLayout_18 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
-        self.normalization_button = QtWidgets.QPushButton(self.verticalFrame_3)
-        self.normalization_button.setMinimumSize(QtCore.QSize(0, 30))
-        self.normalization_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
-        self.normalization_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
-"background-color: rgb(57, 143, 252);\n"
-"background-color: rgb(219,222,230);\n"
-"color: rgb(255, 255, 255);\n"
-"color: rgb(2, 39, 35);\n"
+        spacerItem5 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_12.addItem(spacerItem5)
+        self.horizontalLayout_15 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_15.setObjectName("horizontalLayout_15")
+        self.kernel_size_label = QtWidgets.QLabel(self.verticalFrame_3)
+        self.kernel_size_label.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.kernel_size_label.setObjectName("kernel_size_label")
+        self.horizontalLayout_15.addWidget(self.kernel_size_label)
+        self.kernel_size_slider = QtWidgets.QSlider(self.verticalFrame_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.kernel_size_slider.sizePolicy().hasHeightForWidth())
+        self.kernel_size_slider.setSizePolicy(sizePolicy)
+        self.kernel_size_slider.setMinimumSize(QtCore.QSize(200, 0))
+        self.kernel_size_slider.setStyleSheet("QSlider {\n"
+"     border : 2px solid rgb(6,131,116,255);\n"
+"}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 8px;\n"
+"   background: rgb(255,255,255); /* Lighter shade of the dark color */\n"
+"    border-radius: 4px;\n"
+"}\n"
 "\n"
-"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
-"border-radius: 10px;")
-        self.normalization_button.setObjectName("normalization_button")
-        self.horizontalLayout_18.addWidget(self.normalization_button)
+"QSlider::handle:horizontal {\n"
+"    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */\n"
+"    border: 2px solid rgb(255,255,255); /* Matches groove */\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"    margin: -6px 0;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal {\n"
+"    background:rgb(161, 164, 171); /* Matches handle */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal {\n"
+"    background:  rgb(188, 191, 198); /* Matches groove */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"")
+        self.kernel_size_slider.setMinimum(0)
+        self.kernel_size_slider.setMaximum(2)
+        self.kernel_size_slider.setSingleStep(1)
+        self.kernel_size_slider.setProperty("value", 0)
+        self.kernel_size_slider.setOrientation(QtCore.Qt.Horizontal)
+        self.kernel_size_slider.setObjectName("kernel_size_slider")
+        self.horizontalLayout_15.addWidget(self.kernel_size_slider)
+        self.verticalLayout_12.addLayout(self.horizontalLayout_15)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_12.addItem(spacerItem6)
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.equalization_button = QtWidgets.QPushButton(self.verticalFrame_3)
-        self.equalization_button.setMinimumSize(QtCore.QSize(0, 30))
+        self.equalization_button.setMinimumSize(QtCore.QSize(0, 50))
         self.equalization_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.equalization_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
 "background-color: rgb(57, 143, 252);\n"
@@ -787,24 +1023,48 @@ class Ui_MainWindow(object):
 "color: rgb(2, 39, 35);\n"
 "\n"
 "buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
-"border-radius: 10px;")
+"border-radius: 10px;\n"
+"margin-bottom: 10px;")
         self.equalization_button.setObjectName("equalization_button")
-        self.horizontalLayout_18.addWidget(self.equalization_button)
-        self.verticalLayout_12.addLayout(self.horizontalLayout_18)
-        self.gridLayout_3.addLayout(self.verticalLayout_12, 0, 1, 1, 1)
-        self.gridLayout.addWidget(self.verticalFrame_3, 0, 2, 3, 1)
-        self.label = QtWidgets.QLabel(self.tab)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy)
-        self.label.setStyleSheet("color: rgb(255, 255, 255);\n"
+        self.verticalLayout_6.addWidget(self.equalization_button)
+        self.normalization_button = QtWidgets.QPushButton(self.verticalFrame_3)
+        self.normalization_button.setMinimumSize(QtCore.QSize(0, 50))
+        self.normalization_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.normalization_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+"background-color: rgb(57, 143, 252);\n"
+"background-color: rgb(219,222,230);\n"
+"color: rgb(255, 255, 255);\n"
 "color: rgb(2, 39, 35);\n"
 "\n"
-"font: 9pt \"MS Shell Dlg 2\";")
-        self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 1, 0, 1, 1)
+"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
+"border-radius: 10px;\n"
+"margin-bottom: 10px;")
+        self.normalization_button.setObjectName("normalization_button")
+        self.verticalLayout_6.addWidget(self.normalization_button)
+        self.gray_scale_button = QtWidgets.QPushButton(self.verticalFrame_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.gray_scale_button.sizePolicy().hasHeightForWidth())
+        self.gray_scale_button.setSizePolicy(sizePolicy)
+        self.gray_scale_button.setMinimumSize(QtCore.QSize(100, 50))
+        self.gray_scale_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.gray_scale_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+"background-color: rgb(57, 143, 252);\n"
+"background-color: rgb(219,222,230);\n"
+"color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"\n"
+"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
+"border-radius: 10px;\n"
+"margin-bottom: 10px;")
+        self.gray_scale_button.setObjectName("gray_scale_button")
+        self.verticalLayout_6.addWidget(self.gray_scale_button)
+        self.verticalLayout_12.addLayout(self.verticalLayout_6)
+        self.gridLayout_3.addLayout(self.verticalLayout_12, 1, 1, 1, 1)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_3.addItem(spacerItem7, 2, 1, 1, 1)
+        self.gridLayout.addWidget(self.verticalFrame_3, 2, 3, 3, 1)
         self.label_4 = QtWidgets.QLabel(self.tab)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -815,17 +1075,7 @@ class Ui_MainWindow(object):
 "color: rgb(2, 39, 35);\n"
 "font: 9pt \"MS Shell Dlg 2\";")
         self.label_4.setObjectName("label_4")
-        self.gridLayout.addWidget(self.label_4, 1, 1, 1, 1)
-        self.input_image = QtWidgets.QGraphicsView(self.tab)
-        self.input_image.setStyleSheet("background-color: rgb(37, 42, 64);\n"
-"background-color: rgb(255, 255, 255);\n"
-"border-radius: 15px;\n"
-"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
-"border : 2px solid rgb(255, 255, 255); ")
-        self.input_image.setObjectName("input_image")
-        self.gridLayout.addWidget(self.input_image, 2, 0, 1, 1)
-        self.horizontalLayout_19 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_19.setObjectName("horizontalLayout_19")
+        self.gridLayout.addWidget(self.label_4, 3, 0, 1, 1)
         self.label_8 = QtWidgets.QLabel(self.tab)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -837,118 +1087,71 @@ class Ui_MainWindow(object):
 "color: rgb(2, 39, 35);\n"
 "")
         self.label_8.setObjectName("label_8")
-        self.horizontalLayout_19.addWidget(self.label_8)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_19.addItem(spacerItem2)
-        self.red_histogram = QtWidgets.QRadioButton(self.tab)
-        self.red_histogram.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 8pt \"MS Shell Dlg 2\";\n"
-"color: rgb(2, 39, 35);")
-        self.red_histogram.setChecked(True)
-        self.red_histogram.setObjectName("red_histogram")
-        self.horizontalLayout_19.addWidget(self.red_histogram)
-        self.green_histogram = QtWidgets.QRadioButton(self.tab)
-        self.green_histogram.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 8pt \"MS Shell Dlg 2\";\n"
-"color: rgb(2, 39, 35);")
-        self.green_histogram.setChecked(False)
-        self.green_histogram.setObjectName("green_histogram")
-        self.horizontalLayout_19.addWidget(self.green_histogram)
-        self.blue_histogram = QtWidgets.QRadioButton(self.tab)
-        font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(8)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.blue_histogram.setFont(font)
-        self.blue_histogram.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 8pt \"MS Shell Dlg 2\";\n"
-"color: rgb(2, 39, 35);")
-        self.blue_histogram.setObjectName("blue_histogram")
-        self.horizontalLayout_19.addWidget(self.blue_histogram)
-        self.gridLayout.addLayout(self.horizontalLayout_19, 3, 1, 1, 1)
-        self.output_image = QtWidgets.QGraphicsView(self.tab)
-        self.output_image.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+        self.gridLayout.addWidget(self.label_8, 3, 1, 1, 1)
+        self.label_16 = QtWidgets.QLabel(self.tab)
+        self.label_16.setStyleSheet("color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"\n"
+"font: 9pt \"MS Shell Dlg 2\";")
+        self.label_16.setObjectName("label_16")
+        self.gridLayout.addWidget(self.label_16, 3, 2, 1, 1)
+        self.output_image_frame = QtWidgets.QGraphicsView(self.tab)
+        self.output_image_frame.setStyleSheet("background-color: rgb(37, 42, 64);\n"
 "background-color: rgb(255, 255, 255);\n"
 "border-radius: 15px;\n"
 "box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
 "border : 2px solid rgb(255, 255, 255); ")
-        self.output_image.setObjectName("output_image")
-        self.gridLayout.addWidget(self.output_image, 2, 1, 1, 1)
-        self.label_7 = QtWidgets.QLabel(self.tab)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        self.output_image_frame.setObjectName("output_image_frame")
+        self.gridLayout.addWidget(self.output_image_frame, 4, 0, 1, 1)
+        self.output_histogram = QtWidgets.QFrame(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
-        self.label_7.setSizePolicy(sizePolicy)
-        self.label_7.setStyleSheet("color: rgb(255, 255, 255);\n"
-"color: rgb(2, 39, 35);\n"
-"\n"
-"font: 9pt \"MS Shell Dlg 2\";")
-        self.label_7.setObjectName("label_7")
-        self.gridLayout.addWidget(self.label_7, 3, 0, 1, 1)
-        self.horizontalLayout_24 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_24.setObjectName("horizontalLayout_24")
-        self.label_13 = QtWidgets.QLabel(self.tab)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHeightForWidth(self.output_histogram.sizePolicy().hasHeightForWidth())
+        self.output_histogram.setSizePolicy(sizePolicy)
+        self.output_histogram.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.output_histogram.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.output_histogram.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.output_histogram.setObjectName("output_histogram")
+        self.gridLayout.addWidget(self.output_histogram, 4, 1, 1, 1)
+        self.output_distribution_curve = QtWidgets.QFrame(self.tab)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_13.sizePolicy().hasHeightForWidth())
-        self.label_13.setSizePolicy(sizePolicy)
-        self.label_13.setStyleSheet("color: rgb(255, 255, 255);\n"
-"color: rgb(2, 39, 35);\n"
-"\n"
-"font: 9pt \"MS Shell Dlg 2\";")
-        self.label_13.setObjectName("label_13")
-        self.horizontalLayout_24.addWidget(self.label_13)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_24.addItem(spacerItem3)
-        self.red_cdf = QtWidgets.QRadioButton(self.tab)
-        self.red_cdf.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 8pt \"MS Shell Dlg 2\";\n"
-"color: rgb(2, 39, 35);")
-        self.red_cdf.setChecked(True)
-        self.red_cdf.setObjectName("red_cdf")
-        self.horizontalLayout_24.addWidget(self.red_cdf)
-        self.green_cdf = QtWidgets.QRadioButton(self.tab)
-        self.green_cdf.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 8pt \"MS Shell Dlg 2\";\n"
-"color: rgb(2, 39, 35);")
-        self.green_cdf.setObjectName("green_cdf")
-        self.horizontalLayout_24.addWidget(self.green_cdf)
-        self.blue_cdf = QtWidgets.QRadioButton(self.tab)
-        font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(8)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.blue_cdf.setFont(font)
-        self.blue_cdf.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 8pt \"MS Shell Dlg 2\";\n"
-"color: rgb(2, 39, 35);")
-        self.blue_cdf.setObjectName("blue_cdf")
-        self.horizontalLayout_24.addWidget(self.blue_cdf)
-        self.gridLayout.addLayout(self.horizontalLayout_24, 3, 2, 1, 1)
-        self.horizontalLayout_9.addLayout(self.gridLayout)
+        sizePolicy.setHeightForWidth(self.output_distribution_curve.sizePolicy().hasHeightForWidth())
+        self.output_distribution_curve.setSizePolicy(sizePolicy)
+        self.output_distribution_curve.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.output_distribution_curve.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.output_distribution_curve.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.output_distribution_curve.setObjectName("output_distribution_curve")
+        self.gridLayout.addWidget(self.output_distribution_curve, 4, 2, 1, 1)
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.tab_2)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.label_2 = QtWidgets.QLabel(self.tab_2)
-        self.label_2.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 9pt \"MS Shell Dlg 2\";\n"
-"color: rgb(2, 39, 35);")
-        self.label_2.setObjectName("label_2")
-        self.gridLayout_2.addWidget(self.label_2, 3, 0, 1, 1)
         self.label_3 = QtWidgets.QLabel(self.tab_2)
         self.label_3.setStyleSheet("color: rgb(255, 255, 255);\n"
 "font: 9pt \"MS Shell Dlg 2\";\n"
 "color: rgb(2, 39, 35);")
         self.label_3.setObjectName("label_3")
         self.gridLayout_2.addWidget(self.label_3, 3, 1, 1, 1)
+        self.label_5 = QtWidgets.QLabel(self.tab_2)
+        self.label_5.setMinimumSize(QtCore.QSize(0, 0))
+        self.label_5.setMaximumSize(QtCore.QSize(16777215, 100))
+        self.label_5.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 9pt \"MS Shell Dlg 2\";\n"
+"color: rgb(2, 39, 35);")
+        self.label_5.setObjectName("label_5")
+        self.gridLayout_2.addWidget(self.label_5, 1, 0, 1, 1)
         self.input1_image = QtWidgets.QGraphicsView(self.tab_2)
         self.input1_image.setStyleSheet("background-color: rgb(37, 42, 64);\n"
 "background-color: rgb(255, 255, 255);\n"
@@ -958,14 +1161,38 @@ class Ui_MainWindow(object):
 "border : 2px solid rgb(255, 255, 255); ")
         self.input1_image.setObjectName("input1_image")
         self.gridLayout_2.addWidget(self.input1_image, 2, 0, 1, 1)
-        self.label_5 = QtWidgets.QLabel(self.tab_2)
-        self.label_5.setMinimumSize(QtCore.QSize(0, 0))
-        self.label_5.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.label_5.setStyleSheet("color: rgb(255, 255, 255);\n"
+        self.label_2 = QtWidgets.QLabel(self.tab_2)
+        self.label_2.setStyleSheet("color: rgb(255, 255, 255);\n"
 "font: 9pt \"MS Shell Dlg 2\";\n"
 "color: rgb(2, 39, 35);")
-        self.label_5.setObjectName("label_5")
-        self.gridLayout_2.addWidget(self.label_5, 1, 0, 1, 1)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout_2.addWidget(self.label_2, 3, 0, 1, 1)
+        self.label_14 = QtWidgets.QLabel(self.tab_2)
+        self.label_14.setMinimumSize(QtCore.QSize(0, 0))
+        self.label_14.setMaximumSize(QtCore.QSize(16777215, 100))
+        self.label_14.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 9pt \"MS Shell Dlg 2\";\n"
+"color: rgb(2, 39, 35);")
+        self.label_14.setObjectName("label_14")
+        self.gridLayout_2.addWidget(self.label_14, 1, 2, 1, 1)
+        self.hybrid_image = QtWidgets.QGraphicsView(self.tab_2)
+        self.hybrid_image.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(255, 255, 255);\n"
+"\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.hybrid_image.setObjectName("hybrid_image")
+        self.gridLayout_2.addWidget(self.hybrid_image, 2, 2, 3, 1)
+        self.output2_image = QtWidgets.QGraphicsView(self.tab_2)
+        self.output2_image.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(255, 255, 255);\n"
+"\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.output2_image.setObjectName("output2_image")
+        self.gridLayout_2.addWidget(self.output2_image, 4, 1, 1, 1)
         self.output1_image = QtWidgets.QGraphicsView(self.tab_2)
         self.output1_image.setStyleSheet("background-color: rgb(37, 42, 64);\n"
 "background-color: rgb(255, 255, 255);\n"
@@ -992,32 +1219,6 @@ class Ui_MainWindow(object):
 "border : 2px solid rgb(255, 255, 255); ")
         self.input2_image.setObjectName("input2_image")
         self.gridLayout_2.addWidget(self.input2_image, 2, 1, 1, 1)
-        self.hybrid_image = QtWidgets.QGraphicsView(self.tab_2)
-        self.hybrid_image.setStyleSheet("background-color: rgb(37, 42, 64);\n"
-"background-color: rgb(255, 255, 255);\n"
-"\n"
-"border-radius: 15px;\n"
-"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
-"border : 2px solid rgb(255, 255, 255); ")
-        self.hybrid_image.setObjectName("hybrid_image")
-        self.gridLayout_2.addWidget(self.hybrid_image, 2, 2, 3, 1)
-        self.label_14 = QtWidgets.QLabel(self.tab_2)
-        self.label_14.setMinimumSize(QtCore.QSize(0, 0))
-        self.label_14.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.label_14.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 9pt \"MS Shell Dlg 2\";\n"
-"color: rgb(2, 39, 35);")
-        self.label_14.setObjectName("label_14")
-        self.gridLayout_2.addWidget(self.label_14, 1, 2, 1, 1)
-        self.output2_image = QtWidgets.QGraphicsView(self.tab_2)
-        self.output2_image.setStyleSheet("background-color: rgb(37, 42, 64);\n"
-"background-color: rgb(255, 255, 255);\n"
-"\n"
-"border-radius: 15px;\n"
-"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
-"border : 2px solid rgb(255, 255, 255); ")
-        self.output2_image.setObjectName("output2_image")
-        self.gridLayout_2.addWidget(self.output2_image, 4, 1, 1, 1)
         self.frame_4 = QtWidgets.QFrame(self.tab_2)
         self.frame_4.setMinimumSize(QtCore.QSize(0, 0))
         self.frame_4.setStyleSheet("background-color: rgb(37, 42, 64);\n"
@@ -1048,8 +1249,8 @@ class Ui_MainWindow(object):
 "border-radius: 10px;")
         self.input1_button.setObjectName("input1_button")
         self.verticalLayout_2.addWidget(self.input1_button)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_2.addItem(spacerItem4)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_2.addItem(spacerItem8)
         self.label_15 = QtWidgets.QLabel(self.frame_4)
         self.label_15.setStyleSheet("color: rgb(255, 255, 255);\n"
 "font: 9pt \"MS Shell Dlg 2\";\n"
@@ -1057,6 +1258,77 @@ class Ui_MainWindow(object):
 "")
         self.label_15.setObjectName("label_15")
         self.verticalLayout_2.addWidget(self.label_15)
+        self.input1_combobox = QtWidgets.QComboBox(self.frame_4)
+        self.input1_combobox.setMinimumSize(QtCore.QSize(0, 30))
+        self.input1_combobox.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.input1_combobox.setStyleSheet("QComboBox {\n"
+"background-color: rgb(219,222,230);\n"
+"    color: white;  /* Text color */\n"
+"color: rgb(2, 39, 35);\n"
+"\n"
+"    border-radius: 15px;  /* Rounded corners */\n"
+"    padding: 5px;\n"
+"    font: italic 10pt \"Georgia\";\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    border: none;\n"
+"    border-radius: 10px;  /* Rounded corners for the arrow box */\n"
+"background-color: rgb(188, 191, 198);\n"
+"    width: 30px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    width: 15px;\n"
+"    height: 15px;\n"
+"    color: white;  /* Arrow color */\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+" /* Selected item background color */\n"
+"selection-background-color: rgb(4, 79, 70);\n"
+"    background-color: rgb(169, 171, 178);;  /* Dropdown background color */\n"
+"    border-radius: 10px;\n"
+"}\n"
+"")
+        self.input1_combobox.setObjectName("input1_combobox")
+        self.input1_combobox.addItem("")
+        self.input1_combobox.addItem("")
+        self.input1_combobox.addItem("")
+        self.input1_combobox.addItem("")
+        self.input1_combobox.addItem("")
+        self.input1_combobox.addItem("")
+        self.input1_combobox.addItem("")
+        self.input1_combobox.addItem("")
+        self.input1_combobox.addItem("")
+        self.input1_combobox.addItem("")
+        self.verticalLayout_2.addWidget(self.input1_combobox)
+        self.gridLayout_4.addLayout(self.verticalLayout_2, 0, 0, 1, 1)
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.input2_button = QtWidgets.QPushButton(self.frame_4)
+        self.input2_button.setMinimumSize(QtCore.QSize(0, 38))
+        self.input2_button.setMaximumSize(QtCore.QSize(200, 16777215))
+        self.input2_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.input2_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+"background-color: rgb(57, 143, 252);\n"
+"background-color: rgb(219,222,230);\n"
+"\n"
+"color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
+"border-radius: 10px;")
+        self.input2_button.setObjectName("input2_button")
+        self.verticalLayout_3.addWidget(self.input2_button)
+        spacerItem9 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_3.addItem(spacerItem9)
+        self.label_17 = QtWidgets.QLabel(self.frame_4)
+        self.label_17.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 9pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"")
+        self.label_17.setObjectName("label_17")
+        self.verticalLayout_3.addWidget(self.label_17)
         self.input2_combobox = QtWidgets.QComboBox(self.frame_4)
         self.input2_combobox.setMinimumSize(QtCore.QSize(0, 30))
         self.input2_combobox.setMaximumSize(QtCore.QSize(16777215, 16777215))
@@ -1093,15 +1365,174 @@ class Ui_MainWindow(object):
         self.input2_combobox.setObjectName("input2_combobox")
         self.input2_combobox.addItem("")
         self.input2_combobox.addItem("")
-        self.verticalLayout_2.addWidget(self.input2_combobox)
-        self.gridLayout_4.addLayout(self.verticalLayout_2, 0, 0, 1, 1)
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.input2_button = QtWidgets.QPushButton(self.frame_4)
-        self.input2_button.setMinimumSize(QtCore.QSize(0, 38))
-        self.input2_button.setMaximumSize(QtCore.QSize(200, 16777215))
-        self.input2_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
-        self.input2_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+        self.input2_combobox.addItem("")
+        self.input2_combobox.addItem("")
+        self.input2_combobox.addItem("")
+        self.input2_combobox.addItem("")
+        self.input2_combobox.addItem("")
+        self.input2_combobox.addItem("")
+        self.input2_combobox.addItem("")
+        self.input2_combobox.addItem("")
+        self.verticalLayout_3.addWidget(self.input2_combobox)
+        self.gridLayout_4.addLayout(self.verticalLayout_3, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.frame_4, 0, 0, 1, 2)
+        self.tabWidget.addTab(self.tab_2, "")
+        self.tab_3 = QtWidgets.QWidget()
+        self.tab_3.setObjectName("tab_3")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.tab_3)
+        self.gridLayout_10.setObjectName("gridLayout_10")
+        self.contour_output_frame = QtWidgets.QGraphicsView(self.tab_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.contour_output_frame.sizePolicy().hasHeightForWidth())
+        self.contour_output_frame.setSizePolicy(sizePolicy)
+        self.contour_output_frame.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(255, 255, 255);\n"
+"\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.contour_output_frame.setObjectName("contour_output_frame")
+        self.gridLayout_10.addWidget(self.contour_output_frame, 1, 1, 1, 1)
+        self.hough_transform_output_frame = QtWidgets.QGraphicsView(self.tab_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.hough_transform_output_frame.sizePolicy().hasHeightForWidth())
+        self.hough_transform_output_frame.setSizePolicy(sizePolicy)
+        self.hough_transform_output_frame.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(255, 255, 255);\n"
+"\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.hough_transform_output_frame.setObjectName("hough_transform_output_frame")
+        self.gridLayout_10.addWidget(self.hough_transform_output_frame, 1, 3, 1, 1)
+        self.label_13 = QtWidgets.QLabel(self.tab_3)
+        self.label_13.setStyleSheet("color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"\n"
+"font: 9pt \"MS Shell Dlg 2\";")
+        self.label_13.setObjectName("label_13")
+        self.gridLayout_10.addWidget(self.label_13, 0, 1, 1, 1)
+        self.label_19 = QtWidgets.QLabel(self.tab_3)
+        self.label_19.setStyleSheet("color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"\n"
+"font: 9pt \"MS Shell Dlg 2\";")
+        self.label_19.setObjectName("label_19")
+        self.gridLayout_10.addWidget(self.label_19, 0, 3, 1, 1)
+        self.frame_2 = QtWidgets.QFrame(self.tab_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
+        self.frame_2.setSizePolicy(sizePolicy)
+        self.frame_2.setMinimumSize(QtCore.QSize(0, 300))
+        self.frame_2.setMaximumSize(QtCore.QSize(16777215, 300))
+        self.frame_2.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(6,131,116,255);\n"
+"\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.gridLayout_8 = QtWidgets.QGridLayout(self.frame_2)
+        self.gridLayout_8.setObjectName("gridLayout_8")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.label_25 = QtWidgets.QLabel(self.frame_2)
+        self.label_25.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.label_25.setObjectName("label_25")
+        self.horizontalLayout.addWidget(self.label_25)
+        self.lines = QtWidgets.QCheckBox(self.frame_2)
+        self.lines.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.lines.setObjectName("lines")
+        self.horizontalLayout.addWidget(self.lines)
+        self.ellipes = QtWidgets.QCheckBox(self.frame_2)
+        self.ellipes.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.ellipes.setObjectName("ellipes")
+        self.horizontalLayout.addWidget(self.ellipes)
+        self.circle = QtWidgets.QCheckBox(self.frame_2)
+        self.circle.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.circle.setObjectName("circle")
+        self.horizontalLayout.addWidget(self.circle)
+        self.gridLayout_8.addLayout(self.horizontalLayout, 1, 0, 1, 2)
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.label_26 = QtWidgets.QLabel(self.frame_2)
+        self.label_26.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.label_26.setObjectName("label_26")
+        self.verticalLayout_5.addWidget(self.label_26)
+        self.threshold_slider = QtWidgets.QSlider(self.frame_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.threshold_slider.sizePolicy().hasHeightForWidth())
+        self.threshold_slider.setSizePolicy(sizePolicy)
+        self.threshold_slider.setMinimumSize(QtCore.QSize(200, 0))
+        self.threshold_slider.setStyleSheet("QSlider {\n"
+"     border : 2px solid rgb(6,131,116,255);\n"
+"}\n"
+"QSlider::groove:horizontal {\n"
+"    height: 8px;\n"
+"   background: rgb(255,255,255); /* Lighter shade of the dark color */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */\n"
+"    border: 2px solid rgb(255,255,255); /* Matches groove */\n"
+"    width: 20px;\n"
+"    height: 20px;\n"
+"    margin: -6px 0;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:horizontal {\n"
+"    background:rgb(161, 164, 171); /* Matches handle */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"QSlider::add-page:horizontal {\n"
+"    background:  rgb(188, 191, 198); /* Matches groove */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"")
+        self.threshold_slider.setMinimum(-200)
+        self.threshold_slider.setMaximum(0)
+        self.threshold_slider.setProperty("value", -200)
+        self.threshold_slider.setOrientation(QtCore.Qt.Horizontal)
+        self.threshold_slider.setObjectName("threshold_slider")
+        self.verticalLayout_5.addWidget(self.threshold_slider)
+        self.gridLayout_8.addLayout(self.verticalLayout_5, 2, 0, 1, 1)
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.superimpose_button = QtWidgets.QPushButton(self.frame_2)
+        self.superimpose_button.setMinimumSize(QtCore.QSize(0, 40))
+        self.superimpose_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.superimpose_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
 "background-color: rgb(57, 143, 252);\n"
 "background-color: rgb(219,222,230);\n"
 "\n"
@@ -1109,56 +1540,264 @@ class Ui_MainWindow(object):
 "color: rgb(2, 39, 35);\n"
 "buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
 "border-radius: 10px;")
-        self.input2_button.setObjectName("input2_button")
-        self.verticalLayout_3.addWidget(self.input2_button)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_3.addItem(spacerItem5)
-        self.label_17 = QtWidgets.QLabel(self.frame_4)
-        self.label_17.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 9pt \"MS Shell Dlg 2\";\n"
-"border : 2px solid rgb(6,131,116,255);\n"
-"")
-        self.label_17.setObjectName("label_17")
-        self.verticalLayout_3.addWidget(self.label_17)
-        self.input1_combobox = QtWidgets.QComboBox(self.frame_4)
-        self.input1_combobox.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.input1_combobox.setStyleSheet("QComboBox {\n"
+        self.superimpose_button.setObjectName("superimpose_button")
+        self.horizontalLayout_2.addWidget(self.superimpose_button)
+        self.reset_button_2 = QtWidgets.QPushButton(self.frame_2)
+        self.reset_button_2.setMinimumSize(QtCore.QSize(0, 40))
+        self.reset_button_2.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.reset_button_2.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+"background-color: rgb(57, 143, 252);\n"
 "background-color: rgb(219,222,230);\n"
-"    color: white;  /* Text color */\n"
+"\n"
+"color: rgb(255, 255, 255);\n"
 "color: rgb(2, 39, 35);\n"
+"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
+"border-radius: 10px;")
+        self.reset_button_2.setObjectName("reset_button_2")
+        self.horizontalLayout_2.addWidget(self.reset_button_2)
+        self.verticalLayout_7.addLayout(self.horizontalLayout_2)
+        self.save_button = QtWidgets.QPushButton(self.frame_2)
+        self.save_button.setMinimumSize(QtCore.QSize(0, 40))
+        self.save_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.save_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+"background-color: rgb(57, 143, 252);\n"
+"background-color: rgb(219,222,230);\n"
 "\n"
-"    border-radius: 15px;  /* Rounded corners */\n"
-"    padding: 5px;\n"
-"    font: italic 10pt \"Georgia\";\n"
-"}\n"
+"color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
+"border-radius: 10px;")
+        self.save_button.setObjectName("save_button")
+        self.verticalLayout_7.addWidget(self.save_button)
+        self.gridLayout_8.addLayout(self.verticalLayout_7, 2, 1, 1, 1)
+        self.gridLayout_10.addWidget(self.frame_2, 2, 3, 1, 1)
+        self.framebig = QtWidgets.QFrame(self.tab_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.framebig.sizePolicy().hasHeightForWidth())
+        self.framebig.setSizePolicy(sizePolicy)
+        self.framebig.setMinimumSize(QtCore.QSize(0, 300))
+        self.framebig.setMaximumSize(QtCore.QSize(16777215, 300))
+        self.framebig.setStyleSheet("background-color: rgb(37, 42, 64);\n"
+"background-color: rgb(6,131,116,255);\n"
 "\n"
-"QComboBox::drop-down {\n"
-"    border: none;\n"
-"    border-radius: 10px;  /* Rounded corners for the arrow box */\n"
-"background-color: rgb(188, 191, 198);\n"
-"    width: 30px;\n"
-"}\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 15px;\n"
+"box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);\n"
+"border : 2px solid rgb(255, 255, 255); ")
+        self.framebig.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.framebig.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.framebig.setObjectName("framebig")
+        self.gridLayout_5 = QtWidgets.QGridLayout(self.framebig)
+        self.gridLayout_5.setContentsMargins(20, -1, 20, -1)
+        self.gridLayout_5.setObjectName("gridLayout_5")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setSpacing(10)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.upload_image_contour = QtWidgets.QPushButton(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.upload_image_contour.sizePolicy().hasHeightForWidth())
+        self.upload_image_contour.setSizePolicy(sizePolicy)
+        self.upload_image_contour.setMinimumSize(QtCore.QSize(180, 38))
+        self.upload_image_contour.setMaximumSize(QtCore.QSize(200, 16777215))
+        self.upload_image_contour.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.upload_image_contour.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+"background-color: rgb(57, 143, 252);\n"
+"background-color: rgb(219,222,230);\n"
 "\n"
-"QComboBox::down-arrow {\n"
-"    width: 15px;\n"
-"    height: 15px;\n"
-"    color: white;  /* Arrow color */\n"
-"}\n"
+"color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
+"border-radius: 10px;")
+        self.upload_image_contour.setObjectName("upload_image_contour")
+        self.horizontalLayout_3.addWidget(self.upload_image_contour)
+        self.apply_contour_button = QtWidgets.QPushButton(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.apply_contour_button.sizePolicy().hasHeightForWidth())
+        self.apply_contour_button.setSizePolicy(sizePolicy)
+        self.apply_contour_button.setMinimumSize(QtCore.QSize(180, 40))
+        self.apply_contour_button.setMaximumSize(QtCore.QSize(200, 16777215))
+        self.apply_contour_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.apply_contour_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+"background-color: rgb(57, 143, 252);\n"
+"background-color: rgb(219,222,230);\n"
 "\n"
-"QComboBox QAbstractItemView {\n"
-" /* Selected item background color */\n"
-"selection-background-color: rgb(4, 79, 70);\n"
-"    background-color: rgb(169, 171, 178);;  /* Dropdown background color */\n"
-"    border-radius: 10px;\n"
-"}\n"
-"")
-        self.input1_combobox.setObjectName("input1_combobox")
-        self.input1_combobox.addItem("")
-        self.input1_combobox.addItem("")
-        self.verticalLayout_3.addWidget(self.input1_combobox)
-        self.gridLayout_4.addLayout(self.verticalLayout_3, 0, 1, 1, 1)
-        self.gridLayout_2.addWidget(self.frame_4, 0, 0, 1, 2)
-        self.tabWidget.addTab(self.tab_2, "")
+"color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
+"border-radius: 10px;")
+        self.apply_contour_button.setObjectName("apply_contour_button")
+        self.horizontalLayout_3.addWidget(self.apply_contour_button)
+        self.chaincode_button = QtWidgets.QPushButton(self.framebig)
+        self.chaincode_button.setMinimumSize(QtCore.QSize(180, 40))
+        self.chaincode_button.setMaximumSize(QtCore.QSize(80, 16777215))
+        self.chaincode_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.chaincode_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+"background-color: rgb(57, 143, 252);\n"
+"background-color: rgb(219,222,230);\n"
+"\n"
+"color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
+"border-radius: 10px;")
+        self.chaincode_button.setObjectName("chaincode_button")
+        self.horizontalLayout_3.addWidget(self.chaincode_button)
+        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem10)
+        self.area_label = QtWidgets.QLabel(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.area_label.sizePolicy().hasHeightForWidth())
+        self.area_label.setSizePolicy(sizePolicy)
+        self.area_label.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.area_label.setObjectName("area_label")
+        self.horizontalLayout_3.addWidget(self.area_label)
+        self.perimeter_label = QtWidgets.QLabel(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.perimeter_label.sizePolicy().hasHeightForWidth())
+        self.perimeter_label.setSizePolicy(sizePolicy)
+        self.perimeter_label.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.perimeter_label.setObjectName("perimeter_label")
+        self.horizontalLayout_3.addWidget(self.perimeter_label)
+        self.gridLayout_5.addLayout(self.horizontalLayout_3, 0, 1, 1, 5)
+        self.verticalLayout_8 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_8.setSpacing(20)
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.alpha_snake = QtWidgets.QDoubleSpinBox(self.framebig)
+        self.alpha_snake.setMinimumSize(QtCore.QSize(180, 30))
+        self.alpha_snake.setObjectName("alpha_snake")
+        self.verticalLayout_8.addWidget(self.alpha_snake)
+        self.beta_snake = QtWidgets.QDoubleSpinBox(self.framebig)
+        self.beta_snake.setMinimumSize(QtCore.QSize(0, 30))
+        self.beta_snake.setObjectName("beta_snake")
+        self.verticalLayout_8.addWidget(self.beta_snake)
+        self.sigma_snake = QtWidgets.QSpinBox(self.framebig)
+        self.sigma_snake.setMinimumSize(QtCore.QSize(0, 30))
+        self.sigma_snake.setMinimum(1)
+        self.sigma_snake.setMaximum(100)
+        self.sigma_snake.setObjectName("sigma_snake")
+        self.verticalLayout_8.addWidget(self.sigma_snake)
+        self.gridLayout_5.addLayout(self.verticalLayout_8, 3, 2, 1, 1)
+        self.verticalLayout_10 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_10.setSpacing(20)
+        self.verticalLayout_10.setObjectName("verticalLayout_10")
+        self.gamma_snake = QtWidgets.QDoubleSpinBox(self.framebig)
+        self.gamma_snake.setMinimumSize(QtCore.QSize(180, 30))
+        self.gamma_snake.setStyleSheet("")
+        self.gamma_snake.setObjectName("gamma_snake")
+        self.verticalLayout_10.addWidget(self.gamma_snake)
+        self.iterations_snake = QtWidgets.QSpinBox(self.framebig)
+        self.iterations_snake.setMinimumSize(QtCore.QSize(0, 30))
+        self.iterations_snake.setMaximum(1000)
+        self.iterations_snake.setObjectName("iterations_snake")
+        self.verticalLayout_10.addWidget(self.iterations_snake)
+        self.window_size_snake = QtWidgets.QSpinBox(self.framebig)
+        self.window_size_snake.setMinimumSize(QtCore.QSize(0, 30))
+        self.window_size_snake.setObjectName("window_size_snake")
+        self.verticalLayout_10.addWidget(self.window_size_snake)
+        self.gridLayout_5.addLayout(self.verticalLayout_10, 3, 5, 1, 1)
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_4.setSpacing(20)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.label_21 = QtWidgets.QLabel(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_21.sizePolicy().hasHeightForWidth())
+        self.label_21.setSizePolicy(sizePolicy)
+        self.label_21.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.label_21.setObjectName("label_21")
+        self.verticalLayout_4.addWidget(self.label_21)
+        self.label_22 = QtWidgets.QLabel(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_22.sizePolicy().hasHeightForWidth())
+        self.label_22.setSizePolicy(sizePolicy)
+        self.label_22.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.label_22.setObjectName("label_22")
+        self.verticalLayout_4.addWidget(self.label_22)
+        self.label_28 = QtWidgets.QLabel(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_28.sizePolicy().hasHeightForWidth())
+        self.label_28.setSizePolicy(sizePolicy)
+        self.label_28.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.label_28.setObjectName("label_28")
+        self.verticalLayout_4.addWidget(self.label_28)
+        self.gridLayout_5.addLayout(self.verticalLayout_4, 3, 1, 1, 1)
+        spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_5.addItem(spacerItem11, 3, 0, 1, 1)
+        self.verticalLayout_9 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_9.setSpacing(20)
+        self.verticalLayout_9.setObjectName("verticalLayout_9")
+        self.label_23 = QtWidgets.QLabel(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_23.sizePolicy().hasHeightForWidth())
+        self.label_23.setSizePolicy(sizePolicy)
+        self.label_23.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.label_23.setObjectName("label_23")
+        self.verticalLayout_9.addWidget(self.label_23)
+        self.label_24 = QtWidgets.QLabel(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_24.sizePolicy().hasHeightForWidth())
+        self.label_24.setSizePolicy(sizePolicy)
+        self.label_24.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.label_24.setObjectName("label_24")
+        self.verticalLayout_9.addWidget(self.label_24)
+        self.label_27 = QtWidgets.QLabel(self.framebig)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_27.sizePolicy().hasHeightForWidth())
+        self.label_27.setSizePolicy(sizePolicy)
+        self.label_27.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.label_27.setObjectName("label_27")
+        self.verticalLayout_9.addWidget(self.label_27)
+        self.gridLayout_5.addLayout(self.verticalLayout_9, 3, 4, 1, 1)
+        spacerItem12 = QtWidgets.QSpacerItem(80, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_5.addItem(spacerItem12, 3, 3, 1, 1)
+        spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_5.addItem(spacerItem13, 3, 6, 1, 1)
+        self.gridLayout_10.addWidget(self.framebig, 2, 1, 1, 1)
+        self.tabWidget.addTab(self.tab_3, "")
         self.horizontalLayout_12.addWidget(self.tabWidget)
         self.verticalLayout.addWidget(self.jhjkgi)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -1170,20 +1809,23 @@ class Ui_MainWindow(object):
         self.actionOpen.setObjectName("actionOpen")
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.upload_button.setText(_translate("MainWindow", "Upload Image"))
-        self.gray_scale_button.setText(_translate("MainWindow", "GrayScale"))
         self.reset_button.setText(_translate("MainWindow", "Reset"))
+        self.label.setText(_translate("MainWindow", "Input Image"))
+        self.label_7.setText(_translate("MainWindow", "Input Histogram"))
+        self.label_18.setText(_translate("MainWindow", "Input Distribution Curve"))
         self.label_6.setText(_translate("MainWindow", "Noise"))
-        self.noises_combobox.setCurrentText(_translate("MainWindow", "Uniform"))
-        self.noises_combobox.setItemText(0, _translate("MainWindow", "Uniform"))
-        self.noises_combobox.setItemText(1, _translate("MainWindow", "Gaussian"))
-        self.noises_combobox.setItemText(2, _translate("MainWindow", "Salt & Pepper"))
+        self.noises_combobox.setCurrentText(_translate("MainWindow", "select noise"))
+        self.noises_combobox.setItemText(0, _translate("MainWindow", "select noise"))
+        self.noises_combobox.setItemText(1, _translate("MainWindow", "Uniform"))
+        self.noises_combobox.setItemText(2, _translate("MainWindow", "Gaussian"))
+        self.noises_combobox.setItemText(3, _translate("MainWindow", "Salt & Pepper"))
         self.min_range_label.setText(_translate("MainWindow", "Minimum Range: "))
         self.max_range_label.setText(_translate("MainWindow", "Maximum Range: "))
         self.mean_label.setText(_translate("MainWindow", "Mean:"))
@@ -1191,48 +1833,86 @@ class Ui_MainWindow(object):
         self.probability_label.setText(_translate("MainWindow", "Probability:"))
         self.ratio_label.setText(_translate("MainWindow", "Salt to Pepper Ratio:"))
         self.label_9.setText(_translate("MainWindow", "Filter"))
-        self.filters_combobox.setItemText(0, _translate("MainWindow", "Average"))
-        self.filters_combobox.setItemText(1, _translate("MainWindow", "Gaussian "))
-        self.filters_combobox.setItemText(2, _translate("MainWindow", "Median"))
-        self.filters_combobox.setItemText(3, _translate("MainWindow", "High-Pass Filter"))
-        self.filters_combobox.setItemText(4, _translate("MainWindow", "Low-Pass Filter"))
+        self.filters_combobox.setItemText(0, _translate("MainWindow", "select filter"))
+        self.filters_combobox.setItemText(1, _translate("MainWindow", "Average"))
+        self.filters_combobox.setItemText(2, _translate("MainWindow", "Gaussian"))
+        self.filters_combobox.setItemText(3, _translate("MainWindow", "Median"))
+        self.filters_combobox.setItemText(4, _translate("MainWindow", "Low-Pass Frequency Domain"))
         self.sigma_filter_label.setText(_translate("MainWindow", "Sigma:"))
         self.label_11.setText(_translate("MainWindow", "Edge Detection"))
-        self.edge_filters_combobox.setItemText(0, _translate("MainWindow", "Sobel"))
-        self.edge_filters_combobox.setItemText(1, _translate("MainWindow", "Roberts"))
-        self.edge_filters_combobox.setItemText(2, _translate("MainWindow", "Prewitt"))
-        self.edge_filters_combobox.setItemText(3, _translate("MainWindow", "Canny"))
+        self.edge_filters_combobox.setItemText(0, _translate("MainWindow", "select edge detection filter"))
+        self.edge_filters_combobox.setItemText(1, _translate("MainWindow", "Sobel"))
+        self.edge_filters_combobox.setItemText(2, _translate("MainWindow", "Roberts"))
+        self.edge_filters_combobox.setItemText(3, _translate("MainWindow", "Prewitt"))
+        self.edge_filters_combobox.setItemText(4, _translate("MainWindow", "Canny"))
+        self.edge_filters_combobox.setItemText(5, _translate("MainWindow", "High-Pass Frequency Domain"))
+        self.sigma_canny_label.setText(_translate("MainWindow", "Sigma: "))
+        self.low_threshold_label.setText(_translate("MainWindow", "Low Threshold: 0"))
+        self.high_threshold_label.setText(_translate("MainWindow", "High Threshold: 0"))
         self.label_10.setText(_translate("MainWindow", "Threshold"))
-        self.threshold_combobox.setItemText(0, _translate("MainWindow", "Local"))
-        self.threshold_combobox.setItemText(1, _translate("MainWindow", "Global"))
-        self.normalization_button.setText(_translate("MainWindow", "Normalize"))
+        self.threshold_combobox.setItemText(0, _translate("MainWindow", "select thresholding type"))
+        self.threshold_combobox.setItemText(1, _translate("MainWindow", "Local"))
+        self.threshold_combobox.setItemText(2, _translate("MainWindow", "Global"))
+        self.kernel_size_label.setText(_translate("MainWindow", "Kernel Size:"))
         self.equalization_button.setText(_translate("MainWindow", "Equalize"))
-        self.label.setText(_translate("MainWindow", "Input Image"))
+        self.normalization_button.setText(_translate("MainWindow", "Normalize"))
+        self.gray_scale_button.setText(_translate("MainWindow", "GrayScale"))
         self.label_4.setText(_translate("MainWindow", "Output Image"))
         self.label_8.setText(_translate("MainWindow", "Output Histogram"))
-        self.red_histogram.setText(_translate("MainWindow", "Red"))
-        self.green_histogram.setText(_translate("MainWindow", "Green"))
-        self.blue_histogram.setText(_translate("MainWindow", "Blue"))
-        self.label_7.setText(_translate("MainWindow", "Input Histogram"))
-        self.label_13.setText(_translate("MainWindow", "Distribution Curve"))
-        self.red_cdf.setText(_translate("MainWindow", "Red"))
-        self.green_cdf.setText(_translate("MainWindow", "Green"))
-        self.blue_cdf.setText(_translate("MainWindow", "Blue"))
+        self.label_16.setText(_translate("MainWindow", "Output Distribution Curve"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Filter"))
-        self.label_2.setText(_translate("MainWindow", "First Output"))
         self.label_3.setText(_translate("MainWindow", "Second Output"))
         self.label_5.setText(_translate("MainWindow", "First Input "))
-        self.label_12.setText(_translate("MainWindow", "Second Input"))
+        self.label_2.setText(_translate("MainWindow", "First Output"))
         self.label_14.setText(_translate("MainWindow", "Hybrid Image"))
+        self.label_12.setText(_translate("MainWindow", "Second Input"))
         self.input1_button.setText(_translate("MainWindow", "Upload Image 1"))
         self.label_15.setText(_translate("MainWindow", "Filter"))
-        self.input2_combobox.setItemText(0, _translate("MainWindow", "High-Pass Filter"))
-        self.input2_combobox.setItemText(1, _translate("MainWindow", "Low-Pass Filter"))
+        self.input1_combobox.setItemText(0, _translate("MainWindow", "select filter"))
+        self.input1_combobox.setItemText(1, _translate("MainWindow", "High-Pass Frequency Domain"))
+        self.input1_combobox.setItemText(2, _translate("MainWindow", "Low-Pass Frequency Domain"))
+        self.input1_combobox.setItemText(3, _translate("MainWindow", "Average"))
+        self.input1_combobox.setItemText(4, _translate("MainWindow", "Gaussian"))
+        self.input1_combobox.setItemText(5, _translate("MainWindow", "Median"))
+        self.input1_combobox.setItemText(6, _translate("MainWindow", "Sobel"))
+        self.input1_combobox.setItemText(7, _translate("MainWindow", "Roberts"))
+        self.input1_combobox.setItemText(8, _translate("MainWindow", "Prewitt"))
+        self.input1_combobox.setItemText(9, _translate("MainWindow", "Canny"))
         self.input2_button.setText(_translate("MainWindow", "Upload Image 2"))
         self.label_17.setText(_translate("MainWindow", "Filter"))
-        self.input1_combobox.setItemText(0, _translate("MainWindow", "High-Pass Filter"))
-        self.input1_combobox.setItemText(1, _translate("MainWindow", "Low-Pass Filter"))
+        self.input2_combobox.setItemText(0, _translate("MainWindow", "select filter"))
+        self.input2_combobox.setItemText(1, _translate("MainWindow", "High-Pass Frequency Domain"))
+        self.input2_combobox.setItemText(2, _translate("MainWindow", "Low-Pass Frequency Domain"))
+        self.input2_combobox.setItemText(3, _translate("MainWindow", "Average"))
+        self.input2_combobox.setItemText(4, _translate("MainWindow", "Gaussian"))
+        self.input2_combobox.setItemText(5, _translate("MainWindow", "Median"))
+        self.input2_combobox.setItemText(6, _translate("MainWindow", "Sobel"))
+        self.input2_combobox.setItemText(7, _translate("MainWindow", "Roberts"))
+        self.input2_combobox.setItemText(8, _translate("MainWindow", "Prewitt"))
+        self.input2_combobox.setItemText(9, _translate("MainWindow", "Canny"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Hybrid"))
+        self.label_13.setText(_translate("MainWindow", "Active Contour (Snake)"))
+        self.label_19.setText(_translate("MainWindow", "Hough Transform"))
+        self.label_25.setText(_translate("MainWindow", "Hough Transform"))
+        self.lines.setText(_translate("MainWindow", "Lines"))
+        self.ellipes.setText(_translate("MainWindow", "Ellipes"))
+        self.circle.setText(_translate("MainWindow", "Circle"))
+        self.label_26.setText(_translate("MainWindow", "Thresholding Value"))
+        self.superimpose_button.setText(_translate("MainWindow", "Superimpose"))
+        self.reset_button_2.setText(_translate("MainWindow", "Reset"))
+        self.save_button.setText(_translate("MainWindow", "Save"))
+        self.upload_image_contour.setText(_translate("MainWindow", "Upload Image"))
+        self.apply_contour_button.setText(_translate("MainWindow", "Apply contour"))
+        self.chaincode_button.setText(_translate("MainWindow", "chain code"))
+        self.area_label.setText(_translate("MainWindow", "Area: 0"))
+        self.perimeter_label.setText(_translate("MainWindow", "Perimeter: 0"))
+        self.label_21.setText(_translate("MainWindow", "Alpha"))
+        self.label_22.setText(_translate("MainWindow", "Beta"))
+        self.label_28.setText(_translate("MainWindow", "Sigma"))
+        self.label_23.setText(_translate("MainWindow", "Gamma"))
+        self.label_24.setText(_translate("MainWindow", "Iterations"))
+        self.label_27.setText(_translate("MainWindow", "Window Size"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Contour and Hough Transform"))
         self.actionOpen.setText(_translate("MainWindow", "Open"))
 
 

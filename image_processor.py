@@ -228,7 +228,7 @@ class edge_detection:
        
         return np.clip(norm_image, 0, 255).astype(np.uint8)
 
-    def apply_edge_detection_filter(self, selected_edge_detection_filter):
+    def apply_edge_detection_filter(self, selected_edge_detection_filter, low_threshold,high_threshold, sigma_gaussian):
       
         if len(self.image_array.shape) == 3 and self.image_array.shape[2] == 3:
             self.image_array = np.mean(self.image_array, axis=2).astype(np.uint8)
@@ -279,9 +279,9 @@ class edge_detection:
            
         elif selected_edge_detection_filter == "Canny":
             filter =FilterProcessor(self.image_array)
-            high_threshold=100
-            lower_threshold=50
-            modified_image=filter.apply_filter(sigma=1, selected_filter="Gaussian",kernel_size= 3) #apply gaussian filter
+            # high_threshold=100
+            # low_threshold=50
+            modified_image=filter.apply_filter(sigma=sigma_gaussian, selected_filter="Gaussian",kernel_size= 3) #apply gaussian filter
             sobel_x = np.array([[-1, 0, 1], 
                                 [-2, 0, 2], 
                                 [-1, 0, 1]])
@@ -323,15 +323,15 @@ class edge_detection:
             strong = 255
             weak = 0
             strong_edges = (suppressed >= high_threshold)
-            weak_edges = (suppressed <= lower_threshold) 
-            intermediate= (suppressed>= lower_threshold) & (suppressed < high_threshold)
+            weak_edges = (suppressed <= low_threshold) 
+            intermediate= (suppressed>= low_threshold) & (suppressed < high_threshold)
             result = np.zeros(suppressed.shape, dtype=np.uint8)
             result[strong_edges] = strong
             result[weak_edges] = weak
-            result[intermediate]=lower_threshold
+            result[intermediate]=low_threshold
             for i in range(1, h - 1):
                 for j in range(1, w - 1):
-                 if  result[i, j] == lower_threshold:
+                 if  result[i, j] == low_threshold:
                     if np.any( result[i-1:i+2, j-1:j+2] == strong):
                                 result[i, j] = strong
                     else:
