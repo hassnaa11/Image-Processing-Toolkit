@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1626</width>
-    <height>1198</height>
+    <width>1338</width>
+    <height>1303</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1220,6 +1220,231 @@ selection-background-color: rgb(4, 79, 70);
                  </widget>
                 </item>
                 <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_16">
+                  <item>
+                   <widget class="QLabel" name="sigma_canny_label">
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                    </property>
+                    <property name="text">
+                     <string>Sigma: </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="sigma_canny_slider">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>100</number>
+                    </property>
+                    <property name="value">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_17">
+                  <item>
+                   <widget class="QLabel" name="low_threshold_label">
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                    </property>
+                    <property name="text">
+                     <string>Low Threshold: 0</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="low_threshold_slider">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>100</number>
+                    </property>
+                    <property name="value">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_18">
+                  <item>
+                   <widget class="QLabel" name="high_threshold_label">
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 2px solid rgb(6,131,116,255);
+font-weight: bold;</string>
+                    </property>
+                    <property name="text">
+                     <string>High Threshold: 0</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSlider" name="high_threshold_slider">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QSlider {
+ 	border : 2px solid rgb(6,131,116,255);
+}
+QSlider::groove:horizontal {
+    height: 8px;
+   background: rgb(255,255,255); /* Lighter shade of the dark color */
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background:  rgb(219,222,230); /* Mid-tone between the dark and lighter colors */
+    border: 2px solid rgb(255,255,255); /* Matches groove */
+    width: 20px;
+    height: 20px;
+    margin: -6px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background:rgb(161, 164, 171); /* Matches handle */
+    border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+    background:  rgb(188, 191, 198); /* Matches groove */
+    border-radius: 4px;
+}
+</string>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>100</number>
+                    </property>
+                    <property name="value">
+                     <number>1</number>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
                  <spacer name="verticalSpacer_8">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
@@ -2166,7 +2391,7 @@ selection-background-color: rgb(4, 79, 70);
          </widget>
          <widget class="QWidget" name="tab_3">
           <attribute name="title">
-           <string>Contour And Edge detection</string>
+           <string>Contour and Hough Transform</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_10">
            <item row="1" column="1">
@@ -2532,7 +2757,7 @@ border : 2px solid rgb(255, 255, 255); </string>
               <item row="0" column="1" colspan="5">
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <property name="spacing">
-                 <number>20</number>
+                 <number>10</number>
                 </property>
                 <item>
                  <widget class="QPushButton" name="upload_image_contour">
@@ -2544,7 +2769,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>200</width>
+                    <width>180</width>
                     <height>38</height>
                    </size>
                   </property>
@@ -2582,7 +2807,7 @@ border-radius: 10px;</string>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>200</width>
+                    <width>180</width>
                     <height>40</height>
                    </size>
                   </property>
@@ -2607,6 +2832,38 @@ border-radius: 10px;</string>
                   </property>
                   <property name="text">
                    <string>Apply contour</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="chaincode_button">
+                  <property name="minimumSize">
+                   <size>
+                    <width>180</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>OpenHandCursor</cursorShape>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                  </property>
+                  <property name="text">
+                   <string>chain code</string>
                   </property>
                  </widget>
                 </item>
@@ -2905,30 +3162,6 @@ font-weight: bold;</string>
                  </size>
                 </property>
                </spacer>
-              </item>
-              <item row="4" column="3">
-               <widget class="QPushButton" name="chaincode_button">
-                <property name="maximumSize">
-                 <size>
-                  <width>80</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">font: italic 9pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;
-</string>
-                </property>
-                <property name="text">
-                 <string>chain code</string>
-                </property>
-               </widget>
               </item>
               <item row="3" column="6">
                <spacer name="horizontalSpacer_6">
