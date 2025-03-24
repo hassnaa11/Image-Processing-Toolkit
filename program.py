@@ -13,7 +13,7 @@ from typing import Dict, List
 from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder, edge_detection, thresholding
 from active_contour_processor import ActiveContourProcessor
 from reportlab.pdfgen import canvas
-from shapes import detect_shapes
+from shapes import detect_shapes, canny_filter
 
 
 kernel_sizes = [3, 5, 7]
@@ -35,6 +35,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.input1_button.clicked.connect(lambda:self.upload_image(2))
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
         self.upload_image_contour.clicked.connect(lambda:self.upload_image(4))
+        self.hough_transform_upload_btn.clicked.connect(lambda: self.upload_image(5))
        
         
         # noises checkbox
@@ -192,13 +193,18 @@ class MainWindow(QtWidgets.QMainWindow):
     # hough_transform_ratio_spinbox
     
     def apply_hough_changes(self):
-        # apply canny filter first
-        canny_filtered_img_arr = None
+        #apply canny filter first
+        sigma = self.sigma_spinbox_hough.value()
+        t_low = self.low_threshold_spinbox_hough.value()
+        t_high = self.high_threshold_spinbox_hough.value()
         
+        cpy_arr = np.copy(self.hough_image.image)
+        canny_filtered_img_arr = canny_filter(cpy_arr, sigma, t_low, t_high)
         
         detect_lines = True if self.lines_checkbox.isChecked() else False
         detect_ellipses = True if self.ellipses_checkbox.isChecked() else False
         detect_circles = True if self.circles_checkbox.isChecked() else False
+        
         
         threhold_ratio = self.hough_transform_ratio_spinbox.value()
         

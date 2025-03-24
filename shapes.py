@@ -1,12 +1,14 @@
 from Image import Image
+from image_processor import edge_detection
 import numpy as np
 from math import floor
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import cv2
 import math
+from image_processor import edge_detection
 
-def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=5):
+def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=25):
     height, width = canny_filtered_img.shape
     
     big_dim = height if height>width else width
@@ -17,20 +19,23 @@ def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=5):
 
     edge_points = np.argwhere(canny_filtered_img == 255)
 
+    max = 0
     for idx, r in enumerate(radius_values):
         for x, y in edge_points:
-            for theta in range(0, 360, step_sz):  # 5-degree step for speed
+            for theta in range(-90, 90, step_sz): 
                 a = int(x - r * np.cos(np.deg2rad(theta)))
                 b = int(y - r * np.sin(np.deg2rad(theta)))
                 if 0 <= a < height and 0 <= b < width:
                     accumulator[a, b, idx] += 1
+                    if accumulator[a, b, idx] > max: max = accumulator[a, b, idx]
 
-    return accumulator, radius_values
+    print("accummulator formed")
+    return accumulator, radius_values, max
 
 
 def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7):
-    accumulator, radius_values = circle_hough_transform(canny_filtered_img_arr)
-    threshold = threshold_ratio * np.max(accumulator)
+    accumulator, radius_values, max = circle_hough_transform(canny_filtered_img_arr)
+    threshold = threshold_ratio * max
     
     circles = []
     h, w, r_len = accumulator.shape
@@ -39,17 +44,20 @@ def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7):
         centers = np.argwhere(acc_slice > threshold)
         for a, b in centers:
             circles.append((b, a, radius_values[r_idx]))  # (x_center, y_center, radius)
+    
+    print("Circles Detected")
     return circles
     
 
 def draw_circles_on_image(original_img_arr, canny_filtered_img_arr, threshold_ratio):
-
+    
     circles = detect_circles(canny_filtered_img_arr, threshold_ratio)
     image_with_circles_arr = np.copy(original_img_arr)
     
     for x_center, y_center, radius in circles:
-        cv2.circle(image_with_circles_arr, (int(x_center), int(y_center)), int(radius), "red", 2)
+        cv2.circle(image_with_circles_arr, (int(x_center), int(y_center)), int(radius), (0, 0, 255), 2)
         
+    print("Circles Drawn")
     return image_with_circles_arr       
     
 
@@ -214,4 +222,10 @@ def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, de
         new_img = Image(new_img_arr)
         scene = new_img.display_image()
         return scene
+
+
+def canny_filter(img_arr , sigma = 1, T_low: int = 50, T_high: int = 100):
+    edge_detection_processor = edge_detection(img_arr)
+    canny_filtered_img_arr = edge_detection_processor.apply_edge_detection_filter("Canny", T_low, T_high, sigma)
     
+    return canny_filtered_img_arr
