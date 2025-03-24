@@ -199,12 +199,16 @@ class MainWindow(QtWidgets.QMainWindow):
         t_high = self.high_threshold_spinbox_hough.value()
         
         cpy_arr = np.copy(self.hough_image.image)
-        canny_filtered_img_arr = canny_filter(cpy_arr, sigma, t_low, t_high)
+        
+        if self.kernel_3_radio_btn.isChecked(): kerenl_size = 3
+        elif self.kernel_5_radio_btn.isChecked(): kerenl_size =5
+        elif self.kernel_7_radio_btn.isChecked(): kerenl_size = 7
+        
+        canny_filtered_img_arr = canny_filter(cpy_arr, sigma, t_low, t_high, kerenl_size)
         
         detect_lines = True if self.lines_checkbox.isChecked() else False
         detect_ellipses = True if self.ellipses_checkbox.isChecked() else False
         detect_circles = True if self.circles_checkbox.isChecked() else False
-        
         
         threhold_ratio = self.hough_transform_ratio_spinbox.value()
         step_size = self.step_size_spin_box.value()
@@ -223,6 +227,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.lines_checkbox.setChecked(False)
         self.circles_checkbox.setChecked(False)    
         self.ellipses_checkbox.setChecked(False)
+        
+        self.kernel_3_radio_btn.setChecked(False)
+        self.kernel_5_radio_btn.setChecked(False)
+        self.kernel_7_radio_btn.setChecked(False)
         
         self.hough_transform_ratio_spinbox.setValue(0.80)   
         

@@ -70,7 +70,7 @@ def draw_circles_on_image(original_img_arr, canny_filtered_img_arr, threshold_ra
     return image_with_circles_arr       
     
 
-def line_hough_transform(canny_filtered_img: np.ndarray, theta_step=1):
+def line_hough_transform(canny_filtered_img: np.ndarray, theta_step=15):
     """
     Implements Hough transform for line detection
 
@@ -92,7 +92,7 @@ def line_hough_transform(canny_filtered_img: np.ndarray, theta_step=1):
     rho_range = 2 * diag_len
 
     # Initialize parameters
-    thetas = np.deg2rad(np.arange(0, 180, theta_step))  # Theta values in radians
+    thetas = np.deg2rad(np.arange(-90, 90, theta_step))  # Theta values in radians
     rhos = np.arange(-diag_len, diag_len)  # Rho values
 
     # Initialize accumulator array
@@ -119,10 +119,10 @@ def line_hough_transform(canny_filtered_img: np.ndarray, theta_step=1):
             if 0 <= rho_idx < len(rhos):
                 accumulator[rho_idx, theta_idx] += 1
 
-    return accumulator, rhos, thetas
+    return accumulator, rhos, thetas, cos_thetas, sin_thetas
 
 
-def detect_lines(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.5, min_line_length=20):
+def detect_lines(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.5, step_sz=20):
     """
     Detects lines from Hough accumulator array
 
@@ -135,7 +135,7 @@ def detect_lines(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.5, min_li
         lines: List of detected lines in (rho, theta) format
     """
     # Apply Hough transform
-    accumulator, rhos, thetas = line_hough_transform(canny_filtered_img_arr)
+    accumulator, rhos, thetas, cosines, sines = line_hough_transform(canny_filtered_img_arr, step_sz)
 
     # Calculate threshold
     threshold = threshold_ratio * np.max(accumulator)
@@ -143,6 +143,7 @@ def detect_lines(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.5, min_li
     # Find peaks in accumulator
     lines = []
     height, width = canny_filtered_img_arr.shape
+    min_line_length = 5
 
     for rho_idx in range(len(rhos)):
         for theta_idx in range(len(thetas)):
@@ -151,9 +152,9 @@ def detect_lines(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.5, min_li
                 theta = thetas[theta_idx]
 
                 # Convert (rho, theta) to line endpoints for visualization
-                if sin(theta) != 0:  # Non-vertical line
-                    x1, y1 = 0, int(rho / sin(theta))
-                    x2, y2 = width - 1, int((rho - (width - 1) * cos(theta)) / sin(theta))
+                if sines[theta_idx] != 0:  # Non-vertical line
+                    x1, y1 = 0, int(rho / sines[theta_idx])
+                    x2, y2 = width - 1, int((rho - (width - 1) * cosines[theta_idx]) / sines[theta_idx])
                 else:  # Vertical line
                     x1, y1 = int(rho), 0
                     x2, y2 = int(rho), height - 1
@@ -168,7 +169,7 @@ def detect_lines(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.5, min_li
     return lines
 
 
-def draw_lines(image, lines):
+def draw_lines(original_img_arr, canny_filtered_img_arr, threshold_ratio, step_sz):
     """
     Draw detected lines on the image
 
@@ -177,64 +178,41 @@ def draw_lines(image, lines):
         lines: List of lines in (rho, theta, (x1, y1, x2, y2)) format
 
     Returns:
-        result_image: Image with lines drawn
+        image_with_line_arr: Image with lines drawn
     """
+    lines = detect_lines(canny_filtered_img_arr, threshold_ratio, step_sz)
+    
     # Create a copy of the input image
-    result_image = image.copy()
+    image_with_line_arr = original_img_arr.copy()
 
     # If the image is grayscale, convert to RGB
-    if len(result_image.shape) == 2:
-        result_image = cv2.cvtColor(result_image, cv2.COLOR_GRAY2RGB)
+    if len(image_with_line_arr.shape) == 2:
+        image_with_line_arr = cv2.cvtColor(image_with_line_arr, cv2.COLOR_GRAY2RGB)
 
     # Draw each line
     for rho, theta, (x1, y1, x2, y2) in lines:
         # Draw the line
-        cv2.line(result_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.line(image_with_line_arr, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
-    return result_image
-
-
-def display_results(original_image, edge_image, lines):
-    """
-    Display original image, edge image, and detected lines
-
-    Args:
-        original_image: Original input image
-        edge_image: Canny edge detected image
-        lines: List of detected lines
-    """
-    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-
-    # Show original image
-    axes[0].imshow(original_image, cmap='gray')
-    axes[0].set_title('Original Image')
-    axes[0].axis('off')
-
-    # Show edge image
-    axes[1].imshow(edge_image, cmap='gray')
-    axes[1].set_title('Edge Image')
-    axes[1].axis('off')
-
-    # Show image with detected lines
-    result_image = draw_lines(original_image, lines)
-    axes[2].imshow(result_image)
-    axes[2].set_title('Detected Lines')
-    axes[2].axis('off')
-
-    plt.tight_layout()
-    plt.show()
+    return image_with_line_arr
 
 
-def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio, circle_step_sz):
+def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio, circle_step_sz, line_step_sz):
     if detect_circles: 
         new_img_arr = draw_circles_on_image(og_img_arr, canny_filtered_img_arr, threshold_ratio, circle_step_sz)
-        new_img = Image(new_img_arr)
-        scene = new_img.display_image()
-        return scene
+        
+    
+    elif detect_lines:
+        new_img_arr = draw_lines(og_img_arr, canny_filtered_img_arr, threshold_ratio, line_step_sz)
+        
+    new_img = Image(new_img_arr)
+    scene = new_img.display_image()
+    return scene    
+        
 
 
-def canny_filter(img_arr , sigma = 1, T_low: int = 50, T_high: int = 100):
+def canny_filter(img_arr , sigma = 1, T_low: int = 50, T_high: int = 100, kernel_sz=3):
     edge_detection_processor = edge_detection(img_arr)
-    canny_filtered_img_arr = edge_detection_processor.apply_edge_detection_filter("Canny", T_low, T_high, sigma)
+    canny_filtered_img_arr = edge_detection_processor.apply_edge_detection_filter("Canny", T_low, T_high, sigma, kernel_sz)
     
     return canny_filtered_img_arr
