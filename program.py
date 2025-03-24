@@ -139,7 +139,7 @@ class MainWindow(QtWidgets.QMainWindow):
             uploaded_img.read_image(self.file_path)
             scene = uploaded_img.display_image()
 
-            self.original_image_arr = np.copy(uploaded_img)            
+            self.original_image_arr = np.copy(uploaded_img.image)            
             
             if key == 1: # upload in filter tap
                 if self.output_image_frame.scene() is not None: 
@@ -192,13 +192,17 @@ class MainWindow(QtWidgets.QMainWindow):
     # hough_transform_ratio_spinbox
     
     def apply_hough_changes(self):
+        # apply canny filter first
+        canny_filtered_img_arr = None
+        
+        
         detect_lines = True if self.lines_checkbox.isChecked() else False
         detect_ellipses = True if self.ellipses_checkbox.isChecked() else False
         detect_circles = True if self.circles_checkbox.isChecked() else False
         
         threhold_ratio = self.hough_transform_ratio_spinbox.value()
         
-        scene: QGraphicsScene = detect_shapes(self.hough_image.image, detect_lines, detect_ellipses, detect_circles, threhold_ratio)
+        scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, detect_ellipses, detect_circles, threhold_ratio)
         
         self.hough_transform_output_frame.setScene(scene)
         self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)

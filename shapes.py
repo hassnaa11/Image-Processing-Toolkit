@@ -42,22 +42,15 @@ def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7):
     return circles
     
 
-def draw_circles_on_image(original_img, circles):
+def draw_circles_on_image(original_img_arr, canny_filtered_img_arr, threshold_ratio):
 
+    circles = detect_circles(canny_filtered_img_arr, threshold_ratio)
+    image_with_circles_arr = np.copy(original_img_arr)
     
-    fig, ax = plt.subplots(figsize=(10, 10))
-    ax.imshow(img_to_show, cmap='gray')
-    
-    for x_center, y_center, radius, votes in circles:
-        circle = patches.Circle((x_center, y_center), radius, 
-                                linewidth=2, edgecolor='red', facecolor='none')
-        ax.add_patch(circle)
-        # Optionally: annotate votes
-        ax.text(x_center, y_center, f"{int(votes)}", color='yellow', fontsize=8)
-    
-    ax.set_title("Detected Circles")
-    plt.axis('off')
-    plt.show()   
+    for x_center, y_center, radius in circles:
+        cv2.circle(image_with_circles_arr, (int(x_center), int(y_center)), int(radius), "red", 2)
+        
+    return image_with_circles_arr       
     
 
 def line_hough_transform(canny_filtered_img: np.ndarray, theta_step=1):
@@ -215,6 +208,10 @@ def display_results(original_image, edge_image, lines):
     plt.show()
 
 
-def detect_shapes(img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio):
-    if detect_lines: detect_lines(img_arr, threshold_ratio)
-    if detect_circles: detect_circles(img_arr, threshold_ratio)
+def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio):
+    if detect_circles: 
+        new_img_arr = draw_circles_on_image(og_img_arr, canny_filtered_img_arr, threshold_ratio)
+        new_img = Image(new_img_arr)
+        scene = new_img.display_image()
+        return scene
+    
