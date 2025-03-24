@@ -432,23 +432,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.display_histogram(self.output_image, "out")
         self.display_cdf(self.output_image, "out")
     
-    # def convert_to_grayscale(self):
-    #     modified_image: Image = np.copy(self.original_image)
-    #     filter_processor = FilterProcessor(modified_image)
-    #     #self.is_gray_scale = not self.is_gray_scale
-        
-    #     if modified_image.is_RGB():
-    #         self.rgb_image = np.copy(self.original_image)
-    #         self.gray_scale_button.setText("Original") 
-    #         #modified_image = filter_processor.rgb_to_grayscale()
-    #         modified_image.rgb2gray()
-    #     else: 
-    #         self.gray_scale_button.setText("GrayScale") 
-    #         modified_image = np.copy(self.rgb_image)
-
-    #     self.original_image = np.copy(modified_image)
-    #     self.apply_changes(type="filters")
-    
     def convert_color_domain(self):
         if self.gray_scale_button.text() == "GrayScale":
             self.convert_to_grayscale()
