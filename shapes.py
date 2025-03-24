@@ -12,23 +12,26 @@ def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=20):
     height, width = canny_filtered_img.shape
     
     small_dim = height if height<width else width
-    max_r = small_dim // 4
+    max_r = small_dim // 2
     min_r = 5
     
     radius_values = np.arange(min_r, max_r + 1)
     accumulator = np.zeros((height, width, len(radius_values)), dtype=np.uint64)
 
     edge_points = np.argwhere(canny_filtered_img == 255)
+    print("Pixel Wide Edges Found")
 
     # Precompute Thetas to avoid heavy repetetive calling of deg2rad
     thetas = np.deg2rad(np.arange(-90, 90, step_sz))
     cos_thetas = np.cos(thetas)
     sin_thetas = np.sin(thetas)
     
+    print("Thetas Precomputed")
+    
     max = 0
     for idx, r in enumerate(radius_values):
         for x, y in edge_points:
-            for cos_theta, sin_theta in cos_thetas, sin_thetas: 
+            for cos_theta, sin_theta in zip(cos_thetas, sin_thetas): 
                 a = int(x - r * cos_theta)
                 b = int(y - r * sin_theta)
                 if 0 <= a < height and 0 <= b < width:
@@ -40,7 +43,7 @@ def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=20):
 
 
 def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7, step_sz=20):
-    accumulator, radius_values, max = circle_hough_transform(canny_filtered_img_arr)
+    accumulator, radius_values, max = circle_hough_transform(canny_filtered_img_arr, step_sz)
     threshold = threshold_ratio * max
     
     circles = []

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1291, 1303)
+        MainWindow.resize(1247, 1303)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -1677,6 +1677,27 @@ class Ui_MainWindow(object):
         self.gridLayout_8.setObjectName("gridLayout_8")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout()
         self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.lines_checkbox = QtWidgets.QCheckBox(self.frame_2)
+        self.lines_checkbox.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.lines_checkbox.setObjectName("lines_checkbox")
+        self.verticalLayout_5.addWidget(self.lines_checkbox)
+        self.ellipses_checkbox = QtWidgets.QCheckBox(self.frame_2)
+        self.ellipses_checkbox.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.ellipses_checkbox.setObjectName("ellipses_checkbox")
+        self.verticalLayout_5.addWidget(self.ellipses_checkbox)
+        self.circles_checkbox = QtWidgets.QCheckBox(self.frame_2)
+        self.circles_checkbox.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 10pt \"MS Shell Dlg 2\";\n"
+"border : 2px solid rgb(6,131,116,255);\n"
+"font-weight: bold;")
+        self.circles_checkbox.setObjectName("circles_checkbox")
+        self.verticalLayout_5.addWidget(self.circles_checkbox)
         self.Threshold_ratio_label = QtWidgets.QLabel(self.frame_2)
         self.Threshold_ratio_label.setStyleSheet("color: rgb(255, 255, 255);\n"
 "font: 10pt \"MS Shell Dlg 2\";\n"
@@ -1692,24 +1713,59 @@ class Ui_MainWindow(object):
         self.hough_transform_ratio_spinbox.setProperty("value", 0.8)
         self.hough_transform_ratio_spinbox.setObjectName("hough_transform_ratio_spinbox")
         self.verticalLayout_5.addWidget(self.hough_transform_ratio_spinbox)
+        self.label_20 = QtWidgets.QLabel(self.frame_2)
+        self.label_20.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_20.setObjectName("label_20")
+        self.verticalLayout_5.addWidget(self.label_20)
+        self.step_size_spin_box = QtWidgets.QSpinBox(self.frame_2)
+        self.step_size_spin_box.setAlignment(QtCore.Qt.AlignCenter)
+        self.step_size_spin_box.setMinimum(5)
+        self.step_size_spin_box.setMaximum(50)
+        self.step_size_spin_box.setSingleStep(5)
+        self.step_size_spin_box.setProperty("value", 20)
+        self.step_size_spin_box.setObjectName("step_size_spin_box")
+        self.verticalLayout_5.addWidget(self.step_size_spin_box)
         self.gridLayout_8.addLayout(self.verticalLayout_5, 1, 0, 1, 1)
         self.verticalLayout_7 = QtWidgets.QVBoxLayout()
         self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.apply_hough_button = QtWidgets.QPushButton(self.frame_2)
-        self.apply_hough_button.setMinimumSize(QtCore.QSize(0, 40))
-        self.apply_hough_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
-        self.apply_hough_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
-"background-color: rgb(57, 143, 252);\n"
-"background-color: rgb(219,222,230);\n"
-"\n"
-"color: rgb(255, 255, 255);\n"
-"color: rgb(2, 39, 35);\n"
-"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
-"border-radius: 10px;")
-        self.apply_hough_button.setObjectName("apply_hough_button")
-        self.horizontalLayout_2.addWidget(self.apply_hough_button)
+        self.label_25 = QtWidgets.QLabel(self.frame_2)
+        self.label_25.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_25.setObjectName("label_25")
+        self.verticalLayout_7.addWidget(self.label_25)
+        self.sigma_spinbox_hough = QtWidgets.QDoubleSpinBox(self.frame_2)
+        self.sigma_spinbox_hough.setAlignment(QtCore.Qt.AlignCenter)
+        self.sigma_spinbox_hough.setMinimum(0.2)
+        self.sigma_spinbox_hough.setMaximum(5.0)
+        self.sigma_spinbox_hough.setSingleStep(0.2)
+        self.sigma_spinbox_hough.setProperty("value", 1.0)
+        self.sigma_spinbox_hough.setObjectName("sigma_spinbox_hough")
+        self.verticalLayout_7.addWidget(self.sigma_spinbox_hough)
+        self.label_26 = QtWidgets.QLabel(self.frame_2)
+        self.label_26.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_26.setObjectName("label_26")
+        self.verticalLayout_7.addWidget(self.label_26)
+        self.low_threshold_spinbox_hough = QtWidgets.QSpinBox(self.frame_2)
+        self.low_threshold_spinbox_hough.setAlignment(QtCore.Qt.AlignCenter)
+        self.low_threshold_spinbox_hough.setMinimum(20)
+        self.low_threshold_spinbox_hough.setMaximum(100)
+        self.low_threshold_spinbox_hough.setSingleStep(10)
+        self.low_threshold_spinbox_hough.setProperty("value", 50)
+        self.low_threshold_spinbox_hough.setObjectName("low_threshold_spinbox_hough")
+        self.verticalLayout_7.addWidget(self.low_threshold_spinbox_hough)
+        self.label_29 = QtWidgets.QLabel(self.frame_2)
+        self.label_29.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_29.setObjectName("label_29")
+        self.verticalLayout_7.addWidget(self.label_29)
+        self.high_threshold_spinbox_hough = QtWidgets.QSpinBox(self.frame_2)
+        self.high_threshold_spinbox_hough.setAlignment(QtCore.Qt.AlignCenter)
+        self.high_threshold_spinbox_hough.setMinimum(100)
+        self.high_threshold_spinbox_hough.setMaximum(250)
+        self.high_threshold_spinbox_hough.setSingleStep(10)
+        self.high_threshold_spinbox_hough.setObjectName("high_threshold_spinbox_hough")
+        self.verticalLayout_7.addWidget(self.high_threshold_spinbox_hough)
+        self.gridLayout_8.addLayout(self.verticalLayout_7, 1, 1, 1, 1)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.hough_reset_btn = QtWidgets.QPushButton(self.frame_2)
         self.hough_reset_btn.setMinimumSize(QtCore.QSize(0, 40))
         self.hough_reset_btn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
@@ -1722,35 +1778,23 @@ class Ui_MainWindow(object):
 "buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
 "border-radius: 10px;")
         self.hough_reset_btn.setObjectName("hough_reset_btn")
-        self.horizontalLayout_2.addWidget(self.hough_reset_btn)
-        self.verticalLayout_7.addLayout(self.horizontalLayout_2)
-        self.gridLayout_8.addLayout(self.verticalLayout_7, 1, 1, 1, 1)
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.horizontalLayout.addWidget(self.hough_reset_btn)
+        self.apply_hough_button = QtWidgets.QPushButton(self.frame_2)
+        self.apply_hough_button.setMinimumSize(QtCore.QSize(0, 40))
+        self.apply_hough_button.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.apply_hough_button.setStyleSheet("font: italic 10pt \"Georgia\";\n"
+"background-color: rgb(57, 143, 252);\n"
+"background-color: rgb(219,222,230);\n"
+"\n"
+"color: rgb(255, 255, 255);\n"
+"color: rgb(2, 39, 35);\n"
+"buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);\n"
+"border-radius: 10px;")
+        self.apply_hough_button.setObjectName("apply_hough_button")
+        self.horizontalLayout.addWidget(self.apply_hough_button)
         self.hough_transform_upload_btn = QtWidgets.QPushButton(self.frame_2)
         self.hough_transform_upload_btn.setObjectName("hough_transform_upload_btn")
         self.horizontalLayout.addWidget(self.hough_transform_upload_btn)
-        self.lines_checkbox = QtWidgets.QCheckBox(self.frame_2)
-        self.lines_checkbox.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 10pt \"MS Shell Dlg 2\";\n"
-"border : 2px solid rgb(6,131,116,255);\n"
-"font-weight: bold;")
-        self.lines_checkbox.setObjectName("lines_checkbox")
-        self.horizontalLayout.addWidget(self.lines_checkbox)
-        self.ellipses_checkbox = QtWidgets.QCheckBox(self.frame_2)
-        self.ellipses_checkbox.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 10pt \"MS Shell Dlg 2\";\n"
-"border : 2px solid rgb(6,131,116,255);\n"
-"font-weight: bold;")
-        self.ellipses_checkbox.setObjectName("ellipses_checkbox")
-        self.horizontalLayout.addWidget(self.ellipses_checkbox)
-        self.circles_checkbox = QtWidgets.QCheckBox(self.frame_2)
-        self.circles_checkbox.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 10pt \"MS Shell Dlg 2\";\n"
-"border : 2px solid rgb(6,131,116,255);\n"
-"font-weight: bold;")
-        self.circles_checkbox.setObjectName("circles_checkbox")
-        self.horizontalLayout.addWidget(self.circles_checkbox)
         self.gridLayout_8.addLayout(self.horizontalLayout, 0, 0, 1, 2)
         self.gridLayout_10.addWidget(self.frame_2, 2, 3, 1, 1)
         self.tabWidget.addTab(self.tab_3, "")
@@ -1860,12 +1904,16 @@ class Ui_MainWindow(object):
         self.label_23.setText(_translate("MainWindow", "Gamma"))
         self.label_24.setText(_translate("MainWindow", "Iterations"))
         self.label_27.setText(_translate("MainWindow", "Window Size"))
-        self.Threshold_ratio_label.setText(_translate("MainWindow", "Threshold Ratio"))
-        self.apply_hough_button.setText(_translate("MainWindow", "Apply"))
-        self.hough_reset_btn.setText(_translate("MainWindow", "Reset"))
-        self.hough_transform_upload_btn.setText(_translate("MainWindow", "Upload Image"))
         self.lines_checkbox.setText(_translate("MainWindow", "Lines"))
         self.ellipses_checkbox.setText(_translate("MainWindow", "Ellipses"))
         self.circles_checkbox.setText(_translate("MainWindow", "Circles"))
+        self.Threshold_ratio_label.setText(_translate("MainWindow", "Threshold Ratio"))
+        self.label_20.setText(_translate("MainWindow", "Circle Step Size"))
+        self.label_25.setText(_translate("MainWindow", "Sigma"))
+        self.label_26.setText(_translate("MainWindow", "T-Low"))
+        self.label_29.setText(_translate("MainWindow", "T-High"))
+        self.hough_reset_btn.setText(_translate("MainWindow", "Reset"))
+        self.apply_hough_button.setText(_translate("MainWindow", "Apply"))
+        self.hough_transform_upload_btn.setText(_translate("MainWindow", "Upload Image"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Contour and Hough Transform"))
         self.actionOpen.setText(_translate("MainWindow", "Open"))
