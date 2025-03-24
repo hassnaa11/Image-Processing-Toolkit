@@ -80,7 +80,22 @@ class ActiveContourProcessor:
                 new_snake[i] = best_point
                 
             self.snake = new_snake
+            self.resample_snake()
             
+    def resample_snake(self, num_points=100):
+        # Compute cumulative distances along the snake
+        distances = np.sqrt(np.sum(np.diff(self.snake, axis=0) ** 2, axis=1))
+        cumulative_dist = np.insert(np.cumsum(distances), 0, 0)
+
+        # Generate new equally spaced distances
+        total_length = cumulative_dist[-1]
+        new_distances = np.linspace(0, total_length, num_points)
+
+        # Interpolate new points
+        x_new = np.interp(new_distances, cumulative_dist, self.snake[:, 0])
+        y_new = np.interp(new_distances, cumulative_dist, self.snake[:, 1])
+
+        self.snake = np.column_stack((x_new, y_new))
             
     def get_snake(self):
         return self.snake, self.inint_snake

@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, uic
-from PyQt5.QtWidgets import QGraphicsPixmapItem,QGraphicsPathItem, QFrame, QGraphicsScene, QGraphicsView
+from PyQt5.QtWidgets import QGraphicsPixmapItem,QGraphicsEllipseItem,QGraphicsPathItem, QFrame, QGraphicsScene, QGraphicsView
 import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
@@ -715,6 +715,11 @@ class MainWindow(QtWidgets.QMainWindow):
         path_final.moveTo(final_snake[0, 0], final_snake[0, 1])
         for point in final_snake[1:]:
             path_final.lineTo(point[0], point[1])
+            
+        for point in final_snake:
+            marker = QGraphicsEllipseItem(point[0] - 2, point[1] - 2, 4, 4)  
+            marker.setBrush(Qt.red)  
+            scene.addItem(marker)    
         
         final_snake_item = QGraphicsPathItem(path_final)
         final_snake_item.setPen(QPen(Qt.red, 1.7))
