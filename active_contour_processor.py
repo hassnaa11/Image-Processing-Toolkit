@@ -20,7 +20,7 @@ class ActiveContourProcessor:
         
         # get gradient using canny
         edge_detection_processor = edge_detection(image)
-        gradient=edge_detection_processor.apply_edge_detection_filter("Canny", 1, 100, 150)
+        gradient=edge_detection_processor.apply_edge_detection_filter("Canny",  100, 150,1)
         edges = np.array(gradient, dtype=np.float64)
         edges_normalized = cv2.normalize(edges.astype(np.float64), None, 0, 255, cv2.NORM_MINMAX)
         # Increase contrast for edges only
@@ -33,7 +33,7 @@ class ActiveContourProcessor:
         height, width = self.image.shape[:2]
         center_x, center_y = width // 2 , height // 2 
         radius_x, radius_y = width // 2, height // 2
-        s = np.linspace(0, 2 * np.pi, 200)
+        s = np.linspace(0, 2 * np.pi, 100)
         x = center_x + radius_x * np.cos(s)
         y = center_y + radius_y * np.sin(s)
         snake = np.array([x, y]).T
@@ -80,7 +80,22 @@ class ActiveContourProcessor:
                 new_snake[i] = best_point
                 
             self.snake = new_snake
+            self.resample_snake()
             
+    def resample_snake(self, num_points=100):
+        # Compute cumulative distances along the snake
+        distances = np.sqrt(np.sum(np.diff(self.snake, axis=0) ** 2, axis=1))
+        cumulative_dist = np.insert(np.cumsum(distances), 0, 0)
+
+        # Generate new equally spaced distances
+        total_length = cumulative_dist[-1]
+        new_distances = np.linspace(0, total_length, num_points)
+
+        # Interpolate new points
+        x_new = np.interp(new_distances, cumulative_dist, self.snake[:, 0])
+        y_new = np.interp(new_distances, cumulative_dist, self.snake[:, 1])
+
+        self.snake = np.column_stack((x_new, y_new))
             
     def get_snake(self):
         return self.snake, self.inint_snake

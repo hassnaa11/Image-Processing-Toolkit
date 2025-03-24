@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, uic
-from PyQt5.QtWidgets import QGraphicsPixmapItem,QGraphicsPathItem, QFrame, QGraphicsScene, QGraphicsView
+from PyQt5.QtWidgets import QGraphicsPixmapItem,QGraphicsEllipseItem,QGraphicsPathItem, QFrame, QGraphicsScene, QGraphicsView
 import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
@@ -76,8 +76,15 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         self.ratio_slider.valueChanged.connect(lambda: self.apply_changes("noises"))
         self.show_hide_parameters("select noise")
-        self.low_threshold_slider.setRange(0, 100)
-        self.high_threshold_slider.setRange(0,150)
+        self.low_threshold_label.setText(f"Low Threshold: 50")
+        self.high_threshold_label.setText(f"High Threshold: 100")
+        self.low_threshold_slider.setMinimum(0)   # Minimum value
+        self.low_threshold_slider.setMaximum(100) # Maximum value
+        self.low_threshold_slider.setValue(50) 
+        self.high_threshold_slider.setMinimum(0)   # Minimum value
+        self.high_threshold_slider.setMaximum(150) # Maximum value
+        self.high_threshold_slider.setValue(100) 
+        self.sigma_canny_slider.setRange(1,30)
         self.low_threshold_slider.setSingleStep(10)
         self.high_threshold_slider.setSingleStep(10)
         self.low_threshold_slider.hide()
@@ -600,7 +607,6 @@ class MainWindow(QtWidgets.QMainWindow):
         final_snake, init_snake = self.snake_model.get_snake()
        
         final_snake = np.array(final_snake)
-        final_snake= np.flip(final_snake, axis=0)
         print(final_snake)
 
         # Find the top-left point (minimum y, then minimum x)
@@ -683,6 +689,11 @@ class MainWindow(QtWidgets.QMainWindow):
         path_final.moveTo(final_snake[0, 0], final_snake[0, 1])
         for point in final_snake[1:]:
             path_final.lineTo(point[0], point[1])
+            
+        for point in final_snake:
+            marker = QGraphicsEllipseItem(point[0] - 2, point[1] - 2, 4, 4)  
+            marker.setBrush(Qt.red)  
+            scene.addItem(marker)    
         
         final_snake_item = QGraphicsPathItem(path_final)
         final_snake_item.setPen(QPen(Qt.red, 1.7))
