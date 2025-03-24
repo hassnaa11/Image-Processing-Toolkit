@@ -207,8 +207,9 @@ class MainWindow(QtWidgets.QMainWindow):
         
         
         threhold_ratio = self.hough_transform_ratio_spinbox.value()
+        step_size = self.step_size_spin_box.value()
         
-        scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, detect_ellipses, detect_circles, threhold_ratio)
+        scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, detect_ellipses, detect_circles, threhold_ratio, step_size)
         
         self.hough_transform_output_frame.setScene(scene)
         self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)

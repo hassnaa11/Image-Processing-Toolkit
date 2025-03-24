@@ -8,23 +8,29 @@ import cv2
 import math
 from image_processor import edge_detection
 
-def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=25):
+def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=20):
     height, width = canny_filtered_img.shape
     
-    big_dim = height if height>width else width
-    min_r, max_r = 1, floor(big_dim/2)
+    small_dim = height if height<width else width
+    max_r = small_dim // 4
+    min_r = 5
     
     radius_values = np.arange(min_r, max_r + 1)
     accumulator = np.zeros((height, width, len(radius_values)), dtype=np.uint64)
 
     edge_points = np.argwhere(canny_filtered_img == 255)
 
+    # Precompute Thetas to avoid heavy repetetive calling of deg2rad
+    thetas = np.deg2rad(np.arange(-90, 90, step_sz))
+    cos_thetas = np.cos(thetas)
+    sin_thetas = np.sin(thetas)
+    
     max = 0
     for idx, r in enumerate(radius_values):
         for x, y in edge_points:
-            for theta in range(-90, 90, step_sz): 
-                a = int(x - r * np.cos(np.deg2rad(theta)))
-                b = int(y - r * np.sin(np.deg2rad(theta)))
+            for cos_theta, sin_theta in cos_thetas, sin_thetas: 
+                a = int(x - r * cos_theta)
+                b = int(y - r * sin_theta)
                 if 0 <= a < height and 0 <= b < width:
                     accumulator[a, b, idx] += 1
                     if accumulator[a, b, idx] > max: max = accumulator[a, b, idx]
@@ -33,7 +39,7 @@ def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=25):
     return accumulator, radius_values, max
 
 
-def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7):
+def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7, step_sz=20):
     accumulator, radius_values, max = circle_hough_transform(canny_filtered_img_arr)
     threshold = threshold_ratio * max
     
@@ -49,9 +55,9 @@ def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7):
     return circles
     
 
-def draw_circles_on_image(original_img_arr, canny_filtered_img_arr, threshold_ratio):
+def draw_circles_on_image(original_img_arr, canny_filtered_img_arr, threshold_ratio, step_sz):
     
-    circles = detect_circles(canny_filtered_img_arr, threshold_ratio)
+    circles = detect_circles(canny_filtered_img_arr, threshold_ratio, step_sz)
     image_with_circles_arr = np.copy(original_img_arr)
     
     for x_center, y_center, radius in circles:
@@ -216,9 +222,9 @@ def display_results(original_image, edge_image, lines):
     plt.show()
 
 
-def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio):
+def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio, circle_step_sz):
     if detect_circles: 
-        new_img_arr = draw_circles_on_image(og_img_arr, canny_filtered_img_arr, threshold_ratio)
+        new_img_arr = draw_circles_on_image(og_img_arr, canny_filtered_img_arr, threshold_ratio, circle_step_sz)
         new_img = Image(new_img_arr)
         scene = new_img.display_image()
         return scene
