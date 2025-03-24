@@ -93,7 +93,7 @@ def line_hough_transform(canny_filtered_img: np.ndarray, theta_step=15):
 
     # Initialize parameters
     thetas = np.deg2rad(np.arange(-90, 90, theta_step))  # Theta values in radians
-    rhos = np.arange(-diag_len, diag_len)  # Rho values
+    rhos = np.arange(-diag_len, diag_len+1)  # Rho values
 
     # Initialize accumulator array
     accumulator = np.zeros((len(rhos), len(thetas)), dtype=np.uint64)
@@ -153,7 +153,7 @@ def detect_lines(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.5, step_s
 
                 # Convert (rho, theta) to line endpoints for visualization
                 if sines[theta_idx] != 0:  # Non-vertical line
-                    x1, y1 = 0, int(rho / sines[theta_idx])
+                    x1, y1 = 0, int(round(rho / sines[theta_idx]))
                     x2, y2 = width - 1, int((rho - (width - 1) * cosines[theta_idx]) / sines[theta_idx])
                 else:  # Vertical line
                     x1, y1 = int(rho), 0
