@@ -3125,11 +3125,32 @@ border-radius: 10px;</string>
               <item row="2" column="0">
                <layout class="QVBoxLayout" name="verticalLayout_5">
                 <item>
+                 <widget class="QRadioButton" name="kernel_3_radio_btn">
+                  <property name="text">
+                   <string>3x3 Kernel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="kernel_5_radio_btn">
+                  <property name="text">
+                   <string>5x5 Kernel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="kernel_7_radio_btn">
+                  <property name="text">
+                   <string>7x7 Kernel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="lines_checkbox">
                   <property name="styleSheet">
                    <string notr="true">color: rgb(255, 255, 255);
 font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 1px solid rgb(6,131,116,255);
+border : 2px solid rgb(6,131,116,255);
 font-weight: bold;</string>
                   </property>
                   <property name="text">
