@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1338</width>
+    <width>1291</width>
     <height>1303</height>
    </rect>
   </property>
@@ -2459,7 +2459,7 @@ font: 9pt &quot;MS Shell Dlg 2&quot;;</string>
            <item row="2" column="3">
             <widget class="QFrame" name="frame_2">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -2715,7 +2715,7 @@ border-radius: 10px;</string>
            <item row="2" column="1">
             <widget class="QFrame" name="framebig">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -2769,8 +2769,8 @@ border : 2px solid rgb(255, 255, 255); </string>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>180</width>
-                    <height>38</height>
+                    <width>165</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -2807,7 +2807,7 @@ border-radius: 10px;</string>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>180</width>
+                    <width>165</width>
                     <height>40</height>
                    </size>
                   </property>
@@ -2839,7 +2839,7 @@ border-radius: 10px;</string>
                  <widget class="QPushButton" name="chaincode_button">
                   <property name="minimumSize">
                    <size>
-                    <width>180</width>
+                    <width>165</width>
                     <height>40</height>
                    </size>
                   </property>
@@ -2881,42 +2881,49 @@ border-radius: 10px;</string>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QLabel" name="area_label">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+                 <layout class="QVBoxLayout" name="verticalLayout_11">
+                  <property name="spacing">
+                   <number>5</number>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(255, 255, 255);
+                  <item>
+                   <widget class="QLabel" name="perimeter_label">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
 font: 10pt &quot;MS Shell Dlg 2&quot;;
 border : 2px solid rgb(6,131,116,255);
 font-weight: bold;</string>
-                  </property>
-                  <property name="text">
-                   <string>Area: 0</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="perimeter_label">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(255, 255, 255);
+                    </property>
+                    <property name="text">
+                     <string>Perimeter: 0</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="area_label">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
 font: 10pt &quot;MS Shell Dlg 2&quot;;
 border : 2px solid rgb(6,131,116,255);
 font-weight: bold;</string>
-                  </property>
-                  <property name="text">
-                   <string>Perimeter: 0</string>
-                  </property>
-                 </widget>
+                    </property>
+                    <property name="text">
+                     <string>Area: 0</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
                </layout>
               </item>
@@ -2933,6 +2940,9 @@ font-weight: bold;</string>
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="minimum">
+                   <double>0.000000000000000</double>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -2942,6 +2952,9 @@ font-weight: bold;</string>
                     <width>0</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="minimum">
+                   <double>0.000000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -3157,7 +3170,7 @@ font-weight: bold;</string>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>80</width>
+                  <width>70</width>
                   <height>20</height>
                  </size>
                 </property>

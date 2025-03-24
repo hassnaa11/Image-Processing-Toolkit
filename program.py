@@ -76,10 +76,23 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         self.ratio_slider.valueChanged.connect(lambda: self.apply_changes("noises"))
         self.show_hide_parameters("select noise")
-        self.low_threshold_slider.setRange(0, 100)
-        self.high_threshold_slider.setRange(0,150)
+        self.low_threshold_label.setText(f"Low Threshold: 50")
+        self.high_threshold_label.setText(f"High Threshold: 100")
+        self.low_threshold_slider.setMinimum(0)   # Minimum value
+        self.low_threshold_slider.setMaximum(100) # Maximum value
+        self.low_threshold_slider.setValue(50) 
+        self.high_threshold_slider.setMinimum(0)   # Minimum value
+        self.high_threshold_slider.setMaximum(150) # Maximum value
+        self.high_threshold_slider.setValue(100) 
+        self.sigma_canny_slider.setRange(1,30)
         self.low_threshold_slider.setSingleStep(10)
         self.high_threshold_slider.setSingleStep(10)
+        self.low_threshold_slider.hide()
+        self.high_threshold_slider.hide()
+        self.sigma_canny_slider.hide()
+        self.low_threshold_label.hide()
+        self.high_threshold_label.hide()
+        self.sigma_canny_label.hide()
        
 
         # kernel size
@@ -165,6 +178,7 @@ class MainWindow(QtWidgets.QMainWindow):
         high_threshold=self.high_threshold_slider.value()
         self.low_threshold_label.setText(f"Low Threshold: {low_threshold}")
         self.high_threshold_label.setText(f"High Threshold: {high_threshold}")
+        self.apply_changes("edge")
 
     def display_histogram(self, image:Image, viewport = "in"):
         """Display histogram in the UI"""
@@ -254,11 +268,26 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # apply edge detection
             edge_detection_type = self.edge_filters_combobox.currentText()
+            if edge_detection_type == "Canny":
+                self.low_threshold_slider.show()
+                self.high_threshold_slider.show()
+                self.sigma_canny_slider.show()
+                self.low_threshold_label.show()
+                self.high_threshold_label.show()
+                self.sigma_canny_label.show()
+            else:
+                self.low_threshold_slider.hide()
+                self.high_threshold_slider.hide()
+                self.sigma_canny_slider.hide()  
+                self.low_threshold_label.hide()
+                self.high_threshold_label.hide()
+                self.sigma_canny_label.hide()  
+                
             if edge_detection_type != "None" and type == "edge":
                 if edge_detection_type == 'High-Pass Frequency Domain':
                     filter_processor = FrequencyFilterProcessor(modified_image.image)
                     modified_image.image = filter_processor.apply_frequency_filter(0.5, edge_detection_type)
-                else:  
+                else:
                     low_threshold,high_threshold, sigma_gaussian = self.low_threshold_slider.value(), self.high_threshold_slider.value(),self.sigma_canny_slider.value()
                     edge_detection_processor = edge_detection(modified_image.image)
                     modified_image.image = edge_detection_processor.apply_edge_detection_filter(edge_detection_type,low_threshold,high_threshold, sigma_gaussian)
@@ -561,7 +590,6 @@ class MainWindow(QtWidgets.QMainWindow):
         final_snake, init_snake = self.snake_model.get_snake()
        
         final_snake = np.array(final_snake)
-        final_snake= np.flip(final_snake, axis=0)
         print(final_snake)
 
         # Find the top-left point (minimum y, then minimum x)
