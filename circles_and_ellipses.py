@@ -38,5 +38,25 @@ def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7):
             circles.append((b, a, radius_values[r_idx]))  # (x_center, y_center, radius)
     return circles
     
+
+def draw_circles_on_image(original_img, circles):
+    # If grayscale, convert to RGB for color drawing
+    if len(original_img.shape) == 2:
+        img_to_show = np.stack([original_img]*3, axis=-1)
+    else:
+        img_to_show = original_img.copy()
     
+    fig, ax = plt.subplots(figsize=(10, 10))
+    ax.imshow(img_to_show, cmap='gray')
+    
+    for x_center, y_center, radius, votes in circles:
+        circle = patches.Circle((x_center, y_center), radius, 
+                                linewidth=2, edgecolor='red', facecolor='none')
+        ax.add_patch(circle)
+        # Optionally: annotate votes
+        ax.text(x_center, y_center, f"{int(votes)}", color='yellow', fontsize=8)
+    
+    ax.set_title("Detected Circles")
+    plt.axis('off')
+    plt.show()   
     
