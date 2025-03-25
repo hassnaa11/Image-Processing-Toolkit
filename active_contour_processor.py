@@ -21,8 +21,12 @@ class ActiveContourProcessor:
         # get gradient using canny
         edge_detection_processor = edge_detection(image)
         gradient=edge_detection_processor.apply_edge_detection_filter("Canny",  100, 150,1)
+        
+        # gradient = cv2.Canny(image, 100, 150)
         edges = np.array(gradient, dtype=np.float64)
+        
         edges_normalized = cv2.normalize(edges.astype(np.float64), None, 0, 255, cv2.NORM_MINMAX)
+        
         # Increase contrast for edges only
         edge_enhanced = np.clip(edges_normalized * 1.5, 0, 255)
         # Convert to float64 for safe computations
