@@ -2975,19 +2975,6 @@ border : 2px solid rgb(255, 255, 255); </string>
               <item row="0" column="1" colspan="3">
                <layout class="QHBoxLayout" name="horizontalLayout">
                 <item>
-                 <spacer name="horizontalSpacer_9">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
                  <widget class="QPushButton" name="hough_reset_btn">
                   <property name="minimumSize">
                    <size>
@@ -3063,17 +3050,14 @@ border-radius: 10px;</string>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="horizontalSpacer_10">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                 <widget class="QLabel" name="label_34">
+                  <property name="text">
+                   <string>Image Dimensions(hxw)</string>
                   </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
-                 </spacer>
+                 </widget>
                 </item>
                </layout>
               </item>
@@ -3216,7 +3200,7 @@ font-weight: bold;</string>
                        <number>200</number>
                       </property>
                       <property name="singleStep">
-                       <number>2</number>
+                       <number>5</number>
                       </property>
                       <property name="value">
                        <number>1</number>
@@ -3235,7 +3219,7 @@ font-weight: bold;</string>
                        <number>1000</number>
                       </property>
                       <property name="singleStep">
-                       <number>2</number>
+                       <number>5</number>
                       </property>
                       <property name="value">
                        <number>99</number>
@@ -3412,7 +3396,7 @@ border : 2px solid rgb(6,131,116,255);
 font-weight: bold;</string>
                       </property>
                       <property name="text">
-                       <string>Circle Step Size</string>
+                       <string>Theta Step Size</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3428,7 +3412,7 @@ border : 2px solid rgb(6,131,116,255);
 font-weight: bold;</string>
                       </property>
                       <property name="text">
-                       <string>Line Step Size</string>
+                       <string>Minor Axis Step SIze</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3444,7 +3428,7 @@ border : 2px solid rgb(6,131,116,255);
 font-weight: bold;</string>
                       </property>
                       <property name="text">
-                       <string>Ellipse Step Size</string>
+                       <string>Major Axis Step Size</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -3481,7 +3465,7 @@ font-weight: bold;</string>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="circle_step_size_spin_box">
+                     <widget class="QSpinBox" name="theta_step_size_spinbox">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -3506,7 +3490,7 @@ font-weight: bold;</string>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="line_step_sz_spinbox_hough">
+                     <widget class="QSpinBox" name="minor_axis_step_size_spinbox">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -3517,7 +3501,7 @@ font-weight: bold;</string>
                        <set>Qt::AlignCenter</set>
                       </property>
                       <property name="minimum">
-                       <number>5</number>
+                       <number>1</number>
                       </property>
                       <property name="maximum">
                        <number>30</number>
@@ -3526,12 +3510,12 @@ font-weight: bold;</string>
                        <number>5</number>
                       </property>
                       <property name="value">
-                       <number>20</number>
+                       <number>5</number>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="ellipse_step_size_spin_box">
+                     <widget class="QSpinBox" name="major_axis_step_size_spinbox">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -3551,7 +3535,7 @@ font-weight: bold;</string>
                        <number>5</number>
                       </property>
                       <property name="value">
-                       <number>20</number>
+                       <number>5</number>
                       </property>
                      </widget>
                     </item>

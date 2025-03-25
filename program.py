@@ -199,7 +199,10 @@ class MainWindow(QtWidgets.QMainWindow):
         t_low = self.low_threshold_spinbox_hough.value()
         t_high = self.high_threshold_spinbox_hough.value()
         
-        cpy_arr = np.copy(self.hough_image.image)
+        cpy_arr: np.ndarray = np.copy(self.hough_image.image)
+        
+        h, w = cpy_arr.shape[0], cpy_arr.shape[1]
+        self.hough_dimensions_label.setText(h+"x"+w)
         
         if self.kernel_3_radio_btn.isChecked(): kerenl_size = 3
         elif self.kernel_5_radio_btn.isChecked(): kerenl_size =5
@@ -212,14 +215,14 @@ class MainWindow(QtWidgets.QMainWindow):
         detect_circles = True if self.circles_checkbox.isChecked() else False
         
         threhold_ratio = self.hough_transform_ratio_spinbox.value()
-        circle_step_size = self.circle_step_size_spin_box.value()
-        line_step_size = self.line_step_sz_spinbox_hough.value()
-        elipse_step_size=self.ellipse_step_size_spin_box.value()
+        theta_step_size = self.theta_step_size_spinbox.value()
         min_r = self.min_r_spinbox.value()
         max_r = self.max_r_spinbox.value()
+        minor_axis_step_size = self.minor_axis_step_size_spinbox.value()
+        major_axis_step_size = self.major_axis_step_size_spinbox.value() 
         
         scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, 
-        detect_ellipses, detect_circles, threhold_ratio, circle_step_size, line_step_size,elipse_step_size, min_r, max_r)
+        detect_ellipses, detect_circles, threhold_ratio,theta_step_size, min_r, max_r, minor_axis_step_size, major_axis_step_size)
         
         self.hough_transform_output_frame.setScene(scene)
         self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
@@ -239,12 +242,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.kernel_7_radio_btn.setChecked(False)
         
         self.hough_transform_ratio_spinbox.setValue(0.80)
-        self.circle_step_size_spin_box.setValue(20)
-        self.line_step_sz_spinbox_hough.setValue(20)
-        self.ellipse_step_size_spin_box.setValue(20)
+        self.theta_step_size_spin_box.setValue(20)
+        self.minor_axis_step_size_spinbox.setValue(5)
+        self.major_axis_step_size_spinbox.setValue(5)
         
         self.min_r_spinbox.setValue(1)
         self.max_r_spinbox.setValue(400)   
+        
+        self.hough_dimensions_label.setText("Image Dimensions(hxw)")
         
             
     def change_slider_value(self):
