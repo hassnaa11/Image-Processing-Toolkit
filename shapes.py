@@ -197,18 +197,46 @@ def draw_lines(original_img_arr, canny_filtered_img_arr, threshold_ratio, step_s
     return image_with_line_arr
 
 
-def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio, circle_step_sz, line_step_sz):
+def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio, circle_step_sz, line_step_sz,elipse_step_size):
     if detect_circles: 
         new_img_arr = draw_circles_on_image(og_img_arr, canny_filtered_img_arr, threshold_ratio, circle_step_sz)
         
     
     elif detect_lines:
         new_img_arr = draw_lines(og_img_arr, canny_filtered_img_arr, threshold_ratio, line_step_sz)
+    
+    elif detect_ellipses: 
+        new_img_arr = draw_ellipses_on_image(og_img_arr, canny_filtered_img_arr, elipse_step_size)
         
     new_img = Image(new_img_arr)
     scene = new_img.display_image()
     return scene    
-        
+
+def detect_ellipses(canny_filtered_img_arr: np.ndarray, min_ellipse_size=10):
+  
+    contours, _ = cv2.findContours(canny_filtered_img_arr, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    ellipses = []
+    for contour in contours:
+        if len(contour) >= 5:  # Minimum points required to fit an ellipse
+            ellipse = cv2.fitEllipse(contour)
+            (x, y), (major, minor), angle = ellipse
+            
+            # Filter small ellipses
+            if major > min_ellipse_size and minor > min_ellipse_size:
+                ellipses.append((int(x), int(y), int(major), int(minor), int(angle)))
+
+    return ellipses
+
+def draw_ellipses_on_image(original_img_arr, canny_filtered_img_arr,elipse_step_size):
+   
+    ellipses = detect_ellipses(canny_filtered_img_arr)
+    image_with_ellipses_arr = np.copy(original_img_arr)
+
+    for x_center, y_center, major_axis, minor_axis, angle in ellipses:
+        cv2.ellipse(image_with_ellipses_arr, (x_center, y_center), (major_axis // 2, minor_axis // 2), angle, 0, 360, (255, 0, 0), 2)
+
+    return image_with_ellipses_arr
 
 
 def canny_filter(img_arr , sigma = 1, T_low: int = 50, T_high: int = 100, kernel_sz=3):

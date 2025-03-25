@@ -309,9 +309,16 @@ class edge_detection:
                         elif 90 == angle[i, j]:
                             q = magnitude[i + 1, j]
                             r = magnitude[i - 1, j]
-                        elif 90 <= angle[i, j] < 180:
+                        elif 90 <= angle[i, j] < 135:
                             q = magnitude[i - 1, j - 1]
                             r = magnitude[i + 1, j + 1]
+                        elif 135<= angle[i, j] < 180:
+                            q = magnitude[i - 1, j - 1]
+                            r = magnitude[i + 1, j + 1]
+                        elif angle[i,j]>135:
+                            q = magnitude[i, j + 1]
+                            r = magnitude[i, j - 1]
+
 
                         if (magnitude[i, j] >= q) and (magnitude[i, j] >= r):
                             suppressed[i, j] = magnitude[i, j]
