@@ -211,9 +211,11 @@ class MainWindow(QtWidgets.QMainWindow):
         detect_circles = True if self.circles_checkbox.isChecked() else False
         
         threhold_ratio = self.hough_transform_ratio_spinbox.value()
-        step_size = self.step_size_spin_box.value()
+        circle_step_size = self.circle_step_size_spin_box.value()
+        line_step_size = self.line_step_sz_spinbox_hough.value()
         
-        scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, detect_ellipses, detect_circles, threhold_ratio, step_size)
+        scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, 
+        detect_ellipses, detect_circles, threhold_ratio, circle_step_size, line_step_size)
         
         self.hough_transform_output_frame.setScene(scene)
         self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
@@ -232,7 +234,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.kernel_5_radio_btn.setChecked(False)
         self.kernel_7_radio_btn.setChecked(False)
         
-        self.hough_transform_ratio_spinbox.setValue(0.80)   
+        self.hough_transform_ratio_spinbox.setValue(0.80)
+        self.circle_step_size_spin_box.setValue(20)
+        self.line_step_sz_spinbox_hough.setValue(20)   
         
             
     def change_slider_value(self):
