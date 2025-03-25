@@ -3050,7 +3050,7 @@ border-radius: 10px;</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_34">
+                 <widget class="QLabel" name="hough_dimensions_label">
                   <property name="text">
                    <string>Image Dimensions(hxw)</string>
                   </property>
@@ -3288,7 +3288,7 @@ font-weight: bold;</string>
                        <set>Qt::AlignCenter</set>
                       </property>
                       <property name="minimum">
-                       <number>100</number>
+                       <number>70</number>
                       </property>
                       <property name="maximum">
                        <number>250</number>
@@ -3372,6 +3372,16 @@ font-weight: bold;</string>
                      <number>10</number>
                     </property>
                     <item>
+                     <widget class="QLabel" name="label_35">
+                      <property name="text">
+                       <string>Min Line Length</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
                      <widget class="QLabel" name="Threshold_ratio_label_2">
                       <property name="styleSheet">
                        <string notr="true">color: rgb(255, 255, 255);
@@ -3442,6 +3452,25 @@ font-weight: bold;</string>
                     <property name="spacing">
                      <number>10</number>
                     </property>
+                    <item>
+                     <widget class="QDoubleSpinBox" name="min_line_length_spinbox">
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                      <property name="minimum">
+                       <double>1.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>600.000000000000000</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>5.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>10.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
                     <item>
                      <widget class="QDoubleSpinBox" name="hough_transform_ratio_spinbox">
                       <property name="minimumSize">
