@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, uic
-from PyQt5.QtWidgets import QGraphicsPixmapItem,QGraphicsPathItem, QFrame, QGraphicsScene, QGraphicsView
+from PyQt5.QtWidgets import QGraphicsPixmapItem,QGraphicsEllipseItem,QGraphicsPathItem, QFrame, QGraphicsScene, QGraphicsView
 import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
@@ -432,23 +432,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.display_histogram(self.output_image, "out")
         self.display_cdf(self.output_image, "out")
     
-    # def convert_to_grayscale(self):
-    #     modified_image: Image = np.copy(self.original_image)
-    #     filter_processor = FilterProcessor(modified_image)
-    #     #self.is_gray_scale = not self.is_gray_scale
-        
-    #     if modified_image.is_RGB():
-    #         self.rgb_image = np.copy(self.original_image)
-    #         self.gray_scale_button.setText("Original") 
-    #         #modified_image = filter_processor.rgb_to_grayscale()
-    #         modified_image.rgb2gray()
-    #     else: 
-    #         self.gray_scale_button.setText("GrayScale") 
-    #         modified_image = np.copy(self.rgb_image)
-
-    #     self.original_image = np.copy(modified_image)
-    #     self.apply_changes(type="filters")
-    
     def convert_color_domain(self):
         if self.gray_scale_button.text() == "GrayScale":
             self.convert_to_grayscale()
@@ -689,6 +672,11 @@ class MainWindow(QtWidgets.QMainWindow):
         path_final.moveTo(final_snake[0, 0], final_snake[0, 1])
         for point in final_snake[1:]:
             path_final.lineTo(point[0], point[1])
+            
+        for point in final_snake:
+            marker = QGraphicsEllipseItem(point[0] - 2, point[1] - 2, 4, 4)  
+            marker.setBrush(Qt.red)  
+            scene.addItem(marker)    
         
         final_snake_item = QGraphicsPathItem(path_final)
         final_snake_item.setPen(QPen(Qt.red, 1.7))
