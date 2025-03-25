@@ -13,6 +13,7 @@ from typing import Dict, List
 from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder, edge_detection, thresholding
 from active_contour_processor import ActiveContourProcessor
 from reportlab.pdfgen import canvas
+from shapes import detect_shapes, canny_filter
 
 
 kernel_sizes = [3, 5, 7]
@@ -34,6 +35,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.input1_button.clicked.connect(lambda:self.upload_image(2))
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
         self.upload_image_contour.clicked.connect(lambda:self.upload_image(4))
+        self.hough_transform_upload_btn.clicked.connect(lambda: self.upload_image(5))
        
         
         # noises checkbox
@@ -123,23 +125,31 @@ class MainWindow(QtWidgets.QMainWindow):
         #chain code
         self.chaincode_button.clicked.connect(self.apply_chain_code)
         
+        #hough transform buttons
+        self.apply_hough_button.clicked.connect(self.apply_hough_changes)
+        self.hough_reset_btn.clicked.connect(self.reset_hough_tab)
+        
 
     def upload_image(self, key):
-        if self.output_image_frame.scene() is not None:
-                self.output_image_frame.scene().clear()
-                self.output_image = None
-        
         self.file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
         )
+        
         if self.file_path:
-            self.input_image = Image()
-            self.input_image.read_image(self.file_path)
-            scene = self.input_image.display_image()
+            uploaded_img = Image()
+            uploaded_img.read_image(self.file_path)
+            scene = uploaded_img.display_image()
 
-            self.original_image = np.copy(self.input_image.image)            
+            self.original_image_arr = np.copy(uploaded_img.image)  
+            self.input_image = Image(np.copy(self.original_image_arr))          
             
             if key == 1: # upload in filter tap
+                if self.output_image_frame.scene() is not None: 
+                    self.output_image_frame.scene().clear()
+                    self.output_image = None
+                
+                self.input_image = Image(np.copy(self.original_image_arr))
+                
                 self.input_image_frame.setScene(scene)
                 self.input_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
                 self.noises_combobox.setDisabled(False)
@@ -171,8 +181,65 @@ class MainWindow(QtWidgets.QMainWindow):
                 
             elif key == 4: # upload in contour tap
                 self.contour_output_frame.setScene(scene)
-                self.contour_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)    
-
+                self.contour_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+                
+            elif key==5: # Upload in Hough Transform Tab
+                #clear last image
+                self.reset_hough_tab()
+                
+                self.hough_transform_output_frame.setScene(scene)
+                self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+                self.hough_image = uploaded_img
+                            
+    # hough_transform_ratio_spinbox
+    
+    def apply_hough_changes(self):
+        #apply canny filter first
+        sigma = self.sigma_spinbox_hough.value()
+        t_low = self.low_threshold_spinbox_hough.value()
+        t_high = self.high_threshold_spinbox_hough.value()
+        
+        cpy_arr = np.copy(self.hough_image.image)
+        
+        if self.kernel_3_radio_btn.isChecked(): kerenl_size = 3
+        elif self.kernel_5_radio_btn.isChecked(): kerenl_size =5
+        elif self.kernel_7_radio_btn.isChecked(): kerenl_size = 7
+        
+        canny_filtered_img_arr = canny_filter(cpy_arr, sigma, t_low, t_high, kerenl_size)
+        
+        detect_lines = True if self.lines_checkbox.isChecked() else False
+        detect_ellipses = True if self.ellipses_checkbox.isChecked() else False
+        detect_circles = True if self.circles_checkbox.isChecked() else False
+        
+        threhold_ratio = self.hough_transform_ratio_spinbox.value()
+        circle_step_size = self.circle_step_size_spin_box.value()
+        line_step_size = self.line_step_sz_spinbox_hough.value()
+        
+        scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, 
+        detect_ellipses, detect_circles, threhold_ratio, circle_step_size, line_step_size)
+        
+        self.hough_transform_output_frame.setScene(scene)
+        self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+    
+    
+    def reset_hough_tab(self):
+        if self.hough_transform_output_frame.scene() is not None: 
+            self.hough_transform_output_frame.scene().clear()
+            self.hough_image = None
+            
+        self.lines_checkbox.setChecked(False)
+        self.circles_checkbox.setChecked(False)    
+        self.ellipses_checkbox.setChecked(False)
+        
+        self.kernel_3_radio_btn.setChecked(False)
+        self.kernel_5_radio_btn.setChecked(False)
+        self.kernel_7_radio_btn.setChecked(False)
+        
+        self.hough_transform_ratio_spinbox.setValue(0.80)
+        self.circle_step_size_spin_box.setValue(20)
+        self.line_step_sz_spinbox_hough.setValue(20)   
+        
+            
     def change_slider_value(self):
         low_threshold=self.low_threshold_slider.value()
         high_threshold=self.high_threshold_slider.value()
@@ -574,6 +641,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.input_image_frame.scene().clear()
             if self.output_image_frame.scene() is not None:
                 self.output_image_frame.scene().clear()
+    
+    
     def apply_chain_code(self):
         direction_map_8 = {
             (1, 0): 0,   # Right →
@@ -644,9 +713,7 @@ class MainWindow(QtWidgets.QMainWindow):
         c.save()
         print(f"Chain code saved to {filename}")
 
-
-
-        
+    
     def apply_contour(self):
         input_image_copy = np.copy(self.input_image.image)
         alpha, beta, gamma, window_size, iterations, sigma = self.get_contour_parameters()
