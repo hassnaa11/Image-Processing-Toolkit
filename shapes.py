@@ -8,12 +8,10 @@ import cv2
 import math
 from image_processor import edge_detection
 
-def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=20):
+def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=20, min_r=1, max_r=100):
     height, width = canny_filtered_img.shape
-    
-    small_dim = height if height<width else width
-    max_r = small_dim // 2
-    min_r = 5
+    max_r = max_r
+    min_r = min_r
     
     radius_values = np.arange(min_r, max_r + 1)
     accumulator = np.zeros((height, width, len(radius_values)), dtype=np.uint64)
@@ -42,8 +40,8 @@ def circle_hough_transform(canny_filtered_img: np.ndarray, step_sz=20):
     return accumulator, radius_values, max
 
 
-def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7, step_sz=20):
-    accumulator, radius_values, max = circle_hough_transform(canny_filtered_img_arr, step_sz)
+def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7, step_sz=20, min_r=1, max_r=100):
+    accumulator, radius_values, max = circle_hough_transform(canny_filtered_img_arr, step_sz, min_r, max_r)
     threshold = threshold_ratio * max
     
     circles = []
@@ -58,9 +56,9 @@ def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7, step
     return circles
     
 
-def draw_circles_on_image(original_img_arr, canny_filtered_img_arr, threshold_ratio, step_sz):
+def draw_circles_on_image(original_img_arr, canny_filtered_img_arr, threshold_ratio, step_sz, min_r, max_r):
     
-    circles = detect_circles(canny_filtered_img_arr, threshold_ratio, step_sz)
+    circles = detect_circles(canny_filtered_img_arr, threshold_ratio, step_sz, min_r, max_r)
     image_with_circles_arr = np.copy(original_img_arr)
     
     for x_center, y_center, radius in circles:
@@ -197,22 +195,22 @@ def draw_lines(original_img_arr, canny_filtered_img_arr, threshold_ratio, step_s
     return image_with_line_arr
 
 
-def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio, circle_step_sz, line_step_sz,elipse_step_size):
+def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, threshold_ratio, circle_step_sz, line_step_sz,elipse_step_size, min_r, max_r):
     if detect_circles: 
-        new_img_arr = draw_circles_on_image(og_img_arr, canny_filtered_img_arr, threshold_ratio, circle_step_sz)
+        new_img_arr = draw_circles_on_image(og_img_arr, canny_filtered_img_arr, threshold_ratio, circle_step_sz, min_r, max_r)
         
     
     elif detect_lines:
         new_img_arr = draw_lines(og_img_arr, canny_filtered_img_arr, threshold_ratio, line_step_sz)
     
     elif detect_ellipses: 
-        new_img_arr = draw_ellipses_on_image(og_img_arr, canny_filtered_img_arr, elipse_step_size)
+        new_img_arr = draw_ellipses_on_image(og_img_arr, canny_filtered_img_arr, elipse_step_size, min_r, max_r)
         
     new_img = Image(new_img_arr)
     scene = new_img.display_image()
     return scene    
 
-def detect_ellipses(canny_filtered_img_arr: np.ndarray, min_ellipse_size=10):
+def detect_ellipses(canny_filtered_img_arr: np.ndarray, min_ellipse_size=10, min_r=1, max_r=100):
   
     contours, _ = cv2.findContours(canny_filtered_img_arr, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 

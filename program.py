@@ -215,9 +215,11 @@ class MainWindow(QtWidgets.QMainWindow):
         circle_step_size = self.circle_step_size_spin_box.value()
         line_step_size = self.line_step_sz_spinbox_hough.value()
         elipse_step_size=self.ellipse_step_size_spin_box.value()
+        min_r = self.min_r_spinbox.value()
+        max_r = self.max_r_spinbox.value()
         
         scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, 
-        detect_ellipses, detect_circles, threhold_ratio, circle_step_size, line_step_size,elipse_step_size)
+        detect_ellipses, detect_circles, threhold_ratio, circle_step_size, line_step_size,elipse_step_size, min_r, max_r)
         
         self.hough_transform_output_frame.setScene(scene)
         self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
@@ -238,7 +240,11 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.hough_transform_ratio_spinbox.setValue(0.80)
         self.circle_step_size_spin_box.setValue(20)
-        self.line_step_sz_spinbox_hough.setValue(20)   
+        self.line_step_sz_spinbox_hough.setValue(20)
+        self.ellipse_step_size_spin_box.setValue(20)
+        
+        self.min_r_spinbox.setValue(1)
+        self.max_r_spinbox.setValue(400)   
         
             
     def change_slider_value(self):
