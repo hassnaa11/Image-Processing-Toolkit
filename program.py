@@ -13,7 +13,7 @@ from typing import Dict, List
 from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder, edge_detection, thresholding
 from active_contour_processor import ActiveContourProcessor
 from reportlab.pdfgen import canvas
-from shapes import detect_shapes, canny_filter
+from test_shapes import detect_shapes, canny_filter
 
 
 kernel_sizes = [3, 5, 7]
@@ -214,10 +214,9 @@ class MainWindow(QtWidgets.QMainWindow):
         threhold_ratio = self.hough_transform_ratio_spinbox.value()
         circle_step_size = self.circle_step_size_spin_box.value()
         line_step_size = self.line_step_sz_spinbox_hough.value()
-        elipse_step_size=self.ellipse_step_size_spin_box.value()
         
         scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, 
-        detect_ellipses, detect_circles, threhold_ratio, circle_step_size, line_step_size,elipse_step_size)
+        detect_ellipses, detect_circles, threhold_ratio, circle_step_size, line_step_size)
         
         self.hough_transform_output_frame.setScene(scene)
         self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
