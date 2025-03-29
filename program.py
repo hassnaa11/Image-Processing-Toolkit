@@ -186,6 +186,9 @@ class MainWindow(QtWidgets.QMainWindow):
             elif key==5: # Upload in Hough Transform Tab
                 #clear last image
                 self.reset_hough_tab()
+                h, w = self.hough_image.image.shape[0], self.hough_image.image.shape[1] 
+                
+                self.hough_dimensions_label.setText(str(h)+"x"+str(w))
                 
                 self.hough_transform_output_frame.setScene(scene)
                 self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
@@ -201,8 +204,6 @@ class MainWindow(QtWidgets.QMainWindow):
         
         cpy_arr: np.ndarray = np.copy(self.hough_image.image)
         
-        h, w = cpy_arr.shape[0], cpy_arr.shape[1]
-        self.hough_dimensions_label.setText(h+"x"+w)
         
         if self.kernel_3_radio_btn.isChecked(): kerenl_size = 3
         elif self.kernel_5_radio_btn.isChecked(): kerenl_size =5
@@ -219,10 +220,12 @@ class MainWindow(QtWidgets.QMainWindow):
         min_r = self.min_r_spinbox.value()
         max_r = self.max_r_spinbox.value()
         minor_axis_step_size = self.minor_axis_step_size_spinbox.value()
-        major_axis_step_size = self.major_axis_step_size_spinbox.value() 
+        major_axis_step_size = self.major_axis_step_size_spinbox.value()
+        
+        min_line_length = self.min_line_length_spinbox.value() 
         
         scene: QGraphicsScene = detect_shapes(self.hough_image.image, canny_filtered_img_arr, detect_lines, 
-        detect_ellipses, detect_circles, threhold_ratio,theta_step_size, min_r, max_r, minor_axis_step_size, major_axis_step_size)
+        detect_ellipses, detect_circles, min_line_length, threhold_ratio, theta_step_size, min_r, max_r, minor_axis_step_size, major_axis_step_size)
         
         self.hough_transform_output_frame.setScene(scene)
         self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
@@ -242,12 +245,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.kernel_7_radio_btn.setChecked(False)
         
         self.hough_transform_ratio_spinbox.setValue(0.80)
-        self.theta_step_size_spin_box.setValue(20)
+        self.theta_step_size_spinbox.setValue(20)
         self.minor_axis_step_size_spinbox.setValue(5)
         self.major_axis_step_size_spinbox.setValue(5)
         
         self.min_r_spinbox.setValue(1)
         self.max_r_spinbox.setValue(400)   
+        
+        self.min_line_length_spinbox.setValue(10)
         
         self.hough_dimensions_label.setText("Image Dimensions(hxw)")
         
