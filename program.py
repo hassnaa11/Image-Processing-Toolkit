@@ -13,7 +13,6 @@ from typing import Dict, List
 from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder, edge_detection, thresholding
 from active_contour_processor import ActiveContourProcessor
 from reportlab.pdfgen import canvas
-from test_shapes import detect_shapes, canny_filter
 
 
 kernel_sizes = [3, 5, 7]
