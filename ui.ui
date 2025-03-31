@@ -50,7 +50,7 @@ background-color: rgb(219,222,230);
         <number>0</number>
        </property>
        <item>
-        <widget class="QTabWidget" name="tabWidget">
+        <widget class="QTabWidget" name="feature_extract_tab">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -111,7 +111,7 @@ QTabWidget::pane {
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>4</number>
          </property>
          <property name="iconSize">
           <size>
@@ -4107,7 +4107,7 @@ border-radius: 10px;</string>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QRadioButton" name="radioButton_5">
+                 <widget class="QRadioButton" name="sumOfSquarediff">
                   <property name="font">
                    <font>
                     <family>MS Shell Dlg 2</family>
@@ -4133,7 +4133,7 @@ font-weight: bold;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QRadioButton" name="radioButton_6">
+                 <widget class="QRadioButton" name="normalizedCrossSelection">
                   <property name="font">
                    <font>
                     <family>MS Shell Dlg 2</family>
@@ -4462,7 +4462,7 @@ border : 2px solid rgb(255, 255, 255); </string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_25">
               <item>
-               <widget class="QLabel" name="label_42">
+               <widget class="QLabel" name="control_settings">
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
@@ -4514,7 +4514,7 @@ font-weight: bold;
                    <number>20</number>
                   </property>
                   <item>
-                   <widget class="QLabel" name="label_43">
+                   <widget class="QLabel" name="blockSizeLabel">
                     <property name="font">
                      <font>
                       <family>MS Shell Dlg 2</family>
@@ -4540,7 +4540,7 @@ font-weight: bold;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_44">
+                   <widget class="QLabel" name="kernelSizeLabel">
                     <property name="font">
                      <font>
                       <family>MS Shell Dlg 2</family>
@@ -4566,7 +4566,7 @@ font-weight: bold;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_45">
+                   <widget class="QLabel" name="Klabel">
                     <property name="font">
                      <font>
                       <family>MS Shell Dlg 2</family>
@@ -4592,7 +4592,7 @@ font-weight: bold;
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="label_46">
+                   <widget class="QLabel" name="thresholdLabel">
                     <property name="font">
                      <font>
                       <family>MS Shell Dlg 2</family>
@@ -4625,7 +4625,7 @@ font-weight: bold;
                    <number>20</number>
                   </property>
                   <item>
-                   <widget class="QSpinBox" name="spinBox">
+                   <widget class="QSpinBox" name="blockSizeSpin">
                     <property name="minimumSize">
                      <size>
                       <width>180</width>
@@ -4647,7 +4647,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="spinBox_2">
+                   <widget class="QSpinBox" name="KernelSpin">
                     <property name="minimumSize">
                      <size>
                       <width>180</width>
@@ -4669,7 +4669,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="spinBox_3">
+                   <widget class="QSpinBox" name="K_spin">
                     <property name="minimumSize">
                      <size>
                       <width>180</width>
@@ -4691,7 +4691,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="spinBox_4">
+                   <widget class="QSpinBox" name="threshold_spin">
                     <property name="minimumSize">
                      <size>
                       <width>180</width>
@@ -4745,7 +4745,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_4">
+                 <widget class="QPushButton" name="extractfeatures">
                   <property name="minimumSize">
                    <size>
                     <width>200</width>
