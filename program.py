@@ -27,7 +27,7 @@ edge_detection_filters = ['Sobel', 'Roberts', 'Prewitt', 'Canny']
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        uic.loadUi('ui new.ui', self)
+        uic.loadUi('ui.ui', self)
         
         self.database: List[Image] = []
         
@@ -37,8 +37,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
         self.upload_image_contour.clicked.connect(lambda:self.upload_image(4))
         self.hough_transform_upload_btn.clicked.connect(lambda: self.upload_image(5))
-        self.pushButton_2.clicked.connect(lambda:self.upload_image(6))
-        self.pushButton.clicked.connect(lambda:self.upload_image(7))
+        self.upload_first_matching_image.clicked.connect(lambda:self.upload_image(6))
+        self.upload_second_matching_image.clicked.connect(lambda:self.upload_image(7))
        
         
         # noises checkbox
@@ -133,7 +133,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.hough_reset_btn.clicked.connect(self.reset_hough_tab)
 
         #apply sift radiobutton
-        self.radioButton_3.toggled.connect(self.apply_sift)
+        self.apply_sift_button_3.clicked.connect(self.apply_sift)
         
 
     def upload_image(self, key):
@@ -205,8 +205,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.graphicsView.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             elif key==7:
                 self.SIFT_image2=self.input_image
-                self.graphicsView_2.setScene(scene)
-                self.graphicsView_2.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+                self.graphicsView_6.setScene(scene)
+                self.graphicsView_6.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
                             
     # hough_transform_ratio_spinbox
@@ -456,8 +456,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.hybrid_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         
     def apply_sift(self):
-        SIFT=SIFTApp(self.SIFT_image1,self.SIFT_image2)
-        if self.radioButton_3.isChecked():
+            SIFT=SIFTApp(self.SIFT_image1,self.SIFT_image2)
             image=SIFT.apply_SIFT()
             SIFT_IMAGE= Image(image)
             scene = SIFT_IMAGE.display_image()

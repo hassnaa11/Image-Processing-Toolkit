@@ -62,18 +62,18 @@ class ActiveContourProcessor:
     
     
     def update_snake(self):
-        for _ in range(self.iterations):
+        for _ in range(self.iterations): # num iterations
             new_snake = np.copy(self.snake)
             
-            for i in range(len(self.snake)):
+            for i in range(len(self.snake)): # 100
                 previous_point = self.snake[i - 1]
                 next_point = self.snake[(i + 1) % len(self.snake)]
                 
                 best_point = self.snake[i]
                 min_energy = float('inf')
                 
-                for dx in range(-self.window_size, self.window_size + 1):
-                    for dy in range(-self.window_size, self.window_size + 1):
+                for dx in range(-self.window_size, self.window_size + 1): # 2 * window size 
+                    for dy in range(-self.window_size, self.window_size + 1): # 2 * window size 
                         candidate = self.snake[i] + np.array([dx, dy])
                         if 0 <= candidate[0] < self.image.shape[1] and 0 <= candidate[1] < self.image.shape[0]:
                             energy = self.get_energy(candidate, previous_point, next_point)
