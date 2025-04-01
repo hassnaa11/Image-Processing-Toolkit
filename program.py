@@ -14,6 +14,7 @@ from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder
 from active_contour_processor import ActiveContourProcessor
 from reportlab.pdfgen import canvas
 from shapes import detect_shapes, canny_filter
+from SIFT import SIFTApp
 
 
 kernel_sizes = [3, 5, 7]
@@ -26,7 +27,7 @@ edge_detection_filters = ['Sobel', 'Roberts', 'Prewitt', 'Canny']
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        uic.loadUi('ui.ui', self)
+        uic.loadUi('ui new.ui', self)
         
         self.database: List[Image] = []
         
@@ -36,6 +37,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
         self.upload_image_contour.clicked.connect(lambda:self.upload_image(4))
         self.hough_transform_upload_btn.clicked.connect(lambda: self.upload_image(5))
+        self.pushButton_2.clicked.connect(lambda:self.upload_image(6))
+        self.pushButton.clicked.connect(lambda:self.upload_image(7))
        
         
         # noises checkbox
@@ -128,6 +131,9 @@ class MainWindow(QtWidgets.QMainWindow):
         #hough transform buttons
         self.apply_hough_button.clicked.connect(self.apply_hough_changes)
         self.hough_reset_btn.clicked.connect(self.reset_hough_tab)
+
+        #apply sift radiobutton
+        self.radioButton_3.toggled.connect(self.apply_sift)
         
 
     def upload_image(self, key):
@@ -193,6 +199,15 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.hough_transform_output_frame.setScene(scene)
                 self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
                 self.hough_image = uploaded_img
+            elif key==6:
+                self.SIFT_image1=self.input_image
+                self.graphicsView.setScene(scene)
+                self.graphicsView.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+            elif key==7:
+                self.SIFT_image2=self.input_image
+                self.graphicsView_2.setScene(scene)
+                self.graphicsView_2.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+
                             
     # hough_transform_ratio_spinbox
     
@@ -440,6 +455,16 @@ class MainWindow(QtWidgets.QMainWindow):
             self.hybrid_image.setScene(scene)
             self.hybrid_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         
+    def apply_sift(self):
+        SIFT=SIFTApp(self.SIFT_image1,self.SIFT_image2)
+        if self.radioButton_3.isChecked():
+            image=SIFT.apply_SIFT()
+            SIFT_IMAGE= Image(image)
+            scene = SIFT_IMAGE.display_image()
+            self.graphicsView_4.setScene(scene)
+            self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+
+
 
     def normalize_image(self):
 
