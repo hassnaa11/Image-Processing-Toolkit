@@ -15,6 +15,7 @@ from active_contour_processor import ActiveContourProcessor
 from reportlab.pdfgen import canvas
 from shapes import detect_shapes, canny_filter
 from SIFT import SIFTApp
+from feature_matching import FeatureMatching
 import time
 
 kernel_sizes = [3, 5, 7]
@@ -206,10 +207,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.hough_image = uploaded_img
             elif key==6:
                 self.SIFT_image1=self.input_image
+                self.input1_path = self.file_path
                 self.graphicsView.setScene(scene)
                 self.graphicsView.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             elif key==7:
                 self.SIFT_image2=self.input_image
+                self.input2_path = self.file_path
                 self.graphicsView_6.setScene(scene)
                 self.graphicsView_6.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
@@ -826,24 +829,25 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def match_images(self, type):
         start_time_match = time.time() 
+        image = cv2.imread(self.input1_path, cv2.IMREAD_COLOR) 
+        template = cv2.imread(self.input2_path, cv2.IMREAD_COLOR) 
         
-        self.SIFT=SIFTApp(self.SIFT_image1,self.SIFT_image2)
-        image=self.SIFT.apply_SIFT()
         if type == 'SSD':
-            image = self.SIFT.match_keypoints_ssd(self.SIFT.descriptors1,self.SIFT.descriptors2)
+            result_image = FeatureMatching.apply_ssd_matching(image, template)
         else:
-            image = self.SIFT.match_keypoints_ncc(self.SIFT.descriptors1,self.SIFT.descriptors2)  
+            result_image = FeatureMatching.apply_ncc_matching(image, template)
+            
+        result_image = cv2.cvtColor(result_image, cv2.COLOR_BGR2RGB)
             
         end_time_match = time.time()
         time_elapsed = end_time_match - start_time_match
         print(f"Time Elapsed: {time_elapsed:.4f} seconds")  
         self.features_time_elapsed.setText(f"Elapsed Time: {time_elapsed:.4f} seconds")  
         
-        SIFT_IMAGE= Image(image)
+        SIFT_IMAGE= Image(result_image)
         scene = SIFT_IMAGE.display_image()
         self.graphicsView_4.setScene(scene)
-        self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)          
-
+        self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)         
 
         
 
