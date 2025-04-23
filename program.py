@@ -14,7 +14,9 @@ from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder
 from active_contour_processor import ActiveContourProcessor
 from reportlab.pdfgen import canvas
 from shapes import detect_shapes, canny_filter
-
+from SIFT import SIFTApp
+from feature_matching import FeatureMatching
+import time
 
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
@@ -36,6 +38,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.input2_button.clicked.connect(lambda:self.upload_image(3))
         self.upload_image_contour.clicked.connect(lambda:self.upload_image(4))
         self.hough_transform_upload_btn.clicked.connect(lambda: self.upload_image(5))
+        self.upload_first_matching_image.clicked.connect(lambda:self.upload_image(6))
+        self.upload_second_matching_image.clicked.connect(lambda:self.upload_image(7))
        
         
         # noises checkbox
@@ -128,6 +132,14 @@ class MainWindow(QtWidgets.QMainWindow):
         #hough transform buttons
         self.apply_hough_button.clicked.connect(self.apply_hough_changes)
         self.hough_reset_btn.clicked.connect(self.reset_hough_tab)
+
+        #apply sift radiobutton
+        self.apply_sift_button_3.clicked.connect(self.apply_sift)
+        
+        # match 2 images
+        self.sumOfSquarediff.clicked.connect(lambda: self.match_images('SSD'))
+        self.normalizedCrossCorrelations.clicked.connect(lambda: self.match_images('NCC'))
+        
         
 
     def upload_image(self, key):
@@ -193,7 +205,19 @@ class MainWindow(QtWidgets.QMainWindow):
                 
                 self.hough_transform_output_frame.setScene(scene)
                 self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-                
+
+                self.hough_image = uploaded_img
+            elif key==6:
+                self.SIFT_image1=self.input_image
+                self.input1_path = self.file_path
+                self.graphicsView.setScene(scene)
+                self.graphicsView.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+            elif key==7:
+                self.SIFT_image2=self.input_image
+                self.input2_path = self.file_path
+                self.graphicsView_6.setScene(scene)
+                self.graphicsView_6.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+
                             
     # hough_transform_ratio_spinbox
     
@@ -440,7 +464,6 @@ class MainWindow(QtWidgets.QMainWindow):
             scene = self.hybrid_output_image.display_image()
             self.hybrid_image.setScene(scene)
             self.hybrid_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-        
 
     def normalize_image(self):
 
@@ -787,6 +810,46 @@ class MainWindow(QtWidgets.QMainWindow):
         iterations = self.iterations_snake.value()
         sigma = self.sigma_snake.value()
         return alpha, beta, gamma, window_size, iterations, sigma
+
+
+    def apply_sift(self):
+        start_time_sift = time.time() 
+        
+        self.SIFT=SIFTApp(self.SIFT_image1,self.SIFT_image2)
+        image=self.SIFT.apply_SIFT()
+        
+        end_time_sift  = time.time()
+        time_elapsed = end_time_sift  - start_time_sift 
+        print(f"Time Elapsed: {time_elapsed:.4f} seconds")  
+        self.features_time_elapsed.setText(f"Elapsed Time: {time_elapsed:.4f} seconds") 
+        
+        SIFT_IMAGE= Image(image)
+        scene = SIFT_IMAGE.display_image()
+        self.graphicsView_4.setScene(scene)
+        self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        
+        
+    def match_images(self, type):
+        start_time_match = time.time() 
+        image = cv2.imread(self.input1_path, cv2.IMREAD_COLOR) 
+        template = cv2.imread(self.input2_path, cv2.IMREAD_COLOR) 
+        
+        if type == 'SSD':
+            result_image = FeatureMatching.apply_ssd_matching(image, template)
+        else:
+            result_image = FeatureMatching.apply_ncc_matching(image, template)
+            
+        result_image = cv2.cvtColor(result_image, cv2.COLOR_BGR2RGB)
+            
+        end_time_match = time.time()
+        time_elapsed = end_time_match - start_time_match
+        print(f"Time Elapsed: {time_elapsed:.4f} seconds")  
+        self.features_time_elapsed.setText(f"Elapsed Time: {time_elapsed:.4f} seconds")  
+        
+        SIFT_IMAGE= Image(result_image)
+        scene = SIFT_IMAGE.display_image()
+        self.graphicsView_4.setScene(scene)
+        self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)         
 
         
 
