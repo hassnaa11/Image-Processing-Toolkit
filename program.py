@@ -186,13 +186,14 @@ class MainWindow(QtWidgets.QMainWindow):
             elif key==5: # Upload in Hough Transform Tab
                 #clear last image
                 self.reset_hough_tab()
-                h, w = self.hough_image.image.shape[0], self.hough_image.image.shape[1] 
                 
+                self.hough_image = uploaded_img
+                h, w = self.hough_image.image.shape[0], self.hough_image.image.shape[1] 
                 self.hough_dimensions_label.setText(str(h)+"x"+str(w))
                 
                 self.hough_transform_output_frame.setScene(scene)
                 self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-                self.hough_image = uploaded_img
+                
                             
     # hough_transform_ratio_spinbox
     
