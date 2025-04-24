@@ -20,9 +20,9 @@ def apply_harris_changes(K, gradient_method, block_size, img_arr_in_gray: Image)
     Iyy = Gy ** 2
     Ixy = Gx * Gy
 
-    Ixx = cv2.GaussianBlur(Ixx, (block_size, block_size), 0)
-    Iyy = cv2.GaussianBlur(Iyy, (block_size, block_size), 0)
-    Ixy = cv2.GaussianBlur(Ixy, (block_size, block_size), 0)
+    # Ixx = cv2.GaussianBlur(Ixx, (block_size, block_size), 0)
+    # Iyy = cv2.GaussianBlur(Iyy, (block_size, block_size), 0)
+    # Ixy = cv2.GaussianBlur(Ixy, (block_size, block_size), 0)
 
     # Harris response matrix
     det_M = (Ixx * Iyy) - (Ixy ** 2)

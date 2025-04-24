@@ -245,22 +245,21 @@ class MainWindow(QtWidgets.QMainWindow):
         binary_image, overlay_image  =Image(binary_img_arr), Image(overlay_img_arr)
         binary_scene, overlay_scene = binary_image.display_image(), overlay_image.display_image()
         
-        self.binary_image_frame.setScene(binary_scene)
-        self.binary_input_image_frame.fitInView(binary_scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        self.binary_img_frame.setScene(binary_scene)
+        self.binary_img_frame.fitInView(binary_scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         
-        self.image_with_corners_frame.setScene(overlay_scene)
-        self.image_with_corners_frame.fitInView(overlay_scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+        self.img_with_corners_frame.setScene(overlay_scene)
+        self.img_with_corners_frame.fitInView(overlay_scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
          
          
                             
     def reset_harris_tab(self):
-        self.harris_input_image_frame.scene().clear()
-        self.binary_img_frame.scene().clear()
-        self.img_with_corners_frame.scene().clear()
+        if self.harris_input_image_frame.scene() is not None: self.harris_input_image_frame.scene().clear()
+        if self.binary_img_frame.scene() is not None: self.binary_img_frame.scene().clear()
+        if self.img_with_corners_frame.scene() is not None: self.img_with_corners_frame.scene().clear()
         
         self.harris_image = None
         
-        self.harris_gradient_kernel_spinbox.setValue(5)
         self.harris_k_spinbox.setValue(0.05)
         self.harris_gradient_method_combobox.setCurrentIndex(0)
         self.harris_blocksz_spinbox.setValue(5)

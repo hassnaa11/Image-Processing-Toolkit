@@ -4562,32 +4562,6 @@ font-weight: bold;
                     </property>
                    </widget>
                   </item>
-                  <item>
-                   <widget class="QLabel" name="thresholdLabel">
-                    <property name="font">
-                     <font>
-                      <family>MS Shell Dlg 2</family>
-                      <pointsize>10</pointsize>
-                      <weight>75</weight>
-                      <italic>false</italic>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background:transparent;
-
-
-color:  rgb(2, 39, 35);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0px solid rgb(6,131,116,255);
-font-weight: bold;
-</string>
-                    </property>
-                    <property name="text">
-                     <string>Threshold</string>
-                    </property>
-                   </widget>
-                  </item>
                  </layout>
                 </item>
                 <item>
@@ -4701,31 +4675,6 @@ border : 2px solid rgb(255, 255, 255); </string>
                     </property>
                     <property name="value">
                      <double>0.050000000000000</double>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="harris_threshold_spinbox">
-                    <property name="minimumSize">
-                     <size>
-                      <width>180</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
                     </property>
                    </widget>
                   </item>
