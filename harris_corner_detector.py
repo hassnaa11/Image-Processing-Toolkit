@@ -20,10 +20,18 @@ def apply_harris_changes(K, gradient_method, block_size, img_arr_in_gray: Image)
     Ixx = Gx ** 2
     Iyy = Gy ** 2
     Ixy = Gx * Gy
+    
+    
+    if Ixx.dtype != np.float32:
+        Ixx = Ixx.astype(np.float32)
+    if Iyy.dtype != np.float32:
+        Iyy = Iyy.astype(np.float32)
+    if Ixy.dtype != np.float32:
+        Ixy = Ixy.astype(np.float32)
 
-    # Ixx = cv2.GaussianBlur(Ixx, (block_size, block_size), 0)
-    # Iyy = cv2.GaussianBlur(Iyy, (block_size, block_size), 0)
-    # Ixy = cv2.GaussianBlur(Ixy, (block_size, block_size), 0)
+    Ixx = cv2.GaussianBlur(Ixx, (block_size, block_size), 0)
+    Iyy = cv2.GaussianBlur(Iyy, (block_size, block_size), 0)
+    Ixy = cv2.GaussianBlur(Ixy, (block_size, block_size), 0)
 
     det_M = (Ixx * Iyy) - (Ixy ** 2)
     trace_M = Ixx + Iyy
