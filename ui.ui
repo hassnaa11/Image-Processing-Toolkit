@@ -111,7 +111,7 @@ QTabWidget::pane {
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>4</number>
          </property>
          <property name="iconSize">
           <size>
@@ -4249,7 +4249,7 @@ border : 0;
                </widget>
               </item>
               <item>
-               <widget class="QGraphicsView" name="graphicsView_2">
+               <widget class="QGraphicsView" name="harris_input_image_frame">
                 <property name="styleSheet">
                  <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
@@ -4286,7 +4286,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="upload_harris_image">
+                 <widget class="QPushButton" name="upload_harris_image_btn">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -4360,39 +4360,14 @@ border : 2px solid rgb(255, 255, 255); </string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_26">
               <item>
-               <widget class="QTabWidget" name="tabharris">
-                <property name="whatsThis">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;orignal image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <widget class="QLabel" name="label_34">
+                <property name="text">
+                 <string>Binary Image</string>
                 </property>
-                <property name="accessibleName">
-                 <string/>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-                </property>
-                <property name="currentIndex">
-                 <number>0</number>
-                </property>
-                <widget class="QWidget" name="widget_6">
-                 <attribute name="title">
-                  <string>Oignal image </string>
-                 </attribute>
-                </widget>
-                <widget class="QWidget" name="tab_7">
-                 <attribute name="title">
-                  <string>Harris corners </string>
-                 </attribute>
-                </widget>
                </widget>
+              </item>
+              <item>
+               <widget class="QGraphicsView" name="binary_img_frame"/>
               </item>
               <item>
                <widget class="QLabel" name="label_41">
@@ -4413,12 +4388,12 @@ border : 0;
 </string>
                 </property>
                 <property name="text">
-                 <string>Computational Result </string>
+                 <string>Corners Superimposed on Image</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QGraphicsView" name="graphicsView_3">
+               <widget class="QGraphicsView" name="img_with_corners_frame">
                 <property name="styleSheet">
                  <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
@@ -4557,7 +4532,7 @@ font-weight: bold;
 </string>
                     </property>
                     <property name="text">
-                     <string>Kernel size </string>
+                     <string>Gradient_Method</string>
                     </property>
                    </widget>
                   </item>
@@ -4621,7 +4596,7 @@ font-weight: bold;
                    <number>20</number>
                   </property>
                   <item>
-                   <widget class="QSpinBox" name="blockSizeSpin">
+                   <widget class="QSpinBox" name="harris_blocksz_spinbox">
                     <property name="minimumSize">
                      <size>
                       <width>180</width>
@@ -4639,11 +4614,58 @@ buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>9</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>2</number>
+                    </property>
+                    <property name="value">
+                     <number>5</number>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="KernelSpin">
+                   <widget class="QComboBox" name="harris_gradient_method_combobox">
+                    <property name="layoutDirection">
+                     <enum>Qt::LeftToRight</enum>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QComboBox {
+    color: red; /* or any color like #ff0000 */
+}
+</string>
+                    </property>
+                    <property name="editable">
+                     <bool>true</bool>
+                    </property>
+                    <property name="currentText">
+                     <string>Sobel</string>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Select a method</string>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>Sobel</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Prewitt</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QDoubleSpinBox" name="harris_k_spinbox">
                     <property name="minimumSize">
                      <size>
                       <width>180</width>
@@ -4661,11 +4683,29 @@ buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="decimals">
+                     <number>3</number>
+                    </property>
+                    <property name="minimum">
+                     <double>0.040000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>0.060000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.001000000000000</double>
+                    </property>
+                    <property name="value">
+                     <double>0.050000000000000</double>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="K_spin">
+                   <widget class="QSpinBox" name="harris_threshold_spinbox">
                     <property name="minimumSize">
                      <size>
                       <width>180</width>
@@ -4684,27 +4724,8 @@ border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
                     </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="threshold_spin">
-                    <property name="minimumSize">
-                     <size>
-                      <width>180</width>
-                      <height>30</height>
-                     </size>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -4741,7 +4762,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="extractfeatures">
+                 <widget class="QPushButton" name="apply_harris_btn">
                   <property name="minimumSize">
                    <size>
                     <width>200</width>
@@ -4773,7 +4794,7 @@ buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
                   </property>
                   <property name="text">
-                   <string>Extract Features </string>
+                   <string>Apply</string>
                   </property>
                  </widget>
                 </item>

@@ -18,6 +18,7 @@ from shapes import detect_shapes, canny_filter
 from SIFT_2 import SIFTApp
 from feature_matching import FeatureMatching
 import time
+from harris_corner_detector import apply_harris_changes
 
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
@@ -41,6 +42,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.hough_transform_upload_btn.clicked.connect(lambda: self.upload_image(5))
         self.upload_first_matching_image.clicked.connect(lambda:self.upload_image(6))
         self.upload_second_matching_image.clicked.connect(lambda:self.upload_image(7))
+        self.upload_harris_image_btn.clicked.connect(lambda:self.upload_image(8))
        
         
         # noises checkbox
@@ -141,8 +143,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.sumOfSquarediff.clicked.connect(lambda: self.match_images('SSD'))
         self.normalizedCrossCorrelations.clicked.connect(lambda: self.match_images('NCC'))
         
+        #apply harris operator
+        self.apply_harris_btn.clicked.connect(lambda: self.apply_harris_operator(self.harris_k, self.harris_gd_oper, self.harris_block_sz))
         
-
+        
     def upload_image(self, key):
         self.file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
@@ -218,9 +222,49 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.input2_path = self.file_path
                 self.graphicsView_6.setScene(scene)
                 self.graphicsView_6.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-
+            elif key==8:
+                self.reset_harris_tab()
+                
+                self.harris_input_image_frame.setScene(scene)
+                self.harris_input_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+                
+                self.harris_image = uploaded_img
+                
+                self.harris_gd_oper = gradient_operator = self.harris_gradient_method_combobox.currentText()
+                self.harris_block_sz = block_sz = self.harris_blocksz_spinbox.value()
+                self.harris_k = K = self.harris_k_spinbox.value()
+                                
+                if self.harris_image.is_RGB(): self.harris_image.rgb2gray()
+                    
+                self.apply_harris_operator(K, gradient_operator, block_sz)
+                
+                    
+    def apply_harris_operator(self, K, gradient_operator, block_sz):
+        binary_img_arr, overlay_img_arr= apply_harris_changes(K, gradient_operator, block_sz, self.harris_image) 
+        
+        binary_image, overlay_image  =Image(binary_img_arr), Image(overlay_img_arr)
+        binary_scene, overlay_scene = binary_image.display_image(), overlay_image.display_image()
+        
+        self.binary_image_frame.setScene(binary_scene)
+        self.binary_input_image_frame.fitInView(binary_scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        
+        self.image_with_corners_frame.setScene(overlay_scene)
+        self.image_with_corners_frame.fitInView(overlay_scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+         
+         
                             
-    # hough_transform_ratio_spinbox
+    def reset_harris_tab(self):
+        self.harris_input_image_frame.scene().clear()
+        self.binary_img_frame.scene().clear()
+        self.img_with_corners_frame.scene().clear()
+        
+        self.harris_image = None
+        
+        self.harris_gradient_kernel_spinbox.setValue(5)
+        self.harris_k_spinbox.setValue(0.05)
+        self.harris_gradient_method_combobox.setCurrentIndex(0)
+        self.harris_blocksz_spinbox.setValue(5)
+        
     
     def apply_hough_changes(self):
         #apply canny filter first
