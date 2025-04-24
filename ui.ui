@@ -4745,6 +4745,9 @@ border-radius: 10px;</string>
                   <property name="text">
                    <string>Apply</string>
                   </property>
+                  <property name="checkable">
+                   <bool>false</bool>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -4779,7 +4782,7 @@ border-radius: 10px;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="harris_time_elapsed">
+               <widget class="QLabel" name="harris_time_elapsed_label">
                 <property name="styleSheet">
                  <string notr="true">background:transparent;
 
