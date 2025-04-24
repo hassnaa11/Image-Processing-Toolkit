@@ -102,10 +102,17 @@ def choose_threshold_from_histogram(harris_response):
     return threshold
 
 
-def display_corners(og_image, corners):
+def display_corners(og_image, corners, marker_size=3):
     # Overlay corners on the original image
     overlay_image_arr = np.stack((og_image,) * 3, axis=-1)  # Convert grayscale to RGB
-    overlay_image_arr[corners > 0] = [255, 0, 0]  # Mark corners in red
+
+    # Get the coordinates of the corners
+    corner_coords = np.argwhere(corners > 0)  # Find all non-zero (corner) pixels
+
+    # Draw a marker (circle or square) around each corner
+    for coord in corner_coords:
+        y, x = coord  # Note: y is row, x is column
+        cv2.circle(overlay_image_arr, (x, y), marker_size, (255, 0, 0), thickness=-1)  # Draw filled circle
 
     return overlay_image_arr
     

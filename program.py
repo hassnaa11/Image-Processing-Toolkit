@@ -266,9 +266,9 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.harris_image = None
         
-        self.harris_k_spinbox.setValue(0.05)
+        self.harris_k_spinbox.setValue(0.04)
         self.harris_gradient_method_combobox.setCurrentIndex(0)
-        self.harris_blocksz_spinbox.setValue(5)
+        self.harris_blocksz_spinbox.setValue(3)
         
         self.harris_time_elapsed_label.setText("Operation Time")
         

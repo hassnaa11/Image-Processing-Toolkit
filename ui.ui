@@ -4655,7 +4655,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                      <number>3</number>
                     </property>
                     <property name="minimum">
-                     <double>0.040000000000000</double>
+                     <double>0.020000000000000</double>
                     </property>
                     <property name="maximum">
                      <double>0.060000000000000</double>
@@ -4664,7 +4664,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                      <double>0.001000000000000</double>
                     </property>
                     <property name="value">
-                     <double>0.050000000000000</double>
+                     <double>0.040000000000000</double>
                     </property>
                    </widget>
                   </item>
