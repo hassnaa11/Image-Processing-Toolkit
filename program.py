@@ -14,7 +14,8 @@ from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder
 from active_contour_processor import ActiveContourProcessor
 from reportlab.pdfgen import canvas
 from shapes import detect_shapes, canny_filter
-from SIFT import SIFTApp
+# from SIFT import SIFTApp
+from SIFT_2 import SIFTApp
 from feature_matching import FeatureMatching
 import time
 
