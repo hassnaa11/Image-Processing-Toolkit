@@ -14,8 +14,11 @@ from image_processor import FilterProcessor,FrequencyFilterProcessor, NoiseAdder
 from active_contour_processor import ActiveContourProcessor
 from reportlab.pdfgen import canvas
 from shapes import detect_shapes, canny_filter
-from SIFT import SIFTApp
-
+# from SIFT import SIFTApp
+from SIFT_2 import SIFTApp
+from feature_matching import FeatureMatching
+import time
+from harris_corner_detector import apply_harris_changes
 
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
@@ -39,6 +42,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.hough_transform_upload_btn.clicked.connect(lambda: self.upload_image(5))
         self.upload_first_matching_image.clicked.connect(lambda:self.upload_image(6))
         self.upload_second_matching_image.clicked.connect(lambda:self.upload_image(7))
+        self.upload_harris_image_btn.clicked.connect(lambda:self.upload_image(8))
        
         
         # noises checkbox
@@ -135,7 +139,14 @@ class MainWindow(QtWidgets.QMainWindow):
         #apply sift radiobutton
         self.apply_sift_button_3.clicked.connect(self.apply_sift)
         
-
+        # match 2 images
+        self.sumOfSquarediff.clicked.connect(lambda: self.match_images('SSD'))
+        self.normalizedCrossCorrelations.clicked.connect(lambda: self.match_images('NCC'))
+        
+        #apply harris operator
+        self.apply_harris_btn.clicked.connect(lambda: self.apply_harris_operator(self.harris_k, self.harris_gd_oper, self.harris_block_sz))
+        
+        
     def upload_image(self, key):
         self.file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self, "Select Image", "", "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
@@ -192,24 +203,67 @@ class MainWindow(QtWidgets.QMainWindow):
             elif key==5: # Upload in Hough Transform Tab
                 #clear last image
                 self.reset_hough_tab()
-                h, w = self.hough_image.image.shape[0], self.hough_image.image.shape[1] 
                 
+                self.hough_image = uploaded_img
+                h, w = self.hough_image.image.shape[0], self.hough_image.image.shape[1] 
                 self.hough_dimensions_label.setText(str(h)+"x"+str(w))
                 
                 self.hough_transform_output_frame.setScene(scene)
                 self.hough_transform_output_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+
                 self.hough_image = uploaded_img
             elif key==6:
                 self.SIFT_image1=self.input_image
+                self.input1_path = self.file_path
                 self.graphicsView.setScene(scene)
                 self.graphicsView.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             elif key==7:
                 self.SIFT_image2=self.input_image
+                self.input2_path = self.file_path
                 self.graphicsView_6.setScene(scene)
                 self.graphicsView_6.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-
+            elif key==8:
+                self.reset_harris_tab()
+                
+                self.harris_input_image_frame.setScene(scene)
+                self.harris_input_image_frame.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+                
+                self.harris_image = uploaded_img
+                
+                self.harris_gd_oper = gradient_operator = self.harris_gradient_method_combobox.currentText()
+                self.harris_block_sz = block_sz = self.harris_blocksz_spinbox.value()
+                self.harris_k = K = self.harris_k_spinbox.value()
+                                
+                if self.harris_image.is_RGB(): self.harris_image.rgb2gray()
+                    
+                self.apply_harris_operator(K, gradient_operator, block_sz)
+                
+                    
+    def apply_harris_operator(self, K, gradient_operator, block_sz):
+        binary_img_arr, overlay_img_arr= apply_harris_changes(K, gradient_operator, block_sz, self.harris_image) 
+        
+        binary_image, overlay_image  =Image(binary_img_arr), Image(overlay_img_arr)
+        binary_scene, overlay_scene = binary_image.display_image(), overlay_image.display_image()
+        
+        self.binary_img_frame.setScene(binary_scene)
+        self.binary_img_frame.fitInView(binary_scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        
+        self.img_with_corners_frame.setScene(overlay_scene)
+        self.img_with_corners_frame.fitInView(overlay_scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+         
+         
                             
-    # hough_transform_ratio_spinbox
+    def reset_harris_tab(self):
+        if self.harris_input_image_frame.scene() is not None: self.harris_input_image_frame.scene().clear()
+        if self.binary_img_frame.scene() is not None: self.binary_img_frame.scene().clear()
+        if self.img_with_corners_frame.scene() is not None: self.img_with_corners_frame.scene().clear()
+        
+        self.harris_image = None
+        
+        self.harris_k_spinbox.setValue(0.05)
+        self.harris_gradient_method_combobox.setCurrentIndex(0)
+        self.harris_blocksz_spinbox.setValue(5)
+        
     
     def apply_hough_changes(self):
         #apply canny filter first
@@ -454,16 +508,6 @@ class MainWindow(QtWidgets.QMainWindow):
             scene = self.hybrid_output_image.display_image()
             self.hybrid_image.setScene(scene)
             self.hybrid_image.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-        
-    def apply_sift(self):
-            SIFT=SIFTApp(self.SIFT_image1,self.SIFT_image2)
-            image=SIFT.apply_SIFT()
-            SIFT_IMAGE= Image(image)
-            scene = SIFT_IMAGE.display_image()
-            self.graphicsView_4.setScene(scene)
-            self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-
-
 
     def normalize_image(self):
 
@@ -810,6 +854,46 @@ class MainWindow(QtWidgets.QMainWindow):
         iterations = self.iterations_snake.value()
         sigma = self.sigma_snake.value()
         return alpha, beta, gamma, window_size, iterations, sigma
+
+
+    def apply_sift(self):
+        start_time_sift = time.time() 
+        
+        self.SIFT=SIFTApp(self.SIFT_image1,self.SIFT_image2)
+        image=self.SIFT.apply_SIFT()
+        
+        end_time_sift  = time.time()
+        time_elapsed = end_time_sift  - start_time_sift 
+        print(f"Time Elapsed: {time_elapsed:.4f} seconds")  
+        self.features_time_elapsed.setText(f"Elapsed Time: {time_elapsed:.4f} seconds") 
+        
+        SIFT_IMAGE= Image(image)
+        scene = SIFT_IMAGE.display_image()
+        self.graphicsView_4.setScene(scene)
+        self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        
+        
+    def match_images(self, type):
+        start_time_match = time.time() 
+        image = cv2.imread(self.input1_path, cv2.IMREAD_COLOR) 
+        template = cv2.imread(self.input2_path, cv2.IMREAD_COLOR) 
+        
+        if type == 'SSD':
+            result_image = FeatureMatching.apply_ssd_matching(image, template)
+        else:
+            result_image = FeatureMatching.apply_ncc_matching(image, template)
+            
+        result_image = cv2.cvtColor(result_image, cv2.COLOR_BGR2RGB)
+            
+        end_time_match = time.time()
+        time_elapsed = end_time_match - start_time_match
+        print(f"Time Elapsed: {time_elapsed:.4f} seconds")  
+        self.features_time_elapsed.setText(f"Elapsed Time: {time_elapsed:.4f} seconds")  
+        
+        SIFT_IMAGE= Image(result_image)
+        scene = SIFT_IMAGE.display_image()
+        self.graphicsView_4.setScene(scene)
+        self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)         
 
         
 

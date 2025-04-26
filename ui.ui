@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1566</width>
+    <width>1359</width>
     <height>1303</height>
    </rect>
   </property>
@@ -3626,408 +3626,28 @@ font-weight: bold;</string>
            <string>Feature Extraction and Matching</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_6">
-           <item row="0" column="0">
-            <layout class="QVBoxLayout" name="verticalLayout_18">
-             <item>
-              <widget class="QLabel" name="label_34">
-               <property name="font">
-                <font>
-                 <family>Georgia</family>
-                 <pointsize>14</pointsize>
-                 <weight>50</weight>
-                 <italic>true</italic>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">font: italic 14pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-               </property>
-               <property name="text">
-                <string>Feature Extraction And Matching Tool </string>
-               </property>
-               <property name="margin">
-                <number>15</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_24">
-               <item>
-                <widget class="QWidget" name="widget" native="true">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>200</horstretch>
-                   <verstretch>200</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(6,131,116,255);
-
-color: rgb(255, 255, 255);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_19">
-                  <item>
-                   <widget class="QLabel" name="label_36">
-                    <property name="font">
-                     <font>
-                      <family>MS Shell Dlg 2</family>
-                      <pointsize>10</pointsize>
-                      <weight>50</weight>
-                      <italic>false</italic>
-                      <bold>false</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(255, 255, 255);
-
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0;
-</string>
-                    </property>
-                    <property name="text">
-                     <string>First Input Image </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QGraphicsView" name="graphicsView">
-                    <property name="styleSheet">
-                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_9">
-                    <property name="topMargin">
-                     <number>15</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>15</number>
-                    </property>
-                    <item>
-                     <spacer name="horizontalSpacer_9">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="upload_first_matching_image">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>190</width>
-                        <height>40</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>200</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="cursor">
-                       <cursorShape>OpenHandCursor</cursorShape>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                      </property>
-                      <property name="text">
-                       <string>Upload First Image</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_10">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QWidget" name="widget_8" native="true">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>200</horstretch>
-                   <verstretch>200</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(6,131,116,255);
-
-color: rgb(255, 255, 255);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_13">
-                  <item>
-                   <widget class="QLabel" name="label_38">
-                    <property name="font">
-                     <font>
-                      <family>MS Shell Dlg 2</family>
-                      <pointsize>10</pointsize>
-                      <weight>50</weight>
-                      <italic>false</italic>
-                      <bold>false</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(255, 255, 255);
-
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0;
-</string>
-                    </property>
-                    <property name="text">
-                     <string>Second Input Image </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QGraphicsView" name="graphicsView_6">
-                    <property name="styleSheet">
-                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_19">
-                    <property name="topMargin">
-                     <number>15</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>15</number>
-                    </property>
-                    <item>
-                     <spacer name="horizontalSpacer_11">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="upload_second_matching_image">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>190</width>
-                        <height>40</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>200</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="cursor">
-                       <cursorShape>OpenHandCursor</cursorShape>
-                      </property>
-                      <property name="layoutDirection">
-                       <enum>Qt::RightToLeft</enum>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                      </property>
-                      <property name="text">
-                       <string>Upload Second Image</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_12">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QWidget" name="widget_2" native="true">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>200</horstretch>
-                   <verstretch>200</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background-color: rgb(37, 42, 64);
-background-color: rgb(6,131,116,255);
-
-color: rgb(255, 255, 255);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_20">
-                  <item>
-                   <widget class="QLabel" name="label_37">
-                    <property name="font">
-                     <font>
-                      <family>MS Shell Dlg 2</family>
-                      <pointsize>10</pointsize>
-                      <weight>50</weight>
-                      <italic>false</italic>
-                      <bold>false</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color: rgb(255, 255, 255);
-
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0;
-</string>
-                    </property>
-                    <property name="text">
-                     <string>Processed Output Image </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QGraphicsView" name="graphicsView_4">
-                    <property name="styleSheet">
-                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_21">
-                    <item>
-                     <spacer name="verticalSpacer">
-                      <property name="orientation">
-                       <enum>Qt::Vertical</enum>
-                      </property>
-                      <property name="sizeType">
-                       <enum>QSizePolicy::Fixed</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>20</width>
-                        <height>70</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_3" native="true">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                 <horstretch>200</horstretch>
-                 <verstretch>200</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>150</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+           <item row="2" column="0" colspan="2">
+            <widget class="QWidget" name="widget_3" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>200</horstretch>
+               <verstretch>200</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
 background-color: rgb(219,222,230);
 background: rgba(255,255,255,0.5);
@@ -4038,10 +3658,255 @@ buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_23">
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_23">
+              <item>
+               <spacer name="horizontalSpacer_19">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="apply_sift_button_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>165</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>OpenHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                </property>
+                <property name="text">
+                 <string>Apply SIFT</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_20">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>100</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="sumOfSquarediff">
+                <property name="font">
+                 <font>
+                  <family>MS Shell Dlg 2</family>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <italic>false</italic>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>OpenHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background:transparent;
+
+
+color:  rgb(2, 39, 35);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0px solid rgb(6,131,116,255);
+font-weight: bold;
+</string>
+                </property>
+                <property name="text">
+                 <string>Sum Of Square Difference </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="normalizedCrossCorrelations">
+                <property name="font">
+                 <font>
+                  <family>MS Shell Dlg 2</family>
+                  <pointsize>10</pointsize>
+                  <weight>75</weight>
+                  <italic>false</italic>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>OpenHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background:transparent;
+
+color:  rgb(2, 39, 35);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0px solid rgb(6,131,116,255);
+font-weight: bold;
+</string>
+                </property>
+                <property name="text">
+                 <string>Normalized Cross Selection </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_17">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>120</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="features_time_elapsed">
+                <property name="styleSheet">
+                 <string notr="true">background:transparent;
+
+color:  rgb(2, 39, 35);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0px solid rgb(6,131,116,255);
+font-weight: bold;
+</string>
+                </property>
+                <property name="text">
+                 <string>Elapsed Time: </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_21">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QWidget" name="widget_8" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+               <horstretch>200</horstretch>
+               <verstretch>200</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>500</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_13">
+              <item>
+               <widget class="QLabel" name="label_38">
+                <property name="font">
+                 <font>
+                  <family>MS Shell Dlg 2</family>
+                  <pointsize>10</pointsize>
+                  <weight>50</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);
+
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0;
+</string>
+                </property>
+                <property name="text">
+                 <string>Second Input Image </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGraphicsView" name="graphicsView_6">
+                <property name="styleSheet">
+                 <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_19">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
                 <item>
-                 <spacer name="horizontalSpacer_19">
+                 <spacer name="horizontalSpacer_11">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -4054,7 +3919,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="apply_sift_button_3">
+                 <widget class="QPushButton" name="upload_second_matching_image">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -4063,8 +3928,154 @@ border : 2px solid rgb(255, 255, 255); </string>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>165</width>
-                    <height>40</height>
+                    <width>190</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>OpenHandCursor</cursorShape>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                  </property>
+                  <property name="text">
+                   <string>Upload Second Image</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_12">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QWidget" name="widget" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+               <horstretch>200</horstretch>
+               <verstretch>200</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>500</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_19">
+              <item>
+               <widget class="QLabel" name="label_36">
+                <property name="font">
+                 <font>
+                  <family>MS Shell Dlg 2</family>
+                  <pointsize>10</pointsize>
+                  <weight>50</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);
+
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0;
+</string>
+                </property>
+                <property name="text">
+                 <string>First Input Image </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGraphicsView" name="graphicsView">
+                <property name="styleSheet">
+                 <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <spacer name="horizontalSpacer_9">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="upload_first_matching_image">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>190</width>
+                    <height>35</height>
                    </size>
                   </property>
                   <property name="maximumSize">
@@ -4079,86 +4090,20 @@ border : 2px solid rgb(255, 255, 255); </string>
                   <property name="styleSheet">
                    <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
-background-color: rgb(6,131,116);
+background-color: rgb(219,222,230);
 
 color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
                   </property>
                   <property name="text">
-                   <string>Apply SIFT</string>
+                   <string>Upload First Image</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <spacer name="horizontalSpacer_20">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>100</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QRadioButton" name="sumOfSquarediff">
-                  <property name="font">
-                   <font>
-                    <family>MS Shell Dlg 2</family>
-                    <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <italic>false</italic>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background:transparent;
-
-
-color:  rgb(2, 39, 35);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0px solid rgb(6,131,116,255);
-font-weight: bold;
-</string>
-                  </property>
-                  <property name="text">
-                   <string>Sum Of Square Difference </string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QRadioButton" name="normalizedCrossSelection">
-                  <property name="font">
-                   <font>
-                    <family>MS Shell Dlg 2</family>
-                    <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <italic>false</italic>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background:transparent;
-
-color:  rgb(2, 39, 35);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0px solid rgb(6,131,116,255);
-font-weight: bold;
-</string>
-                  </property>
-                  <property name="text">
-                   <string>Normalized Cross Selection </string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="horizontalSpacer_21">
+                 <spacer name="horizontalSpacer_10">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -4171,9 +4116,89 @@ font-weight: bold;
                  </spacer>
                 </item>
                </layout>
-              </widget>
-             </item>
-            </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="0" column="1" rowspan="2">
+            <widget class="QWidget" name="widget_2" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <horstretch>200</horstretch>
+               <verstretch>200</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_20">
+              <item>
+               <widget class="QLabel" name="label_37">
+                <property name="font">
+                 <font>
+                  <family>MS Shell Dlg 2</family>
+                  <pointsize>10</pointsize>
+                  <weight>50</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);
+
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0;
+</string>
+                </property>
+                <property name="text">
+                 <string>Processed Output Image </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGraphicsView" name="graphicsView_4">
+                <property name="styleSheet">
+                 <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_21">
+                <item>
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -4182,35 +4207,6 @@ font-weight: bold;
            <string>Harris Borders</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_40">
-             <property name="font">
-              <font>
-               <family>Georgia</family>
-               <pointsize>14</pointsize>
-               <weight>50</weight>
-               <italic>true</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">font: italic 14pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-             </property>
-             <property name="text">
-              <string>Harris Borders Extraction Tool </string>
-             </property>
-             <property name="margin">
-              <number>15</number>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0">
             <widget class="QWidget" name="widget_9" native="true">
              <property name="sizePolicy">
@@ -4253,7 +4249,7 @@ border : 0;
                </widget>
               </item>
               <item>
-               <widget class="QGraphicsView" name="graphicsView_2">
+               <widget class="QGraphicsView" name="harris_input_image_frame">
                 <property name="styleSheet">
                  <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
@@ -4290,7 +4286,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="upload_harris_image">
+                 <widget class="QPushButton" name="upload_harris_image_btn">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -4364,39 +4360,14 @@ border : 2px solid rgb(255, 255, 255); </string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_26">
               <item>
-               <widget class="QTabWidget" name="tabharris">
-                <property name="whatsThis">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;orignal image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <widget class="QLabel" name="label_34">
+                <property name="text">
+                 <string>Binary Image</string>
                 </property>
-                <property name="accessibleName">
-                 <string/>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
-                </property>
-                <property name="currentIndex">
-                 <number>1</number>
-                </property>
-                <widget class="QWidget" name="widget_6">
-                 <attribute name="title">
-                  <string>Oignal image </string>
-                 </attribute>
-                </widget>
-                <widget class="QWidget" name="tab_7">
-                 <attribute name="title">
-                  <string>Harris corners </string>
-                 </attribute>
-                </widget>
                </widget>
+              </item>
+              <item>
+               <widget class="QGraphicsView" name="binary_img_frame"/>
               </item>
               <item>
                <widget class="QLabel" name="label_41">
@@ -4417,12 +4388,12 @@ border : 0;
 </string>
                 </property>
                 <property name="text">
-                 <string>Computational Result </string>
+                 <string>Corners Superimposed on Image</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QGraphicsView" name="graphicsView_3">
+               <widget class="QGraphicsView" name="img_with_corners_frame">
                 <property name="styleSheet">
                  <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
@@ -4561,7 +4532,7 @@ font-weight: bold;
 </string>
                     </property>
                     <property name="text">
-                     <string>Kernel size </string>
+                     <string>Gradient_Method</string>
                     </property>
                    </widget>
                   </item>
@@ -4591,32 +4562,6 @@ font-weight: bold;
                     </property>
                    </widget>
                   </item>
-                  <item>
-                   <widget class="QLabel" name="thresholdLabel">
-                    <property name="font">
-                     <font>
-                      <family>MS Shell Dlg 2</family>
-                      <pointsize>10</pointsize>
-                      <weight>75</weight>
-                      <italic>false</italic>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background:transparent;
-
-
-color:  rgb(2, 39, 35);
-font: 10pt &quot;MS Shell Dlg 2&quot;;
-border : 0px solid rgb(6,131,116,255);
-font-weight: bold;
-</string>
-                    </property>
-                    <property name="text">
-                     <string>Threshold</string>
-                    </property>
-                   </widget>
-                  </item>
                  </layout>
                 </item>
                 <item>
@@ -4625,7 +4570,7 @@ font-weight: bold;
                    <number>20</number>
                   </property>
                   <item>
-                   <widget class="QSpinBox" name="blockSizeSpin">
+                   <widget class="QSpinBox" name="harris_blocksz_spinbox">
                     <property name="minimumSize">
                      <size>
                       <width>180</width>
@@ -4643,33 +4588,58 @@ buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>9</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>2</number>
+                    </property>
+                    <property name="value">
+                     <number>5</number>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="KernelSpin">
-                    <property name="minimumSize">
-                     <size>
-                      <width>180</width>
-                      <height>30</height>
-                     </size>
+                   <widget class="QComboBox" name="harris_gradient_method_combobox">
+                    <property name="layoutDirection">
+                     <enum>Qt::LeftToRight</enum>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
+                     <string notr="true">QComboBox {
+    color: red; /* or any color like #ff0000 */
+}
+</string>
                     </property>
+                    <property name="editable">
+                     <bool>true</bool>
+                    </property>
+                    <property name="currentText">
+                     <string>Sobel</string>
+                    </property>
+                    <property name="placeholderText">
+                     <string>Select a method</string>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>Sobel</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Prewitt</string>
+                     </property>
+                    </item>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="K_spin">
+                   <widget class="QDoubleSpinBox" name="harris_k_spinbox">
                     <property name="minimumSize">
                      <size>
                       <width>180</width>
@@ -4688,27 +4658,23 @@ border-radius: 15px;
 box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
 border : 2px solid rgb(255, 255, 255); </string>
                     </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="threshold_spin">
-                    <property name="minimumSize">
-                     <size>
-                      <width>180</width>
-                      <height>30</height>
-                     </size>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 15px;
-box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
-border : 2px solid rgb(255, 255, 255); </string>
+                    <property name="decimals">
+                     <number>3</number>
+                    </property>
+                    <property name="minimum">
+                     <double>0.040000000000000</double>
+                    </property>
+                    <property name="maximum">
+                     <double>0.060000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.001000000000000</double>
+                    </property>
+                    <property name="value">
+                     <double>0.050000000000000</double>
                     </property>
                    </widget>
                   </item>
@@ -4745,7 +4711,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="extractfeatures">
+                 <widget class="QPushButton" name="apply_harris_btn">
                   <property name="minimumSize">
                    <size>
                     <width>200</width>
@@ -4777,7 +4743,7 @@ buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
                   </property>
                   <property name="text">
-                   <string>Extract Features </string>
+                   <string>Apply</string>
                   </property>
                  </widget>
                 </item>
@@ -4797,6 +4763,38 @@ border-radius: 10px;</string>
                </layout>
               </item>
               <item>
+               <spacer name="verticalSpacer_14">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>100</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="harris_time_elapsed">
+                <property name="styleSheet">
+                 <string notr="true">background:transparent;
+
+color:  rgb(2, 39, 35);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0px solid rgb(6,131,116,255);
+font-weight: bold;
+</string>
+                </property>
+                <property name="text">
+                 <string>Elapsed Time: </string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <spacer name="verticalSpacer_13">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -4810,6 +4808,35 @@ border-radius: 10px;</string>
                </spacer>
               </item>
              </layout>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_40">
+             <property name="font">
+              <font>
+               <family>Georgia</family>
+               <pointsize>14</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font: italic 14pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+             </property>
+             <property name="text">
+              <string>Harris Borders Extraction Tool </string>
+             </property>
+             <property name="margin">
+              <number>15</number>
+             </property>
             </widget>
            </item>
           </layout>

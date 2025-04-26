@@ -89,6 +89,7 @@ class SIFTApp(QWidget):
                         if value == patch.max() or value == patch.min():
                             keypoints.append((x, y, o, s))
         return keypoints 
+    
     def localize_keypoints(self,dog_pyramid, keypoints, contrast_thresh=0.03):
         refined = []
         for x, y, o, s in keypoints:

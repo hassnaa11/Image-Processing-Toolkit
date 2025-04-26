@@ -8,69 +8,91 @@ import cv2
 import math
 from collections import defaultdict
 
-def circle_hough_transform(og_img_arr, canny_filtered_img: np.ndarray, step_sz=20, min_r=1, max_r=100):
+
+def circle_hough_transform(canny_filtered_img: np.ndarray, og_img_arr=None, step_sz=20, min_r=1, max_r=100):
+    """
+    Implements Hough transform for circle detection.
+
+    Args:
+        canny_filtered_img: Binary edge image (from Canny).
+        og_img_arr: Original image (RGB or grayscale) for gradient filtering (optional).
+        step_sz: Angular step size in degrees.
+        min_r: Minimum radius in pixels.
+        max_r: Maximum radius in pixels.
+
+    Returns:
+        accumulator: Sparse Hough accumulator (dict).
+        radius_values: Array of radius values.
+        max_votes: Maximum votes in accumulator.
+    """
     height, width = canny_filtered_img.shape
-    max_r = max_r
-    min_r = min_r
-    
     radius_values = np.arange(min_r, max_r + 1)
-    accumulator = np.zeros((height, width, len(radius_values)), dtype=np.uint64)
+    accumulator = defaultdict(int)
 
     edge_points = np.argwhere(canny_filtered_img == 255)
     print("Pixel Wide Edges Found")
 
-    # Precompute Thetas to avoid heavy repetetive calling of deg2rad
     thetas = np.deg2rad(np.arange(-90, 90, step_sz))
     cos_thetas = np.cos(thetas)
     sin_thetas = np.sin(thetas)
-    
     print("Thetas Precomputed")
-    
-    max = 0
-    for idx, r in enumerate(radius_values):
-        for x, y in edge_points:
-            for cos_theta, sin_theta in zip(cos_thetas, sin_thetas): 
+
+    # Handle original image for gradients
+    if og_img_arr is not None:
+        # Resize og_img_arr to match canny_filtered_img if needed
+        if og_img_arr.shape[:2] != canny_filtered_img.shape:
+            og_img_arr = cv2.resize(og_img_arr, (width, height), interpolation=cv2.INTER_AREA)
+        
+        # Convert to grayscale if RGB
+        grad_img = cv2.cvtColor(og_img_arr, cv2.COLOR_RGB2GRAY).astype(float) if len(og_img_arr.shape) == 3 else og_img_arr.astype(float)
+        Gy, Gx = np.gradient(grad_img)
+    else:
+        Gy, Gx = None, None  # No gradients if og_img_arr is not provided
+
+    max_votes = 0
+    for y, x in edge_points:
+        # Skip weak edges if gradients are available
+        if Gy is not None and Gx is not None and Gy[y, x] == 0 and Gx[y, x] == 0:
+            continue
+        for r in radius_values:
+            for cos_theta, sin_theta in zip(cos_thetas, sin_thetas):
                 a = int(x - r * cos_theta)
                 b = int(y - r * sin_theta)
                 if 0 <= a < height and 0 <= b < width:
-                    accumulator[a, b, idx] += 1
-                    if accumulator[a, b, idx] > max: max = accumulator[a, b, idx]
+                    accumulator[(a, b, r)] += 1
+                    if accumulator[(a, b, r)] > max_votes:
+                        max_votes = accumulator[(a, b, r)]
 
-    print("accummulator formed")
-    return accumulator, radius_values, max
+    print("Accumulator formed")
+    return accumulator, radius_values, max_votes
 
 
-def detect_circles(canny_filtered_img_arr: np.ndarray, threshold_ratio=0.7, step_sz=20, min_r=1, max_r=100):
-    accumulator, radius_values, max = circle_hough_transform(canny_filtered_img_arr, step_sz, min_r, max_r)
-    threshold = threshold_ratio * max
+def detect_circles(canny_filtered_img_arr: np.ndarray, og_img_arr=None, threshold_ratio=0.7, step_sz=20, min_r=1, max_r=100):
+    accumulator, radius_values, max_votes = circle_hough_transform(canny_filtered_img_arr, og_img_arr, step_sz, min_r, max_r)
+    threshold = max(threshold_ratio * max_votes, 5)
     
-    circles = []
-    h, w, r_len = accumulator.shape
-    for r_idx in range(r_len):
-        acc_slice = accumulator[:, :, r_idx]
-        centers = np.argwhere(acc_slice > threshold)
-        for a, b in centers:
-            circles.append((b, a, radius_values[r_idx]))  # (x_center, y_center, radius)
-    
+    if max_votes < 5:
+        return []
+
+    circles = [(x, y, r) for (x, y, r), votes in accumulator.items() if votes >= threshold]
     print("Circles Detected")
     return circles
-    
 
-def draw_circles_on_image(original_img_arr, canny_filtered_img_arr, threshold_ratio, step_sz, min_r, max_r):
-    
-    circles = detect_circles(canny_filtered_img_arr, threshold_ratio, step_sz, min_r, max_r)
+
+def draw_circles_on_image(original_img_arr, canny_filtered_img_arr, threshold_ratio=0.7, step_sz=20, min_r=1, max_r=100):
+    circles = detect_circles(canny_filtered_img_arr, original_img_arr, threshold_ratio, step_sz, min_r, max_r)
     image_with_circles_arr = np.copy(original_img_arr)
     
-    for x_center, y_center, radius in circles:
-        cv2.circle(image_with_circles_arr, (int(x_center), int(y_center)), int(radius), (0, 0, 255), 2)
-        
-    print("Circles Drawn")
-    return image_with_circles_arr       
-    
+    is_rgb = len(image_with_circles_arr.shape) == 3
+    if not is_rgb:
+        image_with_circles_arr = cv2.cvtColor(image_with_circles_arr, cv2.COLOR_GRAY2RGB)
 
-import numpy as np
-import cv2
-from collections import defaultdict
+    for x_center, y_center, radius in circles:
+        color = (0, 0, 255)  # Red
+        cv2.circle(image_with_circles_arr, (int(x_center), int(y_center)), int(radius), color, 2)
+    
+    print("Circles Drawn")
+    return image_with_circles_arr
 
 def line_hough_transform(canny_filtered_img: np.ndarray, orig_img_arr=None, theta_step=15):
     """
@@ -107,10 +129,10 @@ def line_hough_transform(canny_filtered_img: np.ndarray, orig_img_arr=None, thet
             continue  # Skip weak edges
         for theta_idx, (cos_t, sin_t) in enumerate(zip(cos_thetas, sin_thetas)):
             rho = int(x * cos_t + y * sin_t)
-            rho_idx = rho + diag_len
+            rho_idx = rho 
             if 0 <= rho_idx < len(rhos):
                 accumulator[(rho_idx, theta_idx)] += 1
-
+    
     return accumulator, rhos, thetas, cos_thetas, sin_thetas
 
 
@@ -166,6 +188,7 @@ def draw_lines(original_img_arr, canny_filtered_img_arr, threshold_ratio=0.5, th
     Returns:
         image_with_line_arr: Image with lines drawn.
     """
+    print("Completed")
     lines = detect_lines(canny_filtered_img_arr, original_img_arr, threshold_ratio, theta_step, min_line_length)
     image_with_line_arr = original_img_arr.copy()
 
@@ -174,12 +197,13 @@ def draw_lines(original_img_arr, canny_filtered_img_arr, threshold_ratio=0.5, th
         image_with_line_arr = cv2.cvtColor(image_with_line_arr, cv2.COLOR_GRAY2RGB)
 
     for rho, theta, (x1, y1, x2, y2) in lines:
-        cv2.line(image_with_line_arr, (x1, y1), (x2, y2), (0, 255, 0), 2)
+        cv2.line(image_with_line_arr, (x1, y1), (x2, y2), (0, 0, 255), 2)
 
     return image_with_line_arr
 
 
 def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, detect_lines, detect_ellipses, detect_circles, min_line_length, threshold_ratio, theta_step_sz, min_r, max_r, minor_step, major_step):
+    temp = None
     if detect_circles: 
         new_img_arr = draw_circles_on_image(og_img_arr, canny_filtered_img_arr, threshold_ratio, theta_step_sz, min_r, max_r)
         
@@ -193,7 +217,7 @@ def detect_shapes(og_img_arr: np.ndarray, canny_filtered_img_arr: np.ndarray, de
         threshold_ratio, major_step, minor_step, theta_step_sz, center_range)
         new_img_arr = draw_ellipses(og_img_arr, ellipses)
         
-    
+    temp = new_img_arr
     new_img = Image(new_img_arr)
     scene = new_img.display_image()
     return scene    
