@@ -4360,16 +4360,6 @@ border : 2px solid rgb(255, 255, 255); </string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_26">
               <item>
-               <widget class="QLabel" name="label_34">
-                <property name="text">
-                 <string>Binary Image</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QGraphicsView" name="binary_img_frame"/>
-              </item>
-              <item>
                <widget class="QLabel" name="label_41">
                 <property name="font">
                  <font>
@@ -4599,10 +4589,10 @@ border : 2px solid rgb(255, 255, 255); </string>
                      <number>9</number>
                     </property>
                     <property name="singleStep">
-                     <number>2</number>
+                     <number>1</number>
                     </property>
                     <property name="value">
-                     <number>5</number>
+                     <number>2</number>
                     </property>
                    </widget>
                   </item>
@@ -4665,16 +4655,16 @@ border : 2px solid rgb(255, 255, 255); </string>
                      <number>3</number>
                     </property>
                     <property name="minimum">
-                     <double>0.040000000000000</double>
+                     <double>0.020000000000000</double>
                     </property>
                     <property name="maximum">
-                     <double>0.060000000000000</double>
+                     <double>1.000000000000000</double>
                     </property>
                     <property name="singleStep">
                      <double>0.001000000000000</double>
                     </property>
                     <property name="value">
-                     <double>0.050000000000000</double>
+                     <double>0.040000000000000</double>
                     </property>
                    </widget>
                   </item>
@@ -4745,6 +4735,9 @@ border-radius: 10px;</string>
                   <property name="text">
                    <string>Apply</string>
                   </property>
+                  <property name="checkable">
+                   <bool>false</bool>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -4779,7 +4772,7 @@ border-radius: 10px;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QLabel" name="harris_time_elapsed">
+               <widget class="QLabel" name="harris_time_elapsed_label">
                 <property name="styleSheet">
                  <string notr="true">background:transparent;
 

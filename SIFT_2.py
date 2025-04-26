@@ -14,8 +14,8 @@ class SIFTApp(QWidget):
         self.float_tolerance = 1e-7
 
     def apply_SIFT(self):
-        self.image_1=self. load_grayscale_image(self.image_1)
-        self.image_2=self. load_grayscale_image(self.image_2)
+        self.image_1=self.load_grayscale_image(self.image_1)
+        self.image_2=self.load_grayscale_image(self.image_2)
         Key_points1,descriptors1=self.calculate_keypoints_and_descriptors(self.image_1)
         Key_points2,descriptors2=self.calculate_keypoints_and_descriptors(self.image_2)
         matches = self.match_keypoints(descriptors1, descriptors2)

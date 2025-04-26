@@ -30,7 +30,7 @@ edge_detection_filters = ['Sobel', 'Roberts', 'Prewitt', 'Canny']
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        uic.loadUi('ui.ui', self)
+        uic.loadUi('ui_task4.ui', self)
         
         self.database: List[Image] = []
         
@@ -223,6 +223,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.graphicsView_6.setScene(scene)
                 self.graphicsView_6.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
             elif key==8:
+                self.harris_start_time = time.time()
+                
                 self.reset_harris_tab()
                 
                 self.harris_input_image_frame.setScene(scene)
@@ -238,6 +240,8 @@ class MainWindow(QtWidgets.QMainWindow):
                     
                 self.apply_harris_operator(K, gradient_operator, block_sz)
                 
+                
+                
                     
     def apply_harris_operator(self, K, gradient_operator, block_sz):
         binary_img_arr, overlay_img_arr= apply_harris_changes(K, gradient_operator, block_sz, self.harris_image) 
@@ -245,24 +249,28 @@ class MainWindow(QtWidgets.QMainWindow):
         binary_image, overlay_image  =Image(binary_img_arr), Image(overlay_img_arr)
         binary_scene, overlay_scene = binary_image.display_image(), overlay_image.display_image()
         
-        self.binary_img_frame.setScene(binary_scene)
-        self.binary_img_frame.fitInView(binary_scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        #self.binary_img_frame.setScene(binary_scene)
+        #self.binary_img_frame.fitInView(binary_scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
         
         self.img_with_corners_frame.setScene(overlay_scene)
         self.img_with_corners_frame.fitInView(overlay_scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
          
-         
-                            
+        elapsed_time = time.time() - self.harris_start_time
+        elapsed_time = round(elapsed_time, 3)
+        self.harris_time_elapsed_label.setText("operation time: "+str(elapsed_time)) 
+                          
     def reset_harris_tab(self):
         if self.harris_input_image_frame.scene() is not None: self.harris_input_image_frame.scene().clear()
-        if self.binary_img_frame.scene() is not None: self.binary_img_frame.scene().clear()
+        #if self.binary_img_frame.scene() is not None: self.binary_img_frame.scene().clear()
         if self.img_with_corners_frame.scene() is not None: self.img_with_corners_frame.scene().clear()
         
         self.harris_image = None
         
-        self.harris_k_spinbox.setValue(0.05)
+        self.harris_k_spinbox.setValue(0.04)
         self.harris_gradient_method_combobox.setCurrentIndex(0)
-        self.harris_blocksz_spinbox.setValue(5)
+        self.harris_blocksz_spinbox.setValue(3)
+        
+        self.harris_time_elapsed_label.setText("Operation Time")
         
     
     def apply_hough_changes(self):
