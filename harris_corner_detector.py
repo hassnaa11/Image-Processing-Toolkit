@@ -19,7 +19,7 @@ def apply_harris_changes(K, gradient_method, block_size, img_arr_in_gray: Image)
 
     Ixx = Gx ** 2
     Iyy = Gy ** 2
-    Ixy = Gx * Gy
+    Ixy = Gx * Gy   
     
     
     if Ixx.dtype != np.float32:
