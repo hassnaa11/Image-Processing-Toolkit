@@ -4613,7 +4613,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                     <property name="currentText">
                      <string>Sobel</string>
                     </property>
-                    <property name="placeholderText" stdset="0">
+                    <property name="placeholderText">
                      <string>Select a method</string>
                     </property>
                     <item>
@@ -4846,7 +4846,10 @@ border-radius: 10px;</string>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_24">
                  <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_25">
+                  <layout class="QHBoxLayout" name="horizontalLayout_25" stretch="2,1,1,1">
+                   <property name="spacing">
+                    <number>4</number>
+                   </property>
                    <item>
                     <widget class="QPushButton" name="segment_upload_btn">
                      <property name="minimumSize">
@@ -4879,14 +4882,13 @@ border-radius: 10px;</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLabel" name="label_44">
-                     <property name="text">
-                      <string>Select Method</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <widget class="QComboBox" name="segment_method_combobox">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="minimumSize">
                       <size>
                        <width>250</width>
@@ -4920,7 +4922,7 @@ border-radius: 10px;</string>
                      <property name="currentText">
                       <string>Choose Segmentation Method</string>
                      </property>
-                     <property name="placeholderText" stdset="0">
+                     <property name="placeholderText">
                       <string>Select A Method</string>
                      </property>
                      <item>
@@ -4951,23 +4953,26 @@ border-radius: 10px;</string>
                     </widget>
                    </item>
                    <item>
-                    <spacer name="horizontalSpacer_18">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                    <widget class="QPushButton" name="segment_apply_btn">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
                      </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Fixed</enum>
+                     <property name="text">
+                      <string>PushButton</string>
                      </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>20</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
+                    </widget>
                    </item>
                    <item>
                     <widget class="QPushButton" name="segment_reset_btn">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="minimumSize">
                       <size>
                        <width>190</width>
@@ -4998,22 +5003,6 @@ border-radius: 10px;</string>
                     </widget>
                    </item>
                   </layout>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_22">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>5</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
                  </item>
                  <item>
                   <layout class="QVBoxLayout" name="verticalLayout_27">
