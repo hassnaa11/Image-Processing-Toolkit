@@ -4,26 +4,29 @@ from Image import Image
 
 class Segmentor:
     def __init__(self):
+        print("Segmentor class initialized")
         pass
 
-    def segment_image(self, image: Image, threshold=0.1):      
+    def segment(self, image:Image, method:str):
+        if method == "Region Grow":
+            self.segment_image_region_grow(image)
+    
+    def segment_image_region_grow(self, image: Image, threshold=0.1):      
         if image.is_RGB(): 
             rgb_copy_image = Image(image.image)
             image.rgb2gray()
+            rgb = True
         
-        img_arr = image.image
-        
-        # Step 2: Automatic seed selection using histogram peaks
-        seeds = self.select_seeds(img_arr)
+        #Automatic seed selection using histogram peaks
+        seeds = self.select_seeds(image.image)
 
-        # Step 3: Perform region growing for each seed
-        segmented_image = np.stack((img_arr,) * 3, axis=-1)  # Convert grayscale to RGB for overlay
+        segmented_image_arr =  rgb_copy_image.image if rgb else image.image # Convert grayscale to RGB for overlay
         for seed in seeds:
             y, x = seed
-            mask = self.region_grow(img_arr, (y, x), threshold)
-            segmented_image[mask] = [255, 0, 0]  # Mark segmented regions in red
+            mask = self.region_grow(image.image, (y, x), threshold)
+            segmented_image_arr[mask] = [100, 100, 0]  # Yellow Marker
 
-        return segmented_image
+        return segmented_image_arr
 
     def select_seeds(self, gray_img_arr):
         """
@@ -99,7 +102,7 @@ if __name__ == "__main__":
     segmentor = Segmentor()
 
     # Segment the image
-    segmented_image = segmentor.segment_image(image, threshold=0.1)
+    segmented_image_arr = segmentor.segment_image(image, threshold=0.1)
 
     # Display the original and segmented images
     plt.figure(figsize=(10, 5))
@@ -109,7 +112,7 @@ if __name__ == "__main__":
     plt.axis("off")
 
     plt.subplot(1, 2, 2)
-    plt.imshow(segmented_image)
+    plt.imshow(segmented_image_arr)
     plt.title("Segmented Image")
     plt.axis("off")
     plt.show()  
