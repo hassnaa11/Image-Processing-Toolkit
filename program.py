@@ -241,7 +241,11 @@ class MainWindow(QtWidgets.QMainWindow):
                 if self.harris_image.is_RGB(): self.harris_image.rgb2gray()
                     
                 self.apply_harris_operator(K, gradient_operator, block_sz)
+
             elif key==9:
+                self.image_4=self.input_image
+                self.input_path = self.file_path
+                
                 self.reset_segmentation_tab()
                 
                 self.segmentation_image = self.upload_image
@@ -261,7 +265,8 @@ class MainWindow(QtWidgets.QMainWindow):
         segmentor = Segmentor(regions_num, seed_tolerance, intensity_difference_threshold)
         segmentor.segment(self.segmentation_image, 'Growing Region')
         
-                
+                                
+
                 
     def reset_segmentation_tab(self):
         if isinstance(self.segment_input_graphics_view, QGraphicsView):
