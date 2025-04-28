@@ -26,22 +26,24 @@ class Segmentor:
         self.__seed_selection_tolerance = seed_selection_tolerance
     
     def segment_image_region_grow(self):      
-        if self.__image.is_RGB(): 
-            rgb_copy_image = Image(self.__image.image)
-            self.__image.rgb2gray() # Normalized Gray Scale
+        if self.__image.is_RGB():
             rgb = True
+            gray_cpy_image = Image(np.copy(self.__image.image)).rgb2gray()
+        else: 
+            gray_cpy_image = self.__image
+            rgb = False 
         
         #Automatic seed selection using histogram peaks
-        seeds = self.select_seeds(self.__image.image)
+        seeds = self.select_seeds(gray_cpy_image.image)
         threshold = self.__intensity_diff_threshold
 
-        segmented_image_arr =  rgb_copy_image.image if rgb else self.__image.image # Convert grayscale to RGB for overlay
+        overlay_image = self.__image
         for seed in seeds:
             y, x = seed
-            mask = self.region_grow(self.__image.image, (y, x), threshold)
-            segmented_image_arr[mask] = [100, 100, 0]  # Yellow Marker
+            mask = self.region_grow(gray_cpy_image.image, (y, x), threshold)
+            overlay_image[mask] = [255, 0, 0] if rgb else  255 
 
-        segmented_image = Image(segmented_image_arr)
+        segmented_image = Image(overlay_image)
         return segmented_image
 
     def select_seeds(self, gray_img_arr):

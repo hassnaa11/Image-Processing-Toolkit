@@ -28,33 +28,41 @@ class Image:
 
     
     def is_RGB(self):
-        """checks if an image is colored or grayscale"""
+        """Checks if an image is RGB or grayscale without modifying the image."""
+        if self.image is None:
+            raise ValueError("Image is not loaded.")
+        
+        # Check if the image has 3 channels
         if len(self.image.shape) == 3 and self.image.shape[2] == 3:
-            # Check if all channels are identical (true grayscale)
-            r, g, b = self.image[:,:,0], self.image[:,:,1], self.image[:,:,2]
-            if np.array_equal(r, g) and np.array_equal(r, b):
-                # Convert to true grayscale
-                self.image = self.image[:,:,0]
-                print("Converted 3-channel grayscale to true grayscale")
-                return False
-            return True
-        return False
+            # Check if all channels are identical (true grayscale stored as 3-channel)
+            if np.all(self.image[:, :, 0] == self.image[:, :, 1]) and np.all(self.image[:, :, 0] == self.image[:, :, 2]):
+                print("3-channel grayscale image detected.")
+                return False  # Grayscale
+            return True  # RGB
+        elif len(self.image.shape) == 2:
+            return False  # Single-channel grayscale
+        else:
+            raise ValueError("Unexpected image format.")
     
     def display_image(self):
+        """Displays the image as a QGraphicsScene."""
+        if self.image is None:
+            raise ValueError("Image is not loaded.")
+
         height, width = self.image.shape[:2]
-        if not self.is_RGB(): # gray-scale image
-            img_data = np.ascontiguousarray(self.image).tobytes()
+        img_data = np.ascontiguousarray(self.image).tobytes()
+
+        if self.is_RGB():  # RGB image
+            bytes_per_line = 3 * width
+            q_image = QImage(img_data, width, height, bytes_per_line, QImage.Format_RGB888)
+        else:  # Grayscale image
             bytes_per_line = width
             q_image = QImage(img_data, width, height, bytes_per_line, QImage.Format_Grayscale8)
-        else:  # RGB image 
-            img_data = np.ascontiguousarray(self.image).tobytes()
-            bytes_per_line = 3 * width 
-            q_image = QImage(img_data, width, height, bytes_per_line, QImage.Format_RGB888)
 
-        # convert QImage to QPixmap
-        pixmap = QPixmap.fromImage(q_image) 
-        
-        # create a QGraphicsScene and add to the pixmap
+        # Convert QImage to QPixmap
+        pixmap = QPixmap.fromImage(q_image)
+
+        # Create a QGraphicsScene and add the pixmap
         scene = QGraphicsScene()
         scene.addPixmap(pixmap)
         return scene
@@ -179,8 +187,7 @@ class Image:
         return self.__cdf_canvas
     
     def rgb2gray(self):
-        """retruns a normalized grayscale image"""
         if self.is_RGB():
-            self.image = cv2.cvtColor(self.image, cv2.COLOR_RGB2GRAY) / 255.0
+            self.image = cv2.cvtColor(self.image, cv2.COLOR_RGB2GRAY) 
             print("RGB image converted to gray")
         else: print("Image is already in grayscale")       
