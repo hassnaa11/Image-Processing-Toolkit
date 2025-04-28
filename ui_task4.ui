@@ -4613,7 +4613,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                     <property name="currentText">
                      <string>Sobel</string>
                     </property>
-                    <property name="placeholderText" stdset="0">
+                    <property name="placeholderText">
                      <string>Select a method</string>
                     </property>
                     <item>
@@ -4836,7 +4836,7 @@ border-radius: 10px;</string>
          </widget>
          <widget class="QWidget" name="tab_6">
           <attribute name="title">
-           <string>Page</string>
+           <string>Segmentation</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_11">
            <item row="0" column="0">
@@ -4848,7 +4848,7 @@ border-radius: 10px;</string>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_25">
                    <item>
-                    <widget class="QPushButton" name="uploadBtn">
+                    <widget class="QPushButton" name="segment_upload_btn">
                      <property name="minimumSize">
                       <size>
                        <width>190</width>
@@ -4877,7 +4877,7 @@ border-radius: 10px;</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="comboBox">
+                    <widget class="QComboBox" name="segment_method_combobox">
                      <property name="minimumSize">
                       <size>
                        <width>250</width>
@@ -4930,6 +4930,9 @@ selection-background-color: rgb(4, 79, 70);
                      <property name="currentText">
                       <string>K means </string>
                      </property>
+                     <property name="placeholderText">
+                      <string>Select A Method</string>
+                     </property>
                      <item>
                       <property name="text">
                        <string>K means </string>
@@ -4937,12 +4940,12 @@ selection-background-color: rgb(4, 79, 70);
                      </item>
                      <item>
                       <property name="text">
-                       <string>Region growing]</string>
+                       <string>Region Growing</string>
                       </property>
                      </item>
                      <item>
                       <property name="text">
-                       <string>Agglomerative clustering</string>
+                       <string>Agg Clustering</string>
                       </property>
                      </item>
                      <item>
@@ -4969,7 +4972,7 @@ selection-background-color: rgb(4, 79, 70);
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="resetBtn">
+                    <widget class="QPushButton" name="segment_reset_btn">
                      <property name="minimumSize">
                       <size>
                        <width>190</width>
@@ -5395,7 +5398,7 @@ border : 2px solid rgb(255, 255, 255);
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_29">
                    <item>
-                    <widget class="QGraphicsView" name="graphicsView_2">
+                    <widget class="QGraphicsView" name="segment_input_graphics_view">
                      <property name="styleSheet">
                       <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
@@ -5463,7 +5466,7 @@ border : 2px solid rgb(255, 255, 255);
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_30">
                    <item>
-                    <widget class="QGraphicsView" name="graphicsView_3">
+                    <widget class="QGraphicsView" name="segment_output_graphics_view">
                      <property name="styleSheet">
                       <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);

@@ -40,16 +40,16 @@ class SIFTApp(QWidget):
         return keypoints, descriptors
 
 
-    def create_base_image(self,image, sigma, assumed_blur):
-        image = resize(image, (0, 0), fx=2, fy=2, interpolation=INTER_LINEAR)
-        sigma_diff = sqrt(max((sigma ** 2) - ((2 * assumed_blur) ** 2), 0.01))
+    def create_base_image(self,image, sigma, assumed_blur): 
+        image = resize(image, (0, 0), fx=2, fy=2, interpolation=INTER_LINEAR) # increase the size of the image
+        sigma_diff = sqrt(max((sigma ** 2) - ((2 * assumed_blur) ** 2), 0.01)) # calculate the sigma value the i will change add every time
         return GaussianBlur(image, (0, 0), sigmaX=sigma_diff, sigmaY=sigma_diff)
 
-    def calculate_num_octaves(self,image_shape):
+    def calculate_num_octaves(self,image_shape): #calculate the no. of ocatve by log base 2 of the image shape
         num_octaves = int(round(log(min(image_shape)) / log(2) - 1))
         return num_octaves
 
-    def generate_gauss_kernels(self,sigma, num_intervals):
+    def generate_gauss_kernels(self,sigma, num_intervals): #array of gaussian sigmas to multipy it by the image and generate the blurred images 
         num_images_per_octave = num_intervals + 3
         k = 2 ** (1. / num_intervals)
         gaussian_kernels = zeros(num_images_per_octave)  
@@ -61,7 +61,7 @@ class SIFTApp(QWidget):
             gaussian_kernels[image_index] = sqrt(sigma_total ** 2 - sigma_previous ** 2)
         return gaussian_kernels
 
-    def generate_gauss_images(self,image, num_octaves, gaussian_kernels):
+    def generate_gauss_images(self,image, num_octaves, gaussian_kernels):  #apply gaussian for each sigma by the image and generate the blurred images 
         gaussian_images = []
 
         for octave_index in range(num_octaves):
@@ -75,7 +75,7 @@ class SIFTApp(QWidget):
             image = resize(octave_base, (int(octave_base.shape[1] / 2), int(octave_base.shape[0] / 2)), interpolation=INTER_NEAREST)
         return array(gaussian_images, dtype=object)
 
-    def generate_dog_images(self,gaussian_images):
+    def generate_dog_images(self,gaussian_images): # generate dof by subtracting each image 
         dog_images = []
 
         for gaussian_images_in_octave in gaussian_images:
@@ -86,8 +86,8 @@ class SIFTApp(QWidget):
         return array(dog_images, dtype=object)
 
 
-    def find_scale_space_exrema(self,gaussian_images, dog_images, num_intervals, sigma, image_border_width, contrast_threshold=0.04):
-        threshold = floor(0.5 * contrast_threshold / num_intervals * 255)  
+    def find_scale_space_exrema(self,gaussian_images, dog_images, num_intervals, sigma, image_border_width, contrast_threshold=0.04):# compare by a threshold
+        threshold = floor(0.5 * contrast_threshold / num_intervals * 255)  # compare each point if it the max r min from the prev , next and the 26 arround it
         keypoints = []
 
         for octave_index, dog_images_in_octave in enumerate(dog_images):
@@ -125,7 +125,7 @@ class SIFTApp(QWidget):
         return False
 
     def localizeExtremumViaQuadraticFit(self,i, j, image_index, octave_index, num_intervals, dog_images_in_octave, sigma, contrast_threshold, image_border_width, eigenvalue_ratio=10, num_attempts_until_convergence=5):
-        extremum_is_outside_image = False
+        extremum_is_outside_image = False  # to detect the locattion of the subpixel 
         image_shape = dog_images_in_octave[0].shape
         for attempt_index in range(num_attempts_until_convergence):
             first_image, second_image, third_image = dog_images_in_octave[image_index-1:image_index+2]
@@ -192,9 +192,9 @@ class SIFTApp(QWidget):
                     [dxy, dyy, dys],
                     [dxs, dys, dss]])
 
-
+    # window around the keypoint , calc gradinut mag , direct ->histogram  and take the max of the hist and must be higher than prev, next
     def computeKeypointsWithOrientations(self,keypoint, octave_index, gaussian_image, radius_factor=3, num_bins=36, peak_ratio=0.8, scale_factor=1.5):
-        """Compute orientations for each keypoint
+        """Compute orientations for each keypoint  
         """
         keypoints_with_orientations = []
         image_shape = gaussian_image.shape
@@ -256,7 +256,7 @@ class SIFTApp(QWidget):
             return keypoint2.octave - keypoint1.octave
         return keypoint2.class_id - keypoint1.class_id
 
-    def remove_duplicate_keypoints(self,keypoints):
+    def remove_duplicate_keypoints(self,keypoints): 
         # Sort keypoints and remove duplicate keypoints
 
         if len(keypoints) < 2:
@@ -297,7 +297,7 @@ class SIFTApp(QWidget):
             octave = octave | -128
         scale = 1 / float32(1 << octave) if octave >= 0 else float32(1 << -octave)
         return octave, layer, scale
-
+ # generate cube around the keypoint get g magnitude and g direction 
     def generate_descriptors(self,keypoints, gaussian_images, window_width=4, num_bins=8, scale_multiplier=3, descriptor_max_value=0.2):
         #Generate descriptors for each keypoint
         
