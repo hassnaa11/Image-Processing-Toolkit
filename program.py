@@ -33,8 +33,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         uic.loadUi('ui_task4.ui', self)
-        
-        self.database: List[Image] = []
+    
         
         # upload buttons
         self.upload_button.clicked.connect(lambda:self.upload_image(1))
@@ -47,6 +46,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.upload_harris_image_btn.clicked.connect(lambda:self.upload_image(8))
         self.segment_upload_btn.clicked.connect(lambda:self.upload_image(9))
        
+        
+        self.segment_reset_btn.clicked.connect(self.reset_segmentation_tab)
+        self.segment_apply_btn.clicked.connect(self.reset_segmentation_tab)
         
         # noises checkbox
         self.noises_combobox.setDisabled(True)
@@ -153,6 +155,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.otsu_thresholding_button.clicked.connect(lambda: self.apply_thresholding('otsu')) 
         self.spectral_thresholding_button.clicked.connect(lambda: self.apply_thresholding('spectral')) 
         self.optimum_thresholding_button.clicked.connect(lambda: self.apply_thresholding('optimal')) 
+        
+        self.segmentor = Segmentor()
         
         
     def upload_image(self, key):
@@ -268,10 +272,13 @@ class MainWindow(QtWidgets.QMainWindow):
         seed_tolerance = self.seed_tolerance_spinbox.value()
         method = self.segment_method_combobox.currentText()
         
-        segmentor = Segmentor(regions_num, seed_tolerance, intensity_difference_threshold)
-        segmentor.segment(self.segmentation_image, 'Growing Region')
+        segmented_image: Image = self.segmentor.segment(image=self.segmentation_image, method=method, regions_num=regions_num,
+        intensity_diff_threshold=intensity_difference_threshold, seed_selection_tolerance=seed_tolerance)
         
-                                
+        scene = segmented_image.display_image()
+        
+        self.segment_output_graphics_view.setScene(scene)
+        self.segment_output_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)                       
 
                 
     def reset_segmentation_tab(self):
@@ -283,7 +290,11 @@ class MainWindow(QtWidgets.QMainWindow):
             if self.segment_output_graphics_view.scene() is not None :
                 self.segment_output_graphics_view.scene().clear()        
          
-        self.segmentation_image = None 
+        self.segmentation_image = None
+        
+        self.intensity_diff_tolerance_spinbox.setValue(0.05)
+        self.seed_tolerance_spinbox.setValue(0.05)
+        self.regions_num_spinbox.setValue() 
                 
                     
     def apply_harris_operator(self, K, gradient_operator, block_sz):

@@ -3,30 +3,41 @@ import matplotlib.pyplot as plt
 from Image import Image
 
 class Segmentor:
-    def __init__(self, regions_num = None, seed_selection_tolerance = None, intensity_diff_threshold = None):
+    def __init__(self):
+        self.__regions_num = None
+        self.__seed_selection_tolerance = None
+        self.__intensity_diff_threshold = None
+        self.__image: Image = None 
+        pass
+    
+    def segment(self, image:Image, method:str, regions_num=None, seed_selection_tolerance=None, intensity_diff_threshold=None):
+        self.__image = image
+        
+        if method == "Region Growing":
+            self.assing_region_growing_parameters(regions_num, seed_selection_tolerance, intensity_diff_threshold)
+            segmented_image: Image = self.segment_image_region_grow()
+            
+        return segmented_image    
+    
+    def apply_region_growing_segmentation(self, regions_num, seed_selection_tolerance, intensity_diff_threshold):
+        self.__intensity_diff_threshold = intensity_diff_threshold
         self.__regions_num = regions_num
         self.__seed_selection_tolerance = seed_selection_tolerance
-        self.__intensity_diff_threshold = intensity_diff_threshold 
-        pass
-
-    def segment(self, image:Image, method:str):
-        if method == "Region Growing":
-            self.segment_image_region_grow(image)
     
-    def segment_image_region_grow(self, image: Image):      
-        if image.is_RGB(): 
-            rgb_copy_image = Image(image.image)
-            image.rgb2gray() # Normalized Gray Scale
+    def segment_image_region_grow(self):      
+        if self.__image.is_RGB(): 
+            rgb_copy_image = Image(self.__image.image)
+            self.__image.rgb2gray() # Normalized Gray Scale
             rgb = True
         
         #Automatic seed selection using histogram peaks
-        seeds = self.select_seeds(image.image)
+        seeds = self.select_seeds(self.__image.image)
         threshold = self.__intensity_diff_threshold
 
-        segmented_image_arr =  rgb_copy_image.image if rgb else image.image # Convert grayscale to RGB for overlay
+        segmented_image_arr =  rgb_copy_image.image if rgb else self.__image.image # Convert grayscale to RGB for overlay
         for seed in seeds:
             y, x = seed
-            mask = self.region_grow(image.image, (y, x), threshold)
+            mask = self.region_grow(self.__image.image, (y, x), threshold)
             segmented_image_arr[mask] = [100, 100, 0]  # Yellow Marker
 
         segmented_image = Image(segmented_image_arr)
