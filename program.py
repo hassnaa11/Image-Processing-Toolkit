@@ -19,6 +19,7 @@ from SIFT_2 import SIFTApp
 from feature_matching import FeatureMatching
 import time
 from harris_corner_detector import apply_harris_changes
+from segmentor import Segmentor
 
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
@@ -43,6 +44,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.upload_first_matching_image.clicked.connect(lambda:self.upload_image(6))
         self.upload_second_matching_image.clicked.connect(lambda:self.upload_image(7))
         self.upload_harris_image_btn.clicked.connect(lambda:self.upload_image(8))
+        self.segment_upload_btn.clicked.connect(lambda:self.upload_image(9))
        
         
         # noises checkbox
@@ -239,8 +241,38 @@ class MainWindow(QtWidgets.QMainWindow):
                 if self.harris_image.is_RGB(): self.harris_image.rgb2gray()
                     
                 self.apply_harris_operator(K, gradient_operator, block_sz)
+            elif key==9:
+                self.reset_segmentation_tab()
+                
+                self.segmentation_image = self.upload_image
+                
+                self.segment_input_graphics_view.setScene(scene)
+                self.segment_input_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+                
+                self.apply_segmentation_changes()
+                
+
+    def apply_segmentation_changes(self):
+        regions_num = self.regions_num_spinbox.value()
+        intensity_difference_threshold = self.intensity_diff_tolerance_spinbox.value()
+        seed_tolerance = self.seed_tolerance_spinbox.value()
+        method = self.segment_method_combobox.currentText()
+        
+        segmentor = Segmentor(regions_num, seed_tolerance, intensity_difference_threshold)
+        segmentor.segment(self.segmentation_image, 'Growing Region')
+        
                 
                 
+    def reset_segmentation_tab(self):
+        if isinstance(self.segment_input_graphics_view, QGraphicsView):
+            if self.segment_input_graphics_view.scene() is not None :
+                self.segment_input_graphics_view.scene().clear()
+                
+        if isinstance(self.segment_output_graphics_view, QGraphicsView):
+            if self.segment_output_graphics_view.scene() is not None :
+                self.segment_output_graphics_view.scene().clear()        
+         
+        self.segmentation_image = None 
                 
                     
     def apply_harris_operator(self, K, gradient_operator, block_sz):

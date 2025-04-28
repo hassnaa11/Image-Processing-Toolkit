@@ -3,22 +3,25 @@ import matplotlib.pyplot as plt
 from Image import Image
 
 class Segmentor:
-    def __init__(self):
-        print("Segmentor class initialized")
+    def __init__(self, regions_num = None, seed_selection_tolerance = None, intensity_diff_threshold = None):
+        self.__regions_num = regions_num
+        self.__seed_selection_tolerance = seed_selection_tolerance
+        self.__intensity_diff_threshold = intensity_diff_threshold 
         pass
 
     def segment(self, image:Image, method:str):
-        if method == "Region Grow":
+        if method == "Region Growing":
             self.segment_image_region_grow(image)
     
-    def segment_image_region_grow(self, image: Image, threshold=0.1):      
+    def segment_image_region_grow(self, image: Image):      
         if image.is_RGB(): 
             rgb_copy_image = Image(image.image)
-            image.rgb2gray()
+            image.rgb2gray() # Normalized Gray Scale
             rgb = True
         
         #Automatic seed selection using histogram peaks
         seeds = self.select_seeds(image.image)
+        threshold = self.__intensity_diff_threshold
 
         segmented_image_arr =  rgb_copy_image.image if rgb else image.image # Convert grayscale to RGB for overlay
         for seed in seeds:
@@ -26,7 +29,8 @@ class Segmentor:
             mask = self.region_grow(image.image, (y, x), threshold)
             segmented_image_arr[mask] = [100, 100, 0]  # Yellow Marker
 
-        return segmented_image_arr
+        segmented_image = Image(segmented_image_arr)
+        return segmented_image
 
     def select_seeds(self, gray_img_arr):
         """
@@ -40,14 +44,18 @@ class Segmentor:
         """
         # Compute histogram
         hist, bins = np.histogram(gray_img_arr.flatten(), bins=256, range=(0, 1))
+        
+        regions_num = self.__regions_num
+        tolerance = self.__seed_selection_tolerance
 
-        # Find peaks in the histogram
-        peaks = np.argpartition(hist, -3)[-3:]  # Select top 3 peaks
+        # Indices of bins correspinding to top frequent intensities based on regions_num
+        peaks = np.argpartition(hist, -regions_num)[-regions_num:]
+        
         seeds = []
         for peak in peaks:
             intensity = bins[peak]
             # Find pixels close to the peak intensity
-            y, x = np.where((gray_img_arr >= intensity - 0.01) & (gray_img_arr <= intensity + 0.01))
+            y, x = np.where((gray_img_arr >= intensity - tolerance) & (gray_img_arr <= intensity + tolerance))
             if len(y) > 0:
                 seeds.append((y[0], x[0]))  # Select the first pixel as a seed
 

@@ -4877,6 +4877,13 @@ border-radius: 10px;</string>
                     </widget>
                    </item>
                    <item>
+                    <widget class="QLabel" name="label_44">
+                     <property name="text">
+                      <string>Select Method</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
                     <widget class="QComboBox" name="segment_method_combobox">
                      <property name="minimumSize">
                       <size>
@@ -5214,89 +5221,10 @@ border-radius: 10px;</string>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_28">
                    <item>
-                    <widget class="QFrame" name="frame">
-                     <property name="frameShape">
-                      <enum>QFrame::StyledPanel</enum>
+                    <widget class="QLabel" name="label_45">
+                     <property name="text">
+                      <string>Intensity Difference Threshold</string>
                      </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Raised</enum>
-                     </property>
-                     <layout class="QHBoxLayout" name="horizontalLayout_29">
-                      <item>
-                       <widget class="QPushButton" name="globalThresholdBtn">
-                        <property name="minimumSize">
-                         <size>
-                          <width>190</width>
-                          <height>35</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>200</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                        </property>
-                        <property name="text">
-                         <string>Global Thresholding</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="localThresholdBtn">
-                        <property name="minimumSize">
-                         <size>
-                          <width>190</width>
-                          <height>35</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>200</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                        </property>
-                        <property name="text">
-                         <string>Local Thresholding</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_23">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeType">
-                         <enum>QSizePolicy::Fixed</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>300</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
                     </widget>
                    </item>
                    <item>
@@ -5308,6 +5236,53 @@ border-radius: 10px;</string>
                       <enum>QFrame::Raised</enum>
                      </property>
                      <layout class="QHBoxLayout" name="horizontalLayout_30">
+                      <item>
+                       <widget class="QDoubleSpinBox" name="intensity_diff_tolerance_spinbox">
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>0.050000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_46">
+                        <property name="text">
+                         <string>Regions Number</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="regions_num_spinbox">
+                        <property name="value">
+                         <number>3</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_47">
+                        <property name="text">
+                         <string>Seed Selection Tolrance</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QDoubleSpinBox" name="seed_tolerance_spinbox">
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>0.050000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
                       <item>
                        <widget class="QLabel" name="label_43">
                         <property name="minimumSize">
