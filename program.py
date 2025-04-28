@@ -294,7 +294,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.intensity_diff_tolerance_spinbox.setValue(0.05)
         self.seed_tolerance_spinbox.setValue(0.05)
-        self.regions_num_spinbox.setValue() 
+        self.regions_num_spinbox.setValue(5) 
                 
                     
     def apply_harris_operator(self, K, gradient_operator, block_sz):
