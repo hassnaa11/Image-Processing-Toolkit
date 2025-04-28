@@ -43,6 +43,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.upload_first_matching_image.clicked.connect(lambda:self.upload_image(6))
         self.upload_second_matching_image.clicked.connect(lambda:self.upload_image(7))
         self.upload_harris_image_btn.clicked.connect(lambda:self.upload_image(8))
+        self.segment_upload_btn.clicked.connect(lambda:self.upload_image(9))
        
         
         # noises checkbox
@@ -239,7 +240,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 if self.harris_image.is_RGB(): self.harris_image.rgb2gray()
                     
                 self.apply_harris_operator(K, gradient_operator, block_sz)
-                
+            
+            elif key==9:
+                self.image_4=self.input_image
+                self.input_path = self.file_path
+                self.segment_input_graphics_view.setScene(scene)
+                self.segment_input_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
                 
                 
                     
