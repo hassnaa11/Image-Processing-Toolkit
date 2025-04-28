@@ -91,28 +91,4 @@ class Segmentor:
         return mask
 
 
-# Example Usage
-if __name__ == "__main__":
-    # Load an image (replace with your image path)
-    image = plt.imread("path_to_image.jpg")
-    if image.max() > 1:  # Normalize if needed
-        image = image / 255.0
-
-    # Create a Segmentor instance
-    segmentor = Segmentor()
-
-    # Segment the image
-    segmented_image_arr = segmentor.segment_image(image, threshold=0.1)
-
-    # Display the original and segmented images
-    plt.figure(figsize=(10, 5))
-    plt.subplot(1, 2, 1)
-    plt.imshow(image)
-    plt.title("Original Image")
-    plt.axis("off")
-
-    plt.subplot(1, 2, 2)
-    plt.imshow(segmented_image_arr)
-    plt.title("Segmented Image")
-    plt.axis("off")
-    plt.show()  
+ 
