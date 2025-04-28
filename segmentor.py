@@ -10,8 +10,9 @@ class Segmentor:
         self.__image: Image = None 
         pass
     
-    def segment(self, image:Image, method:str, regions_num=None, seed_selection_tolerance=None, intensity_diff_threshold=None):
+    def segment(self, image:Image, method:str="Region Growing", regions_num=None, seed_selection_tolerance=None, intensity_diff_threshold=None):
         self.__image = image
+        segmented_image = None
         
         if method == "Region Growing":
             self.assing_region_growing_parameters(regions_num, seed_selection_tolerance, intensity_diff_threshold)

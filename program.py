@@ -270,10 +270,18 @@ class MainWindow(QtWidgets.QMainWindow):
         regions_num = self.regions_num_spinbox.value()
         intensity_difference_threshold = self.intensity_diff_tolerance_spinbox.value()
         seed_tolerance = self.seed_tolerance_spinbox.value()
-        method = self.segment_method_combobox.currentText()
+        
+        if self.segment_method_combobox.currentIndex() == -1:
+            method = "Region Growing"
+        else: method = self.segment_method_combobox.currentText()
+        
         
         segmented_image: Image = self.segmentor.segment(image=self.segmentation_image, method=method, regions_num=regions_num,
         intensity_diff_threshold=intensity_difference_threshold, seed_selection_tolerance=seed_tolerance)
+        
+        print("********************")
+        print("Segmentation Done")
+        print("********************")
         
         scene = segmented_image.display_image()
         
