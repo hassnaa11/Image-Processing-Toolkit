@@ -19,6 +19,7 @@ from SIFT_2 import SIFTApp
 from feature_matching import FeatureMatching
 import time
 from harris_corner_detector import apply_harris_changes
+from thresholding import ThresholdingProcessor
 
 kernel_sizes = [3, 5, 7]
 RGB_Channels = ("red", "green", "blue")
@@ -147,6 +148,11 @@ class MainWindow(QtWidgets.QMainWindow):
         #apply harris operator
         self.apply_harris_btn.clicked.connect(lambda: self.apply_harris_operator(self.harris_k, self.harris_gd_oper, self.harris_block_sz))
         
+        # thresholding
+        self.otsu_thresholding_button.clicked.connect(lambda: self.apply_thresholding('ostu')) 
+        self.spectral_thresholding_button.clicked.connect(lambda: self.apply_thresholding('spectral')) 
+        # self.otsu_thresholding_button.clicked.connect(lambda: self.apply_thresholding('ostu')) 
+        
         
     def upload_image(self, key):
         self.file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
@@ -246,7 +252,6 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.input_path = self.file_path
                 self.segment_input_graphics_view.setScene(scene)
                 self.segment_input_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-                
                 
                     
     def apply_harris_operator(self, K, gradient_operator, block_sz):
@@ -909,7 +914,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.graphicsView_4.setScene(scene)
         self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)         
 
+
+    def apply_thresholding(self, type): 
+        thresholder = ThresholdingProcessor()
+        image = cv2.imread(self.input_path, cv2.IMREAD_COLOR) 
+        result_image = thresholder.otsu_threshold(image)
         
+        thresholded_image= Image(result_image)
+        scene = thresholded_image.display_image()
+        self.segment_output_graphics_view.setScene(scene)
+        self.segment_output_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
