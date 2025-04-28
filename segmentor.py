@@ -20,7 +20,7 @@ class Segmentor:
             
         return segmented_image    
     
-    def apply_region_growing_segmentation(self, regions_num, seed_selection_tolerance, intensity_diff_threshold):
+    def assing_region_growing_parameters(self, regions_num, seed_selection_tolerance, intensity_diff_threshold):
         self.__intensity_diff_threshold = intensity_diff_threshold
         self.__regions_num = regions_num
         self.__seed_selection_tolerance = seed_selection_tolerance

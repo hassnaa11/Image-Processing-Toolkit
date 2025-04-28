@@ -258,7 +258,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 
                 self.reset_segmentation_tab()
                 
-                self.segmentation_image = self.upload_image
+                self.segmentation_image = uploaded_img
                 
                 self.segment_input_graphics_view.setScene(scene)
                 self.segment_input_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
