@@ -64,7 +64,7 @@ background-color: rgb(219,222,230);
           </size>
          </property>
          <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
+          <cursorShape>BusyCursor</cursorShape>
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -4836,7 +4836,7 @@ border-radius: 10px;</string>
          </widget>
          <widget class="QWidget" name="tab_6">
           <attribute name="title">
-           <string>Segmentation</string>
+           <string>Segmentation &amp; Thresholding</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_11">
            <item row="0" column="0">
@@ -4861,18 +4861,27 @@ border-radius: 10px;</string>
                        <height>16777215</height>
                       </size>
                      </property>
+                     <property name="cursor">
+                      <cursorShape>OpenHandCursor</cursorShape>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
+background-color: rgb(6,131,116);
 
 color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
                      </property>
                      <property name="text">
                       <string>Upload</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_44">
+                     <property name="text">
+                      <string>Select Method</string>
                      </property>
                     </widget>
                    </item>
@@ -4890,39 +4899,20 @@ border-radius: 10px;</string>
                        <height>16777215</height>
                       </size>
                      </property>
+                     <property name="cursor">
+                      <cursorShape>OpenHandCursor</cursorShape>
+                     </property>
                      <property name="acceptDrops">
                       <bool>false</bool>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">QComboBox {
-background-color: rgb(219,222,230);
-    color: white;  /* Text color */
-color: rgb(2, 39, 35);
+                      <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
 
-    border-radius: 15px;  /* Rounded corners */
-    padding: 5px;
-    font: italic 10pt &quot;Georgia&quot;;
-}
-
-QComboBox::drop-down {
-    border: none;
-    border-radius: 10px;  /* Rounded corners for the arrow box */
-background-color: rgb(188, 191, 198);
-    width: 30px;
-}
-
-QComboBox::down-arrow {
-    width: 15px;
-    height: 15px;
-    color: white;  /* Arrow color */
-}
-
-QComboBox QAbstractItemView {
- /* Selected item background color */
-selection-background-color: rgb(4, 79, 70);
-    background-color: rgb(169, 171, 178);;  /* Dropdown background color */
-    border-radius: 10px;
-}</string>
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
                      </property>
                      <property name="editable">
                       <bool>true</bool>
@@ -4985,13 +4975,15 @@ selection-background-color: rgb(4, 79, 70);
                        <height>16777215</height>
                       </size>
                      </property>
+                     <property name="cursor">
+                      <cursorShape>OpenHandCursor</cursorShape>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
+background-color: rgb(6,131,116);
 
 color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
                      </property>
@@ -5065,13 +5057,15 @@ border-radius: 10px;</string>
                           <height>35</height>
                          </size>
                         </property>
+                        <property name="cursor">
+                         <cursorShape>OpenHandCursor</cursorShape>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
+background-color: rgb(6,131,116);
 
 color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
                         </property>
@@ -5094,13 +5088,15 @@ border-radius: 10px;</string>
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="cursor">
+                         <cursorShape>OpenHandCursor</cursorShape>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
+background-color: rgb(6,131,116);
 
 color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
                         </property>
@@ -5110,7 +5106,7 @@ border-radius: 10px;</string>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QPushButton" name="optimumBtn">
+                       <widget class="QPushButton" name="optimum_thresholding_button">
                         <property name="minimumSize">
                          <size>
                           <width>190</width>
@@ -5123,23 +5119,25 @@ border-radius: 10px;</string>
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="cursor">
+                         <cursorShape>OpenHandCursor</cursorShape>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
+background-color: rgb(6,131,116);
 
 color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
                         </property>
                         <property name="text">
-                         <string>Optimum Thresholding</string>
+                         <string>Optimal Thresholding</string>
                         </property>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QComboBox" name="globalVsLocalCombo">
+                       <widget class="QComboBox" name="global_local_thresholding_combobox">
                         <property name="minimumSize">
                          <size>
                           <width>190</width>
@@ -5152,13 +5150,15 @@ border-radius: 10px;</string>
                           <height>16777215</height>
                          </size>
                         </property>
+                        <property name="cursor">
+                         <cursorShape>OpenHandCursor</cursorShape>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">font: italic 10pt &quot;Georgia&quot;;
 background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
+background-color: rgb(6,131,116);
 
 color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
 buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
 border-radius: 10px;</string>
                         </property>
@@ -5169,7 +5169,7 @@ border-radius: 10px;</string>
                         </item>
                         <item>
                          <property name="text">
-                          <string>Local </string>
+                          <string>Local</string>
                          </property>
                         </item>
                        </widget>
@@ -5214,89 +5214,10 @@ border-radius: 10px;</string>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_28">
                    <item>
-                    <widget class="QFrame" name="frame">
-                     <property name="frameShape">
-                      <enum>QFrame::StyledPanel</enum>
+                    <widget class="QLabel" name="label_45">
+                     <property name="text">
+                      <string>Intensity Difference Threshold</string>
                      </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Raised</enum>
-                     </property>
-                     <layout class="QHBoxLayout" name="horizontalLayout_29">
-                      <item>
-                       <widget class="QPushButton" name="globalThresholdBtn">
-                        <property name="minimumSize">
-                         <size>
-                          <width>190</width>
-                          <height>35</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>200</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                        </property>
-                        <property name="text">
-                         <string>Global Thresholding</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="localThresholdBtn">
-                        <property name="minimumSize">
-                         <size>
-                          <width>190</width>
-                          <height>35</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>200</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">font: italic 10pt &quot;Georgia&quot;;
-background-color: rgb(57, 143, 252);
-background-color: rgb(219,222,230);
-
-color: rgb(255, 255, 255);
-color: rgb(2, 39, 35);
-buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
-border-radius: 10px;</string>
-                        </property>
-                        <property name="text">
-                         <string>Local Thresholding</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_23">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeType">
-                         <enum>QSizePolicy::Fixed</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>300</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
                     </widget>
                    </item>
                    <item>
@@ -5308,6 +5229,53 @@ border-radius: 10px;</string>
                       <enum>QFrame::Raised</enum>
                      </property>
                      <layout class="QHBoxLayout" name="horizontalLayout_30">
+                      <item>
+                       <widget class="QDoubleSpinBox" name="intensity_diff_tolerance_spinbox">
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>0.050000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_46">
+                        <property name="text">
+                         <string>Regions Number</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="regions_num_spinbox">
+                        <property name="value">
+                         <number>3</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_47">
+                        <property name="text">
+                         <string>Seed Selection Tolrance</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QDoubleSpinBox" name="seed_tolerance_spinbox">
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>0.050000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
                       <item>
                        <widget class="QLabel" name="label_43">
                         <property name="minimumSize">
@@ -5398,6 +5366,29 @@ border : 2px solid rgb(255, 255, 255);
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_29">
                    <item>
+                    <widget class="QLabel" name="label_49">
+                     <property name="font">
+                      <font>
+                       <family>MS Shell Dlg 2</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>false</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">color: rgb(255, 255, 255);
+
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0;
+</string>
+                     </property>
+                     <property name="text">
+                      <string>Input Image </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
                     <widget class="QGraphicsView" name="segment_input_graphics_view">
                      <property name="styleSheet">
                       <string notr="true">font: italic 10pt &quot;Georgia&quot;;
@@ -5465,6 +5456,29 @@ border : 2px solid rgb(255, 255, 255);
                    <enum>QFrame::Raised</enum>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_30">
+                   <item>
+                    <widget class="QLabel" name="label_48">
+                     <property name="font">
+                      <font>
+                       <family>MS Shell Dlg 2</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>false</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">color: rgb(255, 255, 255);
+
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0;
+</string>
+                     </property>
+                     <property name="text">
+                      <string>Output Image</string>
+                     </property>
+                    </widget>
+                   </item>
                    <item>
                     <widget class="QGraphicsView" name="segment_output_graphics_view">
                      <property name="styleSheet">

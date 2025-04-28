@@ -19,6 +19,7 @@ from SIFT_2 import SIFTApp
 from feature_matching import FeatureMatching
 import time
 from harris_corner_detector import apply_harris_changes
+from segmentor import Segmentor
 from thresholding import ThresholdingProcessor
 
 kernel_sizes = [3, 5, 7]
@@ -149,9 +150,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.apply_harris_btn.clicked.connect(lambda: self.apply_harris_operator(self.harris_k, self.harris_gd_oper, self.harris_block_sz))
         
         # thresholding
-        self.otsu_thresholding_button.clicked.connect(lambda: self.apply_thresholding('ostu')) 
+        self.otsu_thresholding_button.clicked.connect(lambda: self.apply_thresholding('otsu')) 
         self.spectral_thresholding_button.clicked.connect(lambda: self.apply_thresholding('spectral')) 
-        # self.otsu_thresholding_button.clicked.connect(lambda: self.apply_thresholding('ostu')) 
+        self.optimum_thresholding_button.clicked.connect(lambda: self.apply_thresholding('optimal')) 
         
         
     def upload_image(self, key):
@@ -246,12 +247,43 @@ class MainWindow(QtWidgets.QMainWindow):
                 if self.harris_image.is_RGB(): self.harris_image.rgb2gray()
                     
                 self.apply_harris_operator(K, gradient_operator, block_sz)
-            
+
             elif key==9:
                 self.image_4=self.input_image
                 self.input_path = self.file_path
+                
+                self.reset_segmentation_tab()
+                
+                self.segmentation_image = self.upload_image
+                
                 self.segment_input_graphics_view.setScene(scene)
                 self.segment_input_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+                
+                self.apply_segmentation_changes()
+                
+
+    def apply_segmentation_changes(self):
+        regions_num = self.regions_num_spinbox.value()
+        intensity_difference_threshold = self.intensity_diff_tolerance_spinbox.value()
+        seed_tolerance = self.seed_tolerance_spinbox.value()
+        method = self.segment_method_combobox.currentText()
+        
+        segmentor = Segmentor(regions_num, seed_tolerance, intensity_difference_threshold)
+        segmentor.segment(self.segmentation_image, 'Growing Region')
+        
+                                
+
+                
+    def reset_segmentation_tab(self):
+        if isinstance(self.segment_input_graphics_view, QGraphicsView):
+            if self.segment_input_graphics_view.scene() is not None :
+                self.segment_input_graphics_view.scene().clear()
+                
+        if isinstance(self.segment_output_graphics_view, QGraphicsView):
+            if self.segment_output_graphics_view.scene() is not None :
+                self.segment_output_graphics_view.scene().clear()        
+         
+        self.segmentation_image = None 
                 
                     
     def apply_harris_operator(self, K, gradient_operator, block_sz):
@@ -915,15 +947,25 @@ class MainWindow(QtWidgets.QMainWindow):
         self.graphicsView_4.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)         
 
 
-    def apply_thresholding(self, type): 
+    def apply_thresholding(self, type):
         thresholder = ThresholdingProcessor()
-        image = cv2.imread(self.input_path, cv2.IMREAD_COLOR) 
-        result_image = thresholder.otsu_threshold(image)
+        image = cv2.imread(self.input_path, cv2.IMREAD_GRAYSCALE) 
+        scope = self.global_local_thresholding_combobox.currentText()
         
-        thresholded_image= Image(result_image)
+        if type == "optimal":
+            result_image = thresholder.apply_threshold(image, 'optimal', scope)
+        elif type == "otsu":
+            result_image = thresholder.apply_threshold(image, 'otsu', scope)
+        elif type == "spectral":
+            result_image = thresholder.apply_threshold(image, 'spectral', scope, n_classes=3)
+        else:
+            raise ValueError(f"Unknown thresholding type: {type}")
+        
+        thresholded_image = Image(result_image)
         scene = thresholded_image.display_image()
         self.segment_output_graphics_view.setScene(scene)
-        self.segment_output_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio) 
+        self.segment_output_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        print(f"{type}, {scope} Thresholding done successfuly")
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

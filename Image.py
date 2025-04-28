@@ -179,7 +179,8 @@ class Image:
         return self.__cdf_canvas
     
     def rgb2gray(self):
+        """retruns a normalized grayscale image"""
         if self.is_RGB():
-            self.image = cv2.cvtColor(self.image, cv2.COLOR_RGB2GRAY)
+            self.image = cv2.cvtColor(self.image, cv2.COLOR_RGB2GRAY) / 255.0
             print("RGB image converted to gray")
         else: print("Image is already in grayscale")       

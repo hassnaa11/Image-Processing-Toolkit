@@ -1,215 +1,229 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from skimage.io import imread, imsave
-import cv2
 
 class ThresholdingProcessor:
-    def __init__(self, image = None):
-        self.image = image
+    def __init__(self):
+        pass
+    
+    # Global methods
+    def optimal_threshold_global(self, image, max_iter=100, tol=1):
+        """
+        Optimal thresholding using iterative method (global)
+        """
+        # Initialize threshold as the mean of min and max pixel values
+        threshold = (np.min(image) + np.max(image)) / 2
+        prev_threshold = 0
         
-        
-    def otsu_threshold(self, image):
-        if len(image.shape) == 3:
-            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        else:
-            gray = image
-            # colored_full_image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
-
-        pixel_number = gray.shape[0] * gray.shape[1] # number of pixels
-        mean_weight = 1.0/pixel_number # sum of all weights
-        his, bins = np.histogram(gray, np.arange(0,257)) # calculating the histogram of the image
-        final_thresh = -1 # defining the best threshold calculated
-        final_variance = -1 # defining the highest between class variance
-        intensity_arr = np.arange(256) # creating array of all the possible pixel values (0-255)
-        # Iterating through all the possible pixel values from the histogram as thresholds
-        for t in bins[0:-1]:
-            pcb = np.sum(his[:t]) # summing the frequency of the values before the threshold (background)
-            pcf = np.sum(his[t:]) # summing the frequency of the values after the threshold (foreground)
-            Wb = pcb * mean_weight # calculating the weight of the background (divide the frequencies by the sum of all weights)
-            Wf = pcf * mean_weight # calculating the weight of the foreground
-
-            mub = np.sum(intensity_arr[:t]*his[:t]) / float(pcb) # calculating the mean of the background (multiply the background 
-            # pixel value with its weight, then divide it with the sum of frequencies of the background)
-            muf = np.sum(intensity_arr[t:]*his[t:]) / float(pcf) # calculating the mean of the foreground
+        for _ in range(max_iter):
+            # Segment the image
+            foreground = image > threshold
+            background = image <= threshold
             
-            variance = Wb * Wf * (mub - muf) ** 2 # calculate the between class variance
-
-            if variance > final_variance: # compare the variance in each step with the previous
-                final_thresh = t
-                final_variance = variance
-
-        return final_thresh
-
-
-    def local_thresholding(self, image, t1, t2, t3, t4, mode):
-        # If the image is colored, change it to grayscale, otherwise take the image as it is
-        if (image.ndim == 3):
-            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        elif (image.ndim == 2):
-            gray = image
-
-        height, width = gray.shape # get the height and width of the image
-        # In this case we will divide the image into a 2x2 grid image
-        half_height = height//2 
-        half_width = width//2
-
-        # Getting the four section of the 2x2 image
-        section_1 = gray[:half_height, :half_width]
-        section_2 = gray[:half_height, half_width:]
-        section_3 = gray[half_height:, :half_width]
-        section_4 = gray[half_height:, half_width:]
-
-        # Check if the threshold is calculated through Otsu's method or given by the user
-        if (mode == 1): # calculating the threshold using Otsu's methond for each section
-            t1 = self.otsu_threshold(section_1)
-            t2 = self.otsu_threshold(section_2)
-            t3 = self.otsu_threshold(section_3)
-            t4 = self.otsu_threshold(section_4)
-
-        # Applying the threshold of each section on its corresponding section
-        section_1[section_1 > t1] = 255
-        section_1[section_1 < t1] = 0
-
-        section_2[section_2 > t2] = 255
-        section_2[section_2 < t2] = 0
-
-        section_3[section_3 > t3] = 255
-        section_3[section_3 < t3] = 0
-
-        section_4[section_4 > t4] = 255
-        section_4[section_4 < t4] = 0
-
-        # Regroup the sections to form the final image
-        top_section = np.concatenate((section_1, section_2), axis = 1)
-        bottom_section = np.concatenate((section_3, section_4), axis = 1)
-        final_img = np.concatenate((top_section, bottom_section), axis=0)
-
-            # final_img = gray.copy()
-            # final_img[gray > t] = 255
-            # final_img[gray < t] = 0
-
+            # Calculate means
+            mean_fore = np.mean(image[foreground]) if np.any(foreground) else threshold
+            mean_back = np.mean(image[background]) if np.any(background) else threshold
+            
+            # Update threshold
+            prev_threshold = threshold
+            threshold = (mean_fore + mean_back) / 2
+            
+            # Check for convergence
+            if abs(threshold - prev_threshold) < tol:
+                break
         
-        plt.imshow(final_img, cmap = 'gray')
-        path = "images/output/local.png"
-        plt.axis("off")
-        plt.savefig(path)
-        return path
-        # return final_img
-
-
-    def global_thresholding(self, image, t, mode):
-        # If the image is colored, change it to grayscale, otherwise take the image as it is
-        if (image.ndim == 3):
-            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        elif (image.ndim == 2):
-            gray = image
-
-        # Check if the threshold is calculated through Otsu's method or the threshold is given by the user
-        if (mode == 1): # calculating the threshold using Otsu's methond for the whole image
-            t = self.otsu_threshold(gray)
-
-        # Applying the threshold on the image whether it is calculated or given by the user according to the previous condition
-        final_img = gray.copy()
-        final_img[gray > t] = 255
-        final_img[gray < t] = 0
-
-        plt.imshow(final_img, cmap = 'gray')
-        path = "images/output/global.png"
-        plt.axis("off")
-        plt.savefig(path)
-        return path
-
-# # image_path = 'data\dog.jpg'
-# # image = cv2.imread(image_path)            
-
-# # image = cv2.cvtColor(image_path, cv2.COLOR_BGR2RGB)
-
-# # image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-# # otsu_threshold(image)
-
-# import os
-# import cv2
-# import matplotlib.pyplot as plt
-
-# # Import the functions you wrote
-# # from your_script import local_thresholding, global_thresholding
-
-# # Load an example image
-# # Make sure you have an 'images/input/' folder and a grayscale or RGB image there
-# input_image_path = "data\dog.jpg"  # Adjust path and name if different
-# import os
-# import cv2
-# import matplotlib.pyplot as plt
-# import numpy as np
-
-# # Import your functions
-# # from your_script import local_thresholding, global_thresholding, otsu_threshold
-
-# # Load an example image
-
-# # Create output directory if it doesn't exist
-# os.makedirs("images/output", exist_ok=True)
-
-# # Read the image
-# image = cv2.imread(input_image_path)
-
-# if image is None:
-#     raise ValueError(f"Failed to load image from {input_image_path}. Check the path!")
-
-# # Show the original image
-# plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-# plt.title("Original Image")
-# plt.axis("off")
-# plt.show()
-
-# ### Test 1: Test Otsu Thresholding alone
-# print("Testing Otsu Thresholding alone...")
-# if image.ndim == 3:
-#     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-# else:
-#     gray = image.copy()
-
-# # Compute threshold manually
-# otsu_thresh_value = otsu_threshold(gray)
-# print(f"Otsu's calculated threshold: {otsu_thresh_value}")
-
-# # Apply the calculated threshold manually
-# otsu_img = gray.copy()
-# otsu_img[gray > otsu_thresh_value] = 255
-# otsu_img[gray < otsu_thresh_value] = 0
-
-# # Save and display
-# otsu_path = "images/output/otsu_manual.png"
-# cv2.imwrite(otsu_path, otsu_img)
-
-# plt.imshow(otsu_img, cmap='gray')
-# plt.title(f"Otsu Thresholding (threshold={otsu_thresh_value})")
-# plt.axis("off")
-# plt.show()
-
-
-# ### Test 2: Global Thresholding using your function
-# global_path = global_thresholding(image, t=0, mode=1)
-# print(f"Global thresholded image saved at: {global_path}")
-
-# ### Test 3: Local Thresholding using your function
-# local_path = local_thresholding(image, t1=0, t2=0, t3=0, t4=0, mode=1)
-# print(f"Local thresholded image saved at: {local_path}")
-
-# # Optional: Display Global and Local Thresholding Results
-# global_result = cv2.imread(global_path, cv2.IMREAD_GRAYSCALE)
-# local_result = cv2.imread(local_path, cv2.IMREAD_GRAYSCALE)
-
-# plt.figure(figsize=(12,5))
-
-# plt.subplot(1,2,1)
-# plt.imshow(global_result, cmap='gray')
-# plt.title("Global Thresholding")
-# plt.axis("off")
-
-# plt.subplot(1,2,2)
-# plt.imshow(local_result, cmap='gray')
-# plt.title("Local Thresholding")
-# plt.axis("off")
-
-# plt.show()
+        # Apply threshold
+        binary = np.zeros_like(image)
+        binary[image > threshold] = 255
+        return binary
+        
+    def otsu_threshold_global(self, image):
+        """
+        Otsu's thresholding method (global)
+        """
+        # Calculate histogram
+        hist, bins = np.histogram(image.flatten(), bins=256, range=[0,256])
+        hist = hist.astype(float) / hist.sum()  # Normalize
+        
+        # Initialize variables
+        best_thresh = 0
+        best_var = 0
+        
+        # Iterate through all possible thresholds
+        for threshold in range(1, 256):
+            # Class probabilities
+            w0 = np.sum(hist[:threshold])
+            w1 = np.sum(hist[threshold:])
+            
+            if w0 == 0 or w1 == 0:
+                continue
+            
+            # Class means
+            mean0 = np.sum(np.arange(threshold) * hist[:threshold]) / w0
+            mean1 = np.sum(np.arange(threshold, 256) * hist[threshold:]) / w1
+            
+            # Between-class variance
+            var = w0 * w1 * (mean0 - mean1) ** 2
+            
+            if var > best_var:
+                best_var = var
+                best_thresh = threshold
+        
+        # Apply threshold
+        binary = np.zeros_like(image)
+        binary[image > best_thresh] = 255
+        return binary
+    
+    def spectral_threshold_global(self, image, n_classes=3):
+        """
+        Spectral thresholding using multi-level Otsu (global)
+        """
+        # Calculate histogram
+        hist, bins = np.histogram(image.flatten(), bins=256, range=[0,256])
+        hist = hist.astype(float) / hist.sum()  # Normalize
+        
+        # Initialize best thresholds and variance
+        best_thresholds = []
+        best_var = 0
+        
+        # Try all possible threshold combinations (simplified version)
+        # Note: For more classes, a more efficient algorithm would be needed
+        if n_classes == 3:
+            for t1 in range(1, 254):
+                for t2 in range(t1+1, 255):
+                    # Class probabilities
+                    w0 = np.sum(hist[:t1])
+                    w1 = np.sum(hist[t1:t2])
+                    w2 = np.sum(hist[t2:])
+                    
+                    if w0 == 0 or w1 == 0 or w2 == 0:
+                        continue
+                    
+                    # Class means
+                    mean0 = np.sum(np.arange(t1) * hist[:t1]) / w0
+                    mean1 = np.sum(np.arange(t1, t2) * hist[t1:t2]) / w1
+                    mean2 = np.sum(np.arange(t2, 256) * hist[t2:]) / w2
+                    
+                    # Total mean
+                    mean_total = mean0 * w0 + mean1 * w1 + mean2 * w2
+                    
+                    # Between-class variance
+                    var = (w0 * (mean0 - mean_total)**2 + 
+                        w1 * (mean1 - mean_total)**2 + 
+                        w2 * (mean2 - mean_total)**2)
+                    
+                    if var > best_var:
+                        best_var = var
+                        best_thresholds = [t1, t2]
+        
+        # Apply thresholds
+        segmented = np.zeros_like(image)
+        if n_classes == 3:
+            segmented[image <= best_thresholds[0]] = 0
+            segmented[(image > best_thresholds[0]) & (image <= best_thresholds[1])] = 128
+            segmented[image > best_thresholds[1]] = 255
+        else:
+            # For simplicity, we'll just do binary if n_classes != 3
+            threshold = best_thresholds[0] if best_thresholds else 128
+            segmented[image > threshold] = 255
+        
+        return segmented
+    
+    # Local methods
+    def optimal_threshold_local(self, image, block_size=35, C=5):
+        """
+        Local optimal thresholding using sliding window
+        """
+        height, width = image.shape
+        binary = np.zeros_like(image)
+        
+        for y in range(0, height, block_size//2):
+            for x in range(0, width, block_size//2):
+                # Get block
+                y1 = min(y + block_size, height)
+                x1 = min(x + block_size, width)
+                block = image[y:y1, x:x1]
+                
+                if block.size == 0:
+                    continue
+                    
+                # Apply optimal threshold to this block
+                block_binary = self.optimal_threshold_global(block)
+                binary[y:y1, x:x1] = block_binary
+        
+        return binary
+    
+    def otsu_threshold_local(self, image, block_size=35):
+        """
+        Local Otsu's thresholding using sliding window
+        """
+        height, width = image.shape
+        binary = np.zeros_like(image)
+        
+        for y in range(0, height, block_size//2):
+            for x in range(0, width, block_size//2):
+                # Get block
+                y1 = min(y + block_size, height)
+                x1 = min(x + block_size, width)
+                block = image[y:y1, x:x1]
+                
+                if block.size == 0:
+                    continue
+                    
+                # Apply Otsu to this block
+                block_binary = self.otsu_threshold_global(block)
+                binary[y:y1, x:x1] = block_binary
+        
+        return binary
+        
+    def spectral_threshold_local(self, image, block_size=35, n_classes=3):
+        """
+        Local spectral thresholding using sliding window
+        """
+        height, width = image.shape
+        segmented = np.zeros_like(image)
+        
+        for y in range(0, height, block_size//2):
+            for x in range(0, width, block_size//2):
+                # Get block
+                y1 = min(y + block_size, height)
+                x1 = min(x + block_size, width)
+                block = image[y:y1, x:x1]
+                
+                if block.size == 0:
+                    continue
+                    
+                # Apply spectral threshold to this block
+                block_segmented = self.spectral_threshold_global(block, n_classes)
+                segmented[y:y1, x:x1] = block_segmented
+        
+        return segmented
+    
+    # Unified method to call all types
+    def apply_threshold(self, image, method='otsu', scope='Global', **kwargs):
+        """
+        Apply thresholding with specified method and scope
+        
+        Parameters:
+        - image: Input grayscale image
+        - method: 'optimal', 'otsu', or 'spectral'
+        - scope: 'global' or 'local'
+        - kwargs: Additional parameters for the methods
+        
+        Returns:
+        - Thresholded image
+        """
+        if scope == 'Global':
+            if method == 'optimal':
+                return self.optimal_threshold_global(image, **kwargs)
+            elif method == 'otsu':
+                return self.otsu_threshold_global(image, **kwargs)
+            elif method == 'spectral':
+                return self.spectral_threshold_global(image, **kwargs)
+        elif scope == 'Local':
+            if method == 'optimal':
+                return self.optimal_threshold_local(image, **kwargs)
+            elif method == 'otsu':
+                return self.otsu_threshold_local(image, **kwargs)
+            elif method == 'spectral':
+                return self.spectral_threshold_local(image, **kwargs)
+        else:
+            raise ValueError(f"Unknown method/scope: {method}/{scope}")
