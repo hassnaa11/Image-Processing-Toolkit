@@ -25,28 +25,32 @@ class Segmentor:
         self.__regions_num = regions_num
         self.__seed_selection_tolerance = seed_selection_tolerance
     
+    
     def segment_image_region_grow(self):      
+        gray_cpy_image = Image(np.copy(self.__image.image))
+        
         if self.__image.is_RGB():
             rgb = True
-            gray_cpy_image = Image(np.copy(self.__image.image)).rgb2gray()
-        else: 
-            gray_cpy_image = self.__image
-            rgb = False 
+            gray_cpy_image.rgb2gray()
+        else:  rgb = False
+        
+        #Normalize from 0 to 1
+        gray_cpy_image.image = gray_cpy_image.image / gray_cpy_image.image.max() 
         
         #Automatic seed selection using histogram peaks
         seeds = self.select_seeds(gray_cpy_image.image)
         threshold = self.__intensity_diff_threshold
 
-        overlay_image = self.__image
+        overlay_image_arr = np.copy(self.__image.image)
         for seed in seeds:
             y, x = seed
             mask = self.region_grow(gray_cpy_image.image, (y, x), threshold)
-            overlay_image[mask] = [255, 0, 0] if rgb else  255 
+            overlay_image_arr[mask] = [100, 0, 0] if rgb else  255 
 
-        segmented_image = Image(overlay_image)
+        segmented_image = Image(overlay_image_arr)
         return segmented_image
 
-    def select_seeds(self, gray_img_arr):
+    def select_seeds(self, gray_img_arr: np.ndarray):
         """
         Automatically selects seed points based on histogram peaks.
         

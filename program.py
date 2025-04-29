@@ -48,7 +48,7 @@ class MainWindow(QtWidgets.QMainWindow):
        
         
         self.segment_reset_btn.clicked.connect(self.reset_segmentation_tab)
-        self.segment_apply_btn.clicked.connect(self.reset_segmentation_tab)
+        self.segment_apply_btn.clicked.connect(self.apply_segmentation_changes)
         
         # noises checkbox
         self.noises_combobox.setDisabled(True)
@@ -258,7 +258,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 
                 self.reset_segmentation_tab()
                 
-                self.segmentation_image = uploaded_img
+                self.segmentation_image = Image(np.copy(uploaded_img.image))
                 
                 self.segment_input_graphics_view.setScene(scene)
                 self.segment_input_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)

@@ -25,29 +25,32 @@ class Image:
         else:
             self.image = cv2.imread(self.image_path, cv2.IMREAD_GRAYSCALE)
             print("Grayscale image read")    
-
     
     def is_RGB(self):
-        """Checks if an image is RGB or grayscale without modifying the image."""
+        """Checks if an image is RGB or 1-channel grayscale."""
         if self.image is None:
             raise ValueError("Image is not loaded.")
         
-        # Check if the image has 3 channels
+        # Check if the image has 3 channels (RGB)
         if len(self.image.shape) == 3 and self.image.shape[2] == 3:
-            # Check if all channels are identical (true grayscale stored as 3-channel)
-            if np.all(self.image[:, :, 0] == self.image[:, :, 1]) and np.all(self.image[:, :, 0] == self.image[:, :, 2]):
-                print("3-channel grayscale image detected.")
-                return False  # Grayscale
-            return True  # RGB
+            return True  # RGB image
         elif len(self.image.shape) == 2:
-            return False  # Single-channel grayscale
+            return False  # 1-channel grayscale image
         else:
             raise ValueError("Unexpected image format.")
+    
+    def get_bits_per_pixel(self):
+        return self.image.itemsize *8
+    
     
     def display_image(self):
         """Displays the image as a QGraphicsScene."""
         if self.image is None:
             raise ValueError("Image is not loaded.")
+
+        # Ensure the image is either RGB or 1-channel grayscale
+        if not self.is_RGB() and len(self.image.shape) != 2:
+            raise ValueError("Unsupported image format. Only RGB or 1-channel grayscale images are allowed.")
 
         height, width = self.image.shape[:2]
         img_data = np.ascontiguousarray(self.image).tobytes()
