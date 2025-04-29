@@ -5362,6 +5362,58 @@ border : 2px solid rgb(255, 255, 255); </string>
                        </widget>
                       </item>
                       <item>
+                       <widget class="QLabel" name="label_51">
+                        <property name="text">
+                         <string>lLinkage Method</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="linkage_combobox">
+                        <property name="currentIndex">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <property name="text">
+                          <string>single</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>complete</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>average</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_52">
+                        <property name="text">
+                         <string>Spatial Weight</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QDoubleSpinBox" name="spatial_weight_spinbox">
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.100000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>0.500000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
                        <widget class="QLabel" name="label_43">
                         <property name="minimumSize">
                          <size>

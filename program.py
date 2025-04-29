@@ -279,16 +279,21 @@ class MainWindow(QtWidgets.QMainWindow):
         seed_tolerance = self.seed_tolerance_spinbox.value()
         clusters_num = self.clusters_num_spinbox.value()
         iterations_num=self.iterations_num_spinbox.value()
+        spatial_weight = self.spatial_weight_spinbox.value()
+        
         
         if self.segment_method_combobox.currentIndex() == -1:
             method = "Region Growing"
-        else: method = self.segment_method_combobox.currentText()
+        else: method = self.segment_combobox.currentText()
+        
+        if self.linkage_combobox.currentIndex() == -1:
+            linkage = "average"
+        else: linkage = self.linkage_method_combobox.currentText()    
         
         
         segmented_image: Image = self.segmentor.segment(image=self.segmentation_image, method=method, regions_num=regions_num,
         intensity_diff_threshold=intensity_difference_threshold, seed_selection_tolerance=seed_tolerance,
-        K=clusters_num, iterations=iterations_num)
-        
+        K=clusters_num, iterations=iterations_num, spatial_weight=spatial_weight, linkage=linkage)
         
         scene = segmented_image.display_image()
         

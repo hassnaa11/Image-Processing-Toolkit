@@ -1,8 +1,11 @@
 import numpy as np
 from scipy.spatial.distance import pdist, squareform
+from Image import Image
+
+#pairwise distance metric, target clusters, linkage, spatial weight
 
 class AgglomerativeClustering:
-    def __init__(self, n_clusters=2, linkage='single', use_spatial_features=True, spatial_weight=0.1):
+    def __init__(self, n_clusters=2, linkage='single', spatial_weight=0.1):
         """
         Initialize the AgglomerativeClustering algorithm for images.
         
@@ -19,15 +22,11 @@ class AgglomerativeClustering:
         """
         self.n_clusters = n_clusters
         self.linkage = linkage
-        self.use_spatial_features = use_spatial_features
         self.spatial_weight = spatial_weight
         self.labels_ = None
 
-    def _compute_distance_matrix(self, X):
-        """Compute the distance matrix between all pairs of points."""
-        return squareform(pdist(X))
 
-    def fit(self, image):
+    def fit(self, image:Image):
         """
         Fit the agglomerative clustering on an image.
         
@@ -41,25 +40,22 @@ class AgglomerativeClustering:
         self : object
             Returns the instance itself.
         """
-        h, w = image.shape[:2]
+        h, w = image.image.shape[:2]
         
-        # Reshape the image into a feature array
-        if len(image.shape) == 2:  # Grayscale
+        # Reshape the image into a feature array of dimension Nx1 or Nx3
+        if image.is_RGB(): 
+            pixel_features = image.image.reshape(-1, 3)
+        else:  
             pixel_features = image.reshape(-1, 1)
-        else:  # RGB
-            pixel_features = image.reshape(-1, 3)
         
-        # Add spatial features if enabled
-        if self.use_spatial_features:
-            y_coords, x_coords = np.mgrid[0:h, 0:w]
-            x_coords = x_coords.reshape(-1, 1) * self.spatial_weight
-            y_coords = y_coords.reshape(-1, 1) * self.spatial_weight
-            features = np.hstack([pixel_features, x_coords, y_coords])
-        else:
-            features = pixel_features
-        
+        # X&Y coordinates are added to the feature array
+        y_coords, x_coords = np.mgrid[0:h, 0:w]
+        x_coords = x_coords.reshape(-1, 1) * self.spatial_weight
+        y_coords = y_coords.reshape(-1, 1) * self.spatial_weight
+        features = np.hstack([pixel_features, x_coords, y_coords])
+
         # Compute pairwise distance matrix
-        dist_matrix = self._compute_distance_matrix(features)
+        dist_matrix = squareform(pdist(features))
         
         # Perform clustering (reuse existing logic)
         n_samples = features.shape[0]
@@ -81,10 +77,9 @@ class AgglomerativeClustering:
         for i, cluster in enumerate(clusters):
             for idx in cluster:
                 self.labels_[idx] = i
-        
-        return self
 
-    def fit_predict(self, image):
+
+    def fit_predict(self, image:Image):
         """
         Fit the agglomerative clustering and return cluster labels.
         
@@ -102,7 +97,40 @@ class AgglomerativeClustering:
         return self.labels_.reshape(image.shape[:2])
 
 
-def segment_image_agg(image_arr, n_clusters=5, linkage='average', spatial_weight=0.1):
+    def _get_cluster_distance(self, dist_matrix, cluster_i, cluster_j):
+        """
+        Compute the distance between two clusters based on the linkage criterion.
+        
+        Parameters:
+        -----------
+        dist_matrix : ndarray
+            The distance matrix.
+        cluster_i : list
+            Indices of points in the first cluster.
+        cluster_j : list
+            Indices of points in the second cluster.
+            
+        Returns:
+        --------
+        float : The distance between the two clusters.
+        """
+        if self.linkage == 'single':
+            # Minimum distance between any point in cluster_i and any point in cluster_j
+            return np.min(dist_matrix[np.ix_(cluster_i, cluster_j)])
+        
+        elif self.linkage == 'complete':
+            # Maximum distance between any point in cluster_i and any point in cluster_j
+            return np.max(dist_matrix[np.ix_(cluster_i, cluster_j)])
+        
+        elif self.linkage == 'average':
+            # Average distance between all points in cluster_i and cluster_j
+            return np.mean(dist_matrix[np.ix_(cluster_i, cluster_j)])
+        
+        else:
+            raise ValueError(f"Unknown linkage criterion: {self.linkage}")
+
+
+def segment_image_agg(image: Image, n_clusters=5, linkage='average', spatial_weight=0.1):
     """
     Segment an image using agglomerative clustering.
     
@@ -124,12 +152,12 @@ def segment_image_agg(image_arr, n_clusters=5, linkage='average', spatial_weight
     """    
     # Initialize and fit the clustering
     agglo = AgglomerativeClustering(n_clusters=n_clusters, linkage=linkage, spatial_weight=spatial_weight)
-    labels = agglo.fit_predict(image_arr)
-    
+    labels = agglo.fit_predict(image)
+        
     # Create a segmented image
-    h, w = image_arr.shape[:2]
-    segmented_image = np.zeros_like(image_arr)
-    if len(image_arr.shape) == 2:  # Grayscale
+    h, w = image.image.shape[:2]
+    segmented_image = np.zeros_like(image.image)
+    if not image.is_RGB():  # Grayscale
         unique_labels = np.unique(labels)
         for i, label in enumerate(unique_labels):
             segmented_image[labels == label] = int(255 * (i / len(unique_labels)))

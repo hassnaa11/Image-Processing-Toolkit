@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Image import Image
 from sklearn.cluster import MeanShift, estimate_bandwidth
+from agg_clustering import segment_image_agg
 
 class Segmentor:
     def __init__(self):
@@ -13,7 +14,7 @@ class Segmentor:
         pass
 
     
-    def segment(self, image:Image, method:str="Region Growing", regions_num=None, seed_selection_tolerance=None, intensity_diff_threshold=None, K=None, iterations=None):
+    def segment(self, image:Image, method:str="Region Growing", regions_num=None, seed_selection_tolerance=None, intensity_diff_threshold=None, K=None, iterations=None, linkage=None, spatial_weight = None):
         self.__image = image
         segmented_image: Image = None
         
@@ -25,7 +26,10 @@ class Segmentor:
             segmented_image = self.segment_image_k_means(self.__image, K)
         
         elif method == "Mean Shift":
-            segmented_image = self.segment_image_mean_shift(self.__image, iterations)    
+            segmented_image = self.segment_image_mean_shift(self.__image, iterations)
+            
+        elif method == "Agg Clustering":
+            segmented_image = segment_image_agg(image=self.__image, n_clusters=regions_num, linkage=linkage, spatial_weight=spatial_weight)       
             
         return segmented_image    
  
