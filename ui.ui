@@ -64,7 +64,7 @@ background-color: rgb(219,222,230);
           </size>
          </property>
          <property name="cursor">
-          <cursorShape>ArrowCursor</cursorShape>
+          <cursorShape>BusyCursor</cursorShape>
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -111,7 +111,7 @@ QTabWidget::pane {
           <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
-          <number>4</number>
+          <number>5</number>
          </property>
          <property name="iconSize">
           <size>
@@ -4613,7 +4613,7 @@ border : 2px solid rgb(255, 255, 255); </string>
                     <property name="currentText">
                      <string>Sobel</string>
                     </property>
-                    <property name="placeholderText">
+                    <property name="placeholderText" stdset="0">
                      <string>Select a method</string>
                     </property>
                     <item>
@@ -4831,6 +4831,824 @@ border-radius: 10px;</string>
               <number>15</number>
              </property>
             </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_6">
+          <attribute name="title">
+           <string>Segmentation &amp; Thresholding</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_11">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout_9">
+             <item row="1" column="0">
+              <layout class="QVBoxLayout" name="verticalLayout_18">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_24">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_25" stretch="2,1,1,1">
+                   <property name="spacing">
+                    <number>4</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="segment_upload_btn">
+                     <property name="minimumSize">
+                      <size>
+                       <width>190</width>
+                       <height>35</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>200</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="cursor">
+                      <cursorShape>OpenHandCursor</cursorShape>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                     </property>
+                     <property name="text">
+                      <string>Upload</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="segment_method_combobox">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>250</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>500</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="cursor">
+                      <cursorShape>OpenHandCursor</cursorShape>
+                     </property>
+                     <property name="acceptDrops">
+                      <bool>false</bool>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                     </property>
+                     <property name="editable">
+                      <bool>true</bool>
+                     </property>
+                     <property name="currentText">
+                      <string/>
+                     </property>
+                     <property name="currentIndex">
+                      <number>-1</number>
+                     </property>
+                     <property name="placeholderText" stdset="0">
+                      <string>Select A Method</string>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>Choose Segmentation Method</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>K Means</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Region Growing</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Agg Clustering</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Mean Shift</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="segment_apply_btn">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Apply</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="segment_reset_btn">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>190</width>
+                       <height>35</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>200</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="cursor">
+                      <cursorShape>OpenHandCursor</cursorShape>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                     </property>
+                     <property name="text">
+                      <string>Reset</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_27">
+                   <item>
+                    <widget class="QLabel" name="label_34">
+                     <property name="minimumSize">
+                      <size>
+                       <width>50</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>160</width>
+                       <height>50</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+font: italic 10pt &quot;Georgia&quot;;
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                     </property>
+                     <property name="text">
+                      <string>Thresholding Modes </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QFrame" name="frame_3">
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_27">
+                      <item>
+                       <widget class="QPushButton" name="spectral_thresholding_button">
+                        <property name="minimumSize">
+                         <size>
+                          <width>190</width>
+                          <height>35</height>
+                         </size>
+                        </property>
+                        <property name="cursor">
+                         <cursorShape>OpenHandCursor</cursorShape>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                        </property>
+                        <property name="text">
+                         <string>Spectral Thresholding</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="otsu_thresholding_button">
+                        <property name="minimumSize">
+                         <size>
+                          <width>190</width>
+                          <height>35</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>200</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
+                        <property name="cursor">
+                         <cursorShape>OpenHandCursor</cursorShape>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                        </property>
+                        <property name="text">
+                         <string>Otsu Thresholding</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="optimum_thresholding_button">
+                        <property name="minimumSize">
+                         <size>
+                          <width>190</width>
+                          <height>35</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>200</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
+                        <property name="cursor">
+                         <cursorShape>OpenHandCursor</cursorShape>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                        </property>
+                        <property name="text">
+                         <string>Optimal Thresholding</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="global_local_thresholding_combobox">
+                        <property name="minimumSize">
+                         <size>
+                          <width>190</width>
+                          <height>35</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>200</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
+                        <property name="cursor">
+                         <cursorShape>OpenHandCursor</cursorShape>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(6,131,116);
+
+color: rgb(255, 255, 255);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                        </property>
+                        <item>
+                         <property name="text">
+                          <string>Global</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>Local</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_28">
+                 <item>
+                  <widget class="QLabel" name="label_42">
+                   <property name="minimumSize">
+                    <size>
+                     <width>50</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>170</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+font: italic 10pt &quot;Georgia&quot;;
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                   </property>
+                   <property name="text">
+                    <string>General Thresholding</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_28">
+                   <item>
+                    <widget class="QLabel" name="label_45">
+                     <property name="text">
+                      <string>Intensity Difference Threshold</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QFrame" name="frame_5">
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_30">
+                      <item>
+                       <widget class="QDoubleSpinBox" name="intensity_diff_tolerance_spinbox">
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+                        </property>
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>0.050000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_46">
+                        <property name="text">
+                         <string>Regions Number</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="regions_num_spinbox">
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+                        </property>
+                        <property name="value">
+                         <number>5</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_47">
+                        <property name="text">
+                         <string>Seed Selection Tolrance</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QDoubleSpinBox" name="seed_tolerance_spinbox">
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+                        </property>
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.010000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>0.050000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_50">
+                        <property name="text">
+                         <string>Number of Clusters</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QDoubleSpinBox" name="clusters_num_spinbox">
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+                        </property>
+                        <property name="decimals">
+                         <number>0</number>
+                        </property>
+                        <property name="minimum">
+                         <double>2.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>20.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>2.000000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_44">
+                        <property name="text">
+                         <string>Iterations</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="iterations_num_spinbox">
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                        <property name="minimum">
+                         <number>100</number>
+                        </property>
+                        <property name="maximum">
+                         <number>1000</number>
+                        </property>
+                        <property name="singleStep">
+                         <number>50</number>
+                        </property>
+                        <property name="value">
+                         <number>300</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_51">
+                        <property name="text">
+                         <string>lLinkage Method</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="linkage_combobox">
+                        <property name="currentIndex">
+                         <number>2</number>
+                        </property>
+                        <item>
+                         <property name="text">
+                          <string>single</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>complete</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>average</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_52">
+                        <property name="text">
+                         <string>Spatial Weight</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QDoubleSpinBox" name="spatial_weight_spinbox">
+                        <property name="alignment">
+                         <set>Qt::AlignCenter</set>
+                        </property>
+                        <property name="maximum">
+                         <double>1.000000000000000</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.100000000000000</double>
+                        </property>
+                        <property name="value">
+                         <double>0.500000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_43">
+                        <property name="minimumSize">
+                         <size>
+                          <width>50</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>160</width>
+                          <height>50</height>
+                         </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+font: italic 10pt &quot;Georgia&quot;;
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 10px;</string>
+                        </property>
+                        <property name="text">
+                         <string>Global threshold</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSlider" name="radiusSLider">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item row="0" column="0">
+              <widget class="QFrame" name="frame_7">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_31">
+                <item>
+                 <widget class="QFrame" name="frame_8">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>700</width>
+                    <height>530</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>850</width>
+                    <height>500</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); 
+           border: 2px solid  #316669;
+          border-radius: 10px;
+      </string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_29">
+                   <item>
+                    <widget class="QLabel" name="label_49">
+                     <property name="font">
+                      <font>
+                       <family>MS Shell Dlg 2</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>false</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">color: rgb(255, 255, 255);
+
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0;
+</string>
+                     </property>
+                     <property name="text">
+                      <string>Input Image </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QGraphicsView" name="segment_input_graphics_view">
+                     <property name="styleSheet">
+                      <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_24">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Minimum</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>31</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QFrame" name="frame_9">
+                  <property name="minimumSize">
+                   <size>
+                    <width>700</width>
+                    <height>530</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>850</width>
+                    <height>500</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(37, 42, 64);
+background-color: rgb(6,131,116,255);
+
+color: rgb(255, 255, 255);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); 
+           border: 2px solid  #316669;
+          border-radius: 10px;
+      </string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_30">
+                   <item>
+                    <widget class="QLabel" name="label_48">
+                     <property name="font">
+                      <font>
+                       <family>MS Shell Dlg 2</family>
+                       <pointsize>10</pointsize>
+                       <weight>50</weight>
+                       <italic>false</italic>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">color: rgb(255, 255, 255);
+
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+border : 0;
+</string>
+                     </property>
+                     <property name="text">
+                      <string>Output Image</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QGraphicsView" name="segment_output_graphics_view">
+                     <property name="styleSheet">
+                      <string notr="true">font: italic 10pt &quot;Georgia&quot;;
+background-color: rgb(57, 143, 252);
+background-color: rgb(219,222,230);
+
+color: rgb(255, 255, 255);
+color: rgb(2, 39, 35);
+buttoon-shadow: 2px 2px 5px rgb(0, 0, 0);
+border-radius: 15px;
+box-shadow : 0px 4px 20px rgba(0, 0, 0, 0.6);
+border : 2px solid rgb(255, 255, 255); </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="done_label">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>

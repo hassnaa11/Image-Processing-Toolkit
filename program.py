@@ -32,7 +32,7 @@ edge_detection_filters = ['Sobel', 'Roberts', 'Prewitt', 'Canny']
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        uic.loadUi('ui_task4.ui', self)
+        uic.loadUi('ui.ui', self)
     
         
         # upload buttons
