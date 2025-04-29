@@ -11,6 +11,7 @@ class Segmentor:
         self.__K = None
         self.__image: Image = None 
         pass
+
     
     def segment(self, image:Image, method:str="Region Growing", regions_num=None, seed_selection_tolerance=None, intensity_diff_threshold=None, K=None, iterations=None):
         self.__image = image
@@ -27,6 +28,7 @@ class Segmentor:
             segmented_image = self.segment_image_mean_shift(self.__image, iterations)    
             
         return segmented_image    
+ 
     
     def assing_region_growing_parameters(self, regions_num, seed_selection_tolerance, intensity_diff_threshold):
         self.__intensity_diff_threshold = intensity_diff_threshold
@@ -62,6 +64,7 @@ class Segmentor:
         segmented_image = Image(overlay_image_arr)
         return segmented_image
 
+
     def select_seeds(self, gray_img_arr: np.ndarray):
         """
         Automatically selects seed points based on histogram peaks.
@@ -90,6 +93,7 @@ class Segmentor:
                 seeds.append((y[0], x[0]))  # Select the first pixel as a seed
 
         return seeds
+
 
     def region_grow(self, image_arr, seed, threshold):
         """
