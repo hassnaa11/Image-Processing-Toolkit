@@ -267,6 +267,13 @@ class MainWindow(QtWidgets.QMainWindow):
                 
 
     def apply_segmentation_changes(self):
+        if isinstance(self.segment_output_graphics_view, QGraphicsView):
+            if self.segment_output_graphics_view.scene() is not None :
+                self.segment_output_graphics_view.scene().clear()
+                
+        self.done_label.setText("      ")        
+        
+        
         regions_num = self.regions_num_spinbox.value()
         intensity_difference_threshold = self.intensity_diff_tolerance_spinbox.value()
         seed_tolerance = self.seed_tolerance_spinbox.value()
@@ -279,14 +286,13 @@ class MainWindow(QtWidgets.QMainWindow):
         segmented_image: Image = self.segmentor.segment(image=self.segmentation_image, method=method, regions_num=regions_num,
         intensity_diff_threshold=intensity_difference_threshold, seed_selection_tolerance=seed_tolerance)
         
-        print("********************")
-        print("Segmentation Done")
-        print("********************")
         
         scene = segmented_image.display_image()
         
         self.segment_output_graphics_view.setScene(scene)
-        self.segment_output_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)                       
+        self.segment_output_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        
+        self.done_label.setText("Segmentation Done")                       
 
                 
     def reset_segmentation_tab(self):
@@ -303,6 +309,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.intensity_diff_tolerance_spinbox.setValue(0.05)
         self.seed_tolerance_spinbox.setValue(0.05)
         self.regions_num_spinbox.setValue(5) 
+            
+        self.done_label.setText("     ") 
                 
                     
     def apply_harris_operator(self, K, gradient_operator, block_sz):

@@ -33,19 +33,23 @@ class Segmentor:
             rgb = True
             gray_cpy_image.rgb2gray()
         else:  rgb = False
-        
+            
         #Normalize from 0 to 1
         gray_cpy_image.image = gray_cpy_image.image / gray_cpy_image.image.max() 
         
         #Automatic seed selection using histogram peaks
         seeds = self.select_seeds(gray_cpy_image.image)
+        
         threshold = self.__intensity_diff_threshold
-
         overlay_image_arr = np.copy(self.__image.image)
-        for seed in seeds:
+        
+        if rgb: colors = np.random.randint(0, 256, size=(len(seeds), 3))
+        else: colors = np.linspace(50, 255, len(seeds), dtype=np.uint8)
+        
+        for i, seed in enumerate(seeds):
             y, x = seed
             mask = self.region_grow(gray_cpy_image.image, (y, x), threshold)
-            overlay_image_arr[mask] = [100, 0, 0] if rgb else  255 
+            overlay_image_arr[mask] = colors[i] 
 
         segmented_image = Image(overlay_image_arr)
         return segmented_image

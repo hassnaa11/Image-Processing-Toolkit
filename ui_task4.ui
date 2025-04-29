@@ -5554,6 +5554,16 @@ border : 2px solid rgb(255, 255, 255); </string>
                      </property>
                     </widget>
                    </item>
+                   <item>
+                    <widget class="QLabel" name="done_label">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </widget>
                 </item>
