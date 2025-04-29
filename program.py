@@ -277,6 +277,8 @@ class MainWindow(QtWidgets.QMainWindow):
         regions_num = self.regions_num_spinbox.value()
         intensity_difference_threshold = self.intensity_diff_tolerance_spinbox.value()
         seed_tolerance = self.seed_tolerance_spinbox.value()
+        clusters_num = self.clusters_num_spinbox.value()
+        iterations_num=self.iterations_num_spinbox.value()
         
         if self.segment_method_combobox.currentIndex() == -1:
             method = "Region Growing"
@@ -284,7 +286,8 @@ class MainWindow(QtWidgets.QMainWindow):
         
         
         segmented_image: Image = self.segmentor.segment(image=self.segmentation_image, method=method, regions_num=regions_num,
-        intensity_diff_threshold=intensity_difference_threshold, seed_selection_tolerance=seed_tolerance)
+        intensity_diff_threshold=intensity_difference_threshold, seed_selection_tolerance=seed_tolerance,
+        K=clusters_num, iterations=iterations_num)
         
         
         scene = segmented_image.display_image()
@@ -308,7 +311,9 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.intensity_diff_tolerance_spinbox.setValue(0.05)
         self.seed_tolerance_spinbox.setValue(0.05)
-        self.regions_num_spinbox.setValue(5) 
+        self.regions_num_spinbox.setValue(5)
+        self.clusters_num_spinbox.setValue(2)
+        self.iterations_num_spinbox.setValue(300) 
             
         self.done_label.setText("     ") 
                 

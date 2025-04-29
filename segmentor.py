@@ -1,22 +1,30 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from Image import Image
+from sklearn.cluster import MeanShift, estimate_bandwidth
 
 class Segmentor:
     def __init__(self):
         self.__regions_num = None
         self.__seed_selection_tolerance = None
         self.__intensity_diff_threshold = None
+        self.__K = None
         self.__image: Image = None 
         pass
     
-    def segment(self, image:Image, method:str="Region Growing", regions_num=None, seed_selection_tolerance=None, intensity_diff_threshold=None):
+    def segment(self, image:Image, method:str="Region Growing", regions_num=None, seed_selection_tolerance=None, intensity_diff_threshold=None, K=None, iterations=None):
         self.__image = image
-        segmented_image = None
+        segmented_image: Image = None
         
         if method == "Region Growing":
             self.assing_region_growing_parameters(regions_num, seed_selection_tolerance, intensity_diff_threshold)
-            segmented_image: Image = self.segment_image_region_grow()
+            segmented_image = self.segment_image_region_grow()
+            
+        elif method== "K Means":
+            segmented_image = self.segment_image_k_means(self.__image, K)
+        
+        elif method == "Mean Shift":
+            segmented_image = self.segment_image_mean_shift(self.__image, iterations)    
             
         return segmented_image    
     
@@ -121,4 +129,51 @@ class Segmentor:
         return mask
 
 
- 
+    def segment_image_k_means(self, image,k):
+        image_array = np.array(image.image)
+        pixels = image_array.reshape(-1, 3).astype(np.float32)
+
+        # take random centroid 
+        # the number of them = the number of clusters "k"
+        
+        indices = np.random.choice(len(pixels), int(k), replace=False)
+        centroids = pixels[indices]
+
+        for _ in range(50):
+            distances = np.linalg.norm(pixels[:, np.newaxis] - centroids, axis=2)
+            labels = np.argmin(distances, axis=1)
+
+            # calculate the mean to assign the new centroids
+            new_centroids = np.array([
+                pixels[labels == cluster].mean(axis=0) if np.any(labels == cluster) else centroids[cluster]
+                for cluster in range(int(k))
+            ])
+
+            if np.allclose(centroids, new_centroids):
+                break
+            centroids = new_centroids
+
+        segmented_pixels = centroids[labels].reshape(image_array.shape).astype(np.uint8)    
+        segmented_pixels_rgb = segmented_pixels
+      
+        return  segmented_pixels_rgb
+    
+    
+    def segment_image_mean_shift(self, image, Num_of_iteration=300):
+        image_array = np.array(image.image)
+        
+        flat_image = image_array.reshape(-1, 3).astype(np.float32)
+
+        
+        bandwidth = estimate_bandwidth(flat_image, quantile=0.06, n_samples=3000)
+        ms = MeanShift(bandwidth=bandwidth, max_iter=Num_of_iteration, bin_seeding=True)
+        ms.fit(flat_image)
+        labels = ms.labels_  
+        cluster_centers = ms.cluster_centers_  
+
+        segmented_image = cluster_centers[labels].reshape(image_array.shape).astype(np.uint8)
+
+     
+        print("Segmented Image Shape:", segmented_image.shape)
+
+        return segmented_image
