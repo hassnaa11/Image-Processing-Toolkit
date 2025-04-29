@@ -33,8 +33,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         uic.loadUi('ui_task4.ui', self)
-        
-        self.database: List[Image] = []
+    
         
         # upload buttons
         self.upload_button.clicked.connect(lambda:self.upload_image(1))
@@ -47,6 +46,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.upload_harris_image_btn.clicked.connect(lambda:self.upload_image(8))
         self.segment_upload_btn.clicked.connect(lambda:self.upload_image(9))
        
+        
+        self.segment_reset_btn.clicked.connect(self.reset_segmentation_tab)
+        self.segment_apply_btn.clicked.connect(self.apply_segmentation_changes)
         
         # noises checkbox
         self.noises_combobox.setDisabled(True)
@@ -154,6 +156,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.spectral_thresholding_button.clicked.connect(lambda: self.apply_thresholding('spectral')) 
         self.optimum_thresholding_button.clicked.connect(lambda: self.apply_thresholding('optimal')) 
         
+        self.segmentor = Segmentor()
+        
         
     def upload_image(self, key):
         self.file_path, _ = QtWidgets.QFileDialog.getOpenFileName(
@@ -254,7 +258,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 
                 self.reset_segmentation_tab()
                 
-                self.segmentation_image = self.upload_image
+                self.segmentation_image = Image(np.copy(uploaded_img.image))
                 
                 self.segment_input_graphics_view.setScene(scene)
                 self.segment_input_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
@@ -263,15 +267,39 @@ class MainWindow(QtWidgets.QMainWindow):
                 
 
     def apply_segmentation_changes(self):
+        self.done_label.setText("      ")
+        
+        if isinstance(self.segment_output_graphics_view, QGraphicsView):
+            if self.segment_output_graphics_view.scene() is not None :
+                self.segment_output_graphics_view.scene().clear()
+                
         regions_num = self.regions_num_spinbox.value()
         intensity_difference_threshold = self.intensity_diff_tolerance_spinbox.value()
         seed_tolerance = self.seed_tolerance_spinbox.value()
-        method = self.segment_method_combobox.currentText()
+        clusters_num = self.clusters_num_spinbox.value()
+        iterations_num=self.iterations_num_spinbox.value()
+        spatial_weight = self.spatial_weight_spinbox.value()
         
-        segmentor = Segmentor(regions_num, seed_tolerance, intensity_difference_threshold)
-        segmentor.segment(self.segmentation_image, 'Growing Region')
         
-                                
+        if self.segment_method_combobox.currentIndex() == -1:
+            method = "Region Growing"
+        else: method = self.segment_method_combobox.currentText()
+        
+        if self.linkage_combobox.currentIndex() == -1:
+            linkage = "average"
+        else: linkage = self.linkage_combobox.currentText()    
+        
+        
+        segmented_image: Image = self.segmentor.segment(image=self.segmentation_image, method=method, regions_num=regions_num,
+        intensity_diff_threshold=intensity_difference_threshold, seed_selection_tolerance=seed_tolerance,
+        K=clusters_num, iterations=iterations_num, spatial_weight=spatial_weight, linkage=linkage)
+        
+        scene = segmented_image.display_image()
+        
+        self.segment_output_graphics_view.setScene(scene)
+        self.segment_output_graphics_view.fitInView(scene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        
+        self.done_label.setText("Segmentation Done")                       
 
                 
     def reset_segmentation_tab(self):
@@ -283,7 +311,15 @@ class MainWindow(QtWidgets.QMainWindow):
             if self.segment_output_graphics_view.scene() is not None :
                 self.segment_output_graphics_view.scene().clear()        
          
-        self.segmentation_image = None 
+        self.segmentation_image = None
+        
+        self.intensity_diff_tolerance_spinbox.setValue(0.05)
+        self.seed_tolerance_spinbox.setValue(0.05)
+        self.regions_num_spinbox.setValue(5)
+        self.clusters_num_spinbox.setValue(2)
+        self.iterations_num_spinbox.setValue(300) 
+            
+        self.done_label.setText("     ") 
                 
                     
     def apply_harris_operator(self, K, gradient_operator, block_sz):

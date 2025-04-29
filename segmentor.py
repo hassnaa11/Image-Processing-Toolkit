@@ -1,38 +1,75 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from Image import Image
+from sklearn.cluster import MeanShift, estimate_bandwidth
+from agg_clustering import segment_image_agg
 
 class Segmentor:
-    def __init__(self, regions_num = None, seed_selection_tolerance = None, intensity_diff_threshold = None):
-        self.__regions_num = regions_num
-        self.__seed_selection_tolerance = seed_selection_tolerance
-        self.__intensity_diff_threshold = intensity_diff_threshold 
+    def __init__(self):
+        self.__regions_num = None
+        self.__seed_selection_tolerance = None
+        self.__intensity_diff_threshold = None
+        self.__K = None
+        self.__image: Image = None 
         pass
 
-    def segment(self, image:Image, method:str):
-        if method == "Region Growing":
-            self.segment_image_region_grow(image)
     
-    def segment_image_region_grow(self, image: Image):      
-        if image.is_RGB(): 
-            rgb_copy_image = Image(image.image)
-            image.rgb2gray() # Normalized Gray Scale
+    def segment(self, image:Image, method:str="Region Growing", regions_num=None, seed_selection_tolerance=None, intensity_diff_threshold=None, K=None, iterations=None, linkage=None, spatial_weight = None):
+        self.__image = image
+        segmented_image: Image = None
+        
+        if method == "Region Growing":
+            self.assing_region_growing_parameters(regions_num, seed_selection_tolerance, intensity_diff_threshold)
+            segmented_image = self.segment_image_region_grow()
+            
+        elif method== "K Means":
+            segmented_image = self.segment_image_k_means(self.__image, K)
+        
+        elif method == "Mean Shift":
+            segmented_image = self.segment_image_mean_shift(self.__image, iterations)
+            
+        elif method == "Agg Clustering":
+            segmented_image = segment_image_agg(image=self.__image, n_clusters=regions_num, linkage=linkage, spatial_weight=spatial_weight)       
+            
+        return segmented_image    
+ 
+    
+    def assing_region_growing_parameters(self, regions_num, seed_selection_tolerance, intensity_diff_threshold):
+        self.__intensity_diff_threshold = intensity_diff_threshold
+        self.__regions_num = regions_num
+        self.__seed_selection_tolerance = seed_selection_tolerance
+    
+    
+    def segment_image_region_grow(self):      
+        gray_cpy_image = Image(np.copy(self.__image.image))
+        
+        if self.__image.is_RGB():
             rgb = True
+            gray_cpy_image.rgb2gray()
+        else:  rgb = False
+            
+        #Normalize from 0 to 1
+        gray_cpy_image.image = gray_cpy_image.image / gray_cpy_image.image.max() 
         
         #Automatic seed selection using histogram peaks
-        seeds = self.select_seeds(image.image)
+        seeds = self.select_seeds(gray_cpy_image.image)
+        
         threshold = self.__intensity_diff_threshold
-
-        segmented_image_arr =  rgb_copy_image.image if rgb else image.image # Convert grayscale to RGB for overlay
-        for seed in seeds:
+        overlay_image_arr = np.copy(self.__image.image)
+        
+        if rgb: colors = np.random.randint(0, 256, size=(len(seeds), 3))
+        else: colors = np.linspace(50, 255, len(seeds), dtype=np.uint8)
+        
+        for i, seed in enumerate(seeds):
             y, x = seed
-            mask = self.region_grow(image.image, (y, x), threshold)
-            segmented_image_arr[mask] = [100, 100, 0]  # Yellow Marker
+            mask = self.region_grow(gray_cpy_image.image, (y, x), threshold)
+            overlay_image_arr[mask] = colors[i] 
 
-        segmented_image = Image(segmented_image_arr)
+        segmented_image = Image(overlay_image_arr)
         return segmented_image
 
-    def select_seeds(self, gray_img_arr):
+
+    def select_seeds(self, gray_img_arr: np.ndarray):
         """
         Automatically selects seed points based on histogram peaks.
         
@@ -60,6 +97,7 @@ class Segmentor:
                 seeds.append((y[0], x[0]))  # Select the first pixel as a seed
 
         return seeds
+
 
     def region_grow(self, image_arr, seed, threshold):
         """
@@ -99,4 +137,51 @@ class Segmentor:
         return mask
 
 
- 
+    def segment_image_k_means(self, image,k):
+        image_array = np.array(image.image)
+        pixels = image_array.reshape(-1, 3).astype(np.float32)
+
+        # take random centroid 
+        # the number of them = the number of clusters "k"
+        
+        indices = np.random.choice(len(pixels), int(k), replace=False)
+        centroids = pixels[indices]
+
+        for _ in range(50):
+            distances = np.linalg.norm(pixels[:, np.newaxis] - centroids, axis=2)
+            labels = np.argmin(distances, axis=1)
+
+            # calculate the mean to assign the new centroids
+            new_centroids = np.array([
+                pixels[labels == cluster].mean(axis=0) if np.any(labels == cluster) else centroids[cluster]
+                for cluster in range(int(k))
+            ])
+
+            if np.allclose(centroids, new_centroids):
+                break
+            centroids = new_centroids
+
+        segmented_pixels = centroids[labels].reshape(image_array.shape).astype(np.uint8)    
+        segmented_pixels_rgb = segmented_pixels
+      
+        return  segmented_pixels_rgb
+    
+    
+    def segment_image_mean_shift(self, image, Num_of_iteration=300):
+        image_array = np.array(image.image)
+        
+        flat_image = image_array.reshape(-1, 3).astype(np.float32)
+
+        
+        bandwidth = estimate_bandwidth(flat_image, quantile=0.06, n_samples=3000)
+        ms = MeanShift(bandwidth=bandwidth, max_iter=Num_of_iteration, bin_seeding=True)
+        ms.fit(flat_image)
+        labels = ms.labels_  
+        cluster_centers = ms.cluster_centers_  
+
+        segmented_image = cluster_centers[labels].reshape(image_array.shape).astype(np.uint8)
+
+     
+        print("Segmented Image Shape:", segmented_image.shape)
+
+        return segmented_image
