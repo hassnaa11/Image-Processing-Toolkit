@@ -1,9 +1,6 @@
 import numpy as np
 
 class ThresholdingProcessor:
-    def __init__(self):
-        pass
-    
     # Global methods
     def optimal_threshold_global(self, image, max_iter=100, tol=1):
         """
@@ -128,7 +125,7 @@ class ThresholdingProcessor:
         return segmented
     
     # Local methods
-    def optimal_threshold_local(self, image, block_size=35, C=5):
+    def optimal_threshold_local(self, image, block_size=100, C=5):
         """
         Local optimal thresholding using sliding window
         """
@@ -151,7 +148,7 @@ class ThresholdingProcessor:
         
         return binary
     
-    def otsu_threshold_local(self, image, block_size=35):
+    def otsu_threshold_local(self, image, block_size=100):
         """
         Local Otsu's thresholding using sliding window
         """
@@ -174,7 +171,7 @@ class ThresholdingProcessor:
         
         return binary
         
-    def spectral_threshold_local(self, image, block_size=35, n_classes=3):
+    def spectral_threshold_local(self, image, block_size=200, n_classes=3):
         """
         Local spectral thresholding using sliding window
         """
