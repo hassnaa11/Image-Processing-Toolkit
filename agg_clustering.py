@@ -56,8 +56,8 @@ class AgglomerativeClustering:
 
         # Compute pairwise distance matrix
         dist_matrix = squareform(pdist(features))
+        print("Pairwise distance calculated")
         
-        # Perform clustering (reuse existing logic)
         n_samples = features.shape[0]
         clusters = [[i] for i in range(n_samples)]
         while len(clusters) > self.n_clusters:
@@ -77,6 +77,8 @@ class AgglomerativeClustering:
         for i, cluster in enumerate(clusters):
             for idx in cluster:
                 self.labels_[idx] = i
+                
+        print("labels Assigned")        
 
 
     def fit_predict(self, image:Image):
@@ -157,6 +159,8 @@ def segment_image_agg(image: Image, n_clusters=5, linkage='average', spatial_wei
     # Create a segmented image
     h, w = image.image.shape[:2]
     segmented_image = np.zeros_like(image.image)
+    
+    print("image overlaying in progress")
     if not image.is_RGB():  # Grayscale
         unique_labels = np.unique(labels)
         for i, label in enumerate(unique_labels):

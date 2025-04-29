@@ -267,13 +267,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 
 
     def apply_segmentation_changes(self):
+        self.done_label.setText("      ")
+        
         if isinstance(self.segment_output_graphics_view, QGraphicsView):
             if self.segment_output_graphics_view.scene() is not None :
                 self.segment_output_graphics_view.scene().clear()
                 
-        self.done_label.setText("      ")        
-        
-        
         regions_num = self.regions_num_spinbox.value()
         intensity_difference_threshold = self.intensity_diff_tolerance_spinbox.value()
         seed_tolerance = self.seed_tolerance_spinbox.value()
@@ -284,11 +283,11 @@ class MainWindow(QtWidgets.QMainWindow):
         
         if self.segment_method_combobox.currentIndex() == -1:
             method = "Region Growing"
-        else: method = self.segment_combobox.currentText()
+        else: method = self.segment_method_combobox.currentText()
         
         if self.linkage_combobox.currentIndex() == -1:
             linkage = "average"
-        else: linkage = self.linkage_method_combobox.currentText()    
+        else: linkage = self.linkage_combobox.currentText()    
         
         
         segmented_image: Image = self.segmentor.segment(image=self.segmentation_image, method=method, regions_num=regions_num,
