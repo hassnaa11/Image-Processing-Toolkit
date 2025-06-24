@@ -54,6 +54,17 @@ A comprehensive image processing toolkit using OpenCV and Python, including nois
 
 ![image](https://github.com/user-attachments/assets/776f5917-1575-4202-83bb-1037cdd24e81)
 
+## Feature Matching:
+
+![image](https://github.com/user-attachments/assets/f324c8f8-a923-4fcc-bec9-baa0f3ab18af)
+
+## SIFT Feature Extraction:
+
+![image](https://github.com/user-attachments/assets/1accddf1-945f-461a-81c8-5dbdb999c214)
+
+![image](https://github.com/user-attachments/assets/7718fe54-ca32-4379-8951-844a0ccd50af)
+
+
 ## Thresholding: 
 
 |  | Original | Optimal | Outso | Spectral |
@@ -64,9 +75,13 @@ A comprehensive image processing toolkit using OpenCV and Python, including nois
 
 ## Segmentation: 
 
-| Original | K-Means (K=3) | Mean Shift |
+| Original | K-Means (K=3) | Mean Shift | 
 |--------------------------|--------------------------|--------------------------|
 | ![image](https://github.com/user-attachments/assets/9f01e95c-e0a9-43de-a338-e953b98c9465) | ![image](https://github.com/user-attachments/assets/b330c5dd-420e-49ba-b56b-76a6f1c3cf21) | ![image](https://github.com/user-attachments/assets/7df08324-ba3a-4760-bfbb-252903219d76) | 
+
+Region Growing Segmentation
+![image](https://github.com/user-attachments/assets/78098445-2cb8-4683-bcd8-81a8c248595d)
+
 
 ## Contributors
 
