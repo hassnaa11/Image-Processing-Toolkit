@@ -62,18 +62,43 @@ A comprehensive image processing toolkit using OpenCV and Python, including nois
 | Local |  ![image](https://github.com/user-attachments/assets/a7e0f38f-1df8-4bef-b06a-263f606b2042) | ![image](https://github.com/user-attachments/assets/afcbe6b1-2366-4bf7-8cc0-a1b3f38ca1b9) | ![image](https://github.com/user-attachments/assets/d2515c07-36ea-4887-9ba5-d48f35ad8b61) | ![image](https://github.com/user-attachments/assets/a0d3fbc3-97be-4efd-af7c-cc0843ac4a2d) |
 
 
+## Segmentation: 
 
+| Original | K-Means (K=3) | Mean Shift |
+|--------------------------|--------------------------|--------------------------|
+| ![image](https://github.com/user-attachments/assets/9f01e95c-e0a9-43de-a338-e953b98c9465) | ![image](https://github.com/user-attachments/assets/b330c5dd-420e-49ba-b56b-76a6f1c3cf21) | ![image](https://github.com/user-attachments/assets/7df08324-ba3a-4760-bfbb-252903219d76) | 
 
-## 📌 Requirements
+## Contributors
 
-- Python 3.8+
-- OpenCV
-- NumPy
-- Matplotlib
-- Scikit-learn (for clustering)
-- SciPy
-
-Install via:
-
-```bash
-pip install -r requirements.txt
+<table align="center" width="100%">
+  <tr>
+     <td align="center" width="20%">
+      <a href="https://github.com/Emaaanabdelazeemm">
+        <img src="https://github.com/Emaaanabdelazeemm.png?size=100" style="width:80%;" alt="Emaaanabdelazeemm"/>
+      </a>
+      <br />
+      <a href="https://github.com/Emaaanabdelazeemm">Eman Abdelazeemm</a>
+    </td>
+    <td align="center" width="20%">
+      <a href="https://github.com/hassnaa11">
+        <img src="https://github.com/hassnaa11.png?size=100" style="width:80%;" alt="hassnaa11"/>
+      </a>
+      <br />
+      <a href="https://github.com/hassnaa11">Hassnaa Hossam</a>
+    </td>
+   <td align="center" width="20%">
+      <a href="https://github.com/abdelrahman-alaa-10">
+        <img src="https://github.com/abdelrahman-alaa-10.png?size=100" style="width:80%;" alt="abdelrahman-alaa-10"/>
+      </a>
+      <br />
+      <a href="https://github.com/Ayat-Tarek">Abdelrahman Alaa</a>
+    </td>
+    <td align="center" width="20%">
+      <a href="https://github.com/farha1010">
+        <img src="https://github.com/farha1010.png?size=100" style="width:80%;" alt="farha1010"/>
+      </a>
+      <br />
+      <a href="https://github.com/farha1010">Farha Elsayed</a>
+    </td>
+  </tr>
+</table>
