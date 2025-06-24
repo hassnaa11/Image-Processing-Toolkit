@@ -54,6 +54,15 @@ A comprehensive image processing toolkit using OpenCV and Python, including nois
 
 ![image](https://github.com/user-attachments/assets/776f5917-1575-4202-83bb-1037cdd24e81)
 
+## Thresholding: 
+
+|  | Original | Optimal | Outso | Spectral |
+|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
+| Gloabl |  ![image](https://github.com/user-attachments/assets/a7e0f38f-1df8-4bef-b06a-263f606b2042) | ![image](https://github.com/user-attachments/assets/11078790-5a66-4a3b-89cb-4311649db8ca) | ![image](https://github.com/user-attachments/assets/ee461ba8-5e30-4069-b0f3-4a32f03e3751) | ![image](https://github.com/user-attachments/assets/0813f690-7554-4af4-917e-661a6bdea483) |
+| Local |  ![image](https://github.com/user-attachments/assets/a7e0f38f-1df8-4bef-b06a-263f606b2042) | ![image](https://github.com/user-attachments/assets/afcbe6b1-2366-4bf7-8cc0-a1b3f38ca1b9) | ![image](https://github.com/user-attachments/assets/d2515c07-36ea-4887-9ba5-d48f35ad8b61) | ![image](https://github.com/user-attachments/assets/a0d3fbc3-97be-4efd-af7c-cc0843ac4a2d) |
+
+
+
 
 ## 📌 Requirements
 
